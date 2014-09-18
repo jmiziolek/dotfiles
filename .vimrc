@@ -78,6 +78,7 @@ Plugin 'tpope/vim-fugitive'
 " Filetype Specific
 Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'burnettk/vim-angular'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'vim-scripts/grep.vim'
 Plugin 'pangloss/vim-javascript'
@@ -262,6 +263,9 @@ imap <C-o> <CR><Esc>O
 " move between buffers with arrows
 map <C-right> :bn<cr>
 map <C-left> :bp<cr>
+
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -449,7 +453,7 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$', '^dist$',
+            \'\.pyc$', '\.swp$', '\.egg-info$',
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
             \ '\.embed\.manifest$', '\.embed\.manifest.res$',
@@ -458,17 +462,16 @@ let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$',
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeShowBookmarks=1
 let NERDTreeHightlightCursorline=1
-"autopen NERDTree and focus cursor in new document
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
 
-" clear serarch highlight
+" clear search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
 
 " Open current file in Explorer (simple version)
 function OpenPathInExplorer()
-    let filepath=substitute(expand("%:p"), '/', '\', 'g')
-    :exe '!start explorer.exe /select,"' . filepath . '"'
+    if has("win32") || has("win16")
+        let filepath=substitute(expand("%:p"), '/', '\', 'g')
+        :exe '!start explorer.exe /select,"' . filepath . '"'
+    endif
 endfunction
 nmap <F11> :call OpenPathInExplorer()<CR>
 nmap <leader>f :!open %:p:h<CR>
@@ -542,6 +545,10 @@ set guioptions=
 nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 "tern js
 let g:tern_show_argument_hints='on_hold'
+
+" yo angular generator settings
+let g:angular_source_directory = 'app/scripts'
+let g:angular_test_directory = 'test/spec'
 
 au FileType javascript set dictionary+=~/HOME/.vim/bundle/vim-node-dict/dict/node.dict
 
