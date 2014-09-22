@@ -19,7 +19,6 @@
   ff = merge --ff-only
   pullff = pull --ff-only 
   noff = merge --no-ff
-  pom = push origin master
   ds = diff --stat=160,120
   dh1 = diff HEAD~1
   lol = log --oneline --graph --all --decorate
@@ -28,3 +27,9 @@
 	insteadOf = git://
 [core]
 	excludesfile = ~/.gitignore
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
