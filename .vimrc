@@ -92,6 +92,7 @@ Plugin 'elzr/vim-json'
 call vundle#end()
 filetype plugin indent on
 
+set t_Co=256
 set langmenu=none
 let $LANG='en_US'
 language messages en
@@ -113,6 +114,7 @@ set expandtab
 set guifont=Sauce\ Code\ Powerline:h16
 set smartindent
 set autoindent
+set copyindent    " copy the previous indentation on autoindenting
 set splitbelow
 set ruler
 set autowrite
@@ -138,6 +140,7 @@ let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_files_number = 5
 let g:startify_custom_indices = ['a','s','d','f']
 
+
 " ariline  custom fonts
 let g:airline_powerline_fonts=1
 " airline don't chect whitespace
@@ -149,6 +152,10 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_html_validator_parser = 'html5'
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_style_error_symbol = '✠'
+let g:syntastic_warning_symbol = '∆'
+let g:syntastic_style_warning_symbol = '≈'
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
@@ -230,12 +237,17 @@ autocmd GUIEnter * set vb t_vb=
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
-let g:user_emmet_expandabbr_key = '<c-e>'
-let g:user_emmet_wrap_with_abbreviation = '<F8>'
+let g:user_emmet_install_global = 0
+let g:user_emmet_next_key = '<c-e>'
+let g:user_emmet_prev_key = '<c-r>'
 let g:use_emmet_complete_tag = 1
+autocmd FileType html,css,scss,sass imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
+autocmd FileType html,css,scss,sass EmmetInstall
 
 "disable Entering Ex Mode 
 :map Q <Nop>
+
 " Map Goyo toggle to <Leader> + spacebar
 nnoremap <Leader><Space> :Goyo<CR>  
 let g:goyo_width = 80
@@ -257,7 +269,6 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 " Ctrl+S save
 map <C-s> <esc>:w!<CR>
-imap <C-s> <esc>:w!<CR><esc>
 
 imap <C-o> <CR><Esc>O
 " move between buffers with arrows
@@ -409,7 +420,7 @@ au InsertEnter * let updaterestore=&updatetime | set updatetime=5000
 au InsertLeave * let &updatetime=updaterestore
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
@@ -453,6 +464,7 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
+let g:user_emmet_wrap_with_abbreviation = '<F8>'
             \'\.pyc$', '\.swp$', '\.egg-info$',
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
@@ -541,6 +553,10 @@ set guioptions=
 "set guioptions=T
 "set guioptions-=m  "remove menu bar
 
+" supertab
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
 "JS Beautify buffer npm install -g js-beautify
 nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 "tern js
@@ -580,7 +596,7 @@ endfunction
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<leader>n"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsJumpBackwardTrigger="<leader>k"
 
 function! RunAntInSrcDir()
     exec '!cd M:\P\WEB-INF\build && ant ci_automatic_update'
