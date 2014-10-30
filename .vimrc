@@ -92,7 +92,6 @@ Plugin 'elzr/vim-json'
 call vundle#end()
 filetype plugin indent on
 
-set t_Co=256
 set langmenu=none
 let $LANG='en_US'
 language messages en
@@ -239,7 +238,7 @@ set lazyredraw
 
 let g:user_emmet_install_global = 0
 let g:user_emmet_next_key = '<c-e>'
-let g:user_emmet_prev_key = '<c-r>'
+let g:user_emmet_prev_key = '<c-q>'
 let g:use_emmet_complete_tag = 1
 autocmd FileType html,css,scss,sass imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
