@@ -47,7 +47,6 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-startify'
-Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'mattn/webapi-vim'
@@ -58,7 +57,6 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'mattn/emmet-vim'
-"Plugin 'bling/vim-bufferline'
 Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
@@ -66,6 +64,7 @@ Plugin 'koron/nyancat-vim'
 Plugin 'mattn/flappyvird-vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'rking/ag.vim'
+Plugin 'vim-scripts/grep.vim'
 Plugin 'dhruvasagar/vim-vinegar'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'junegunn/goyo.vim'
@@ -80,7 +79,6 @@ Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'burnettk/vim-angular'
 Plugin 'heavenshell/vim-jsdoc'
-Plugin 'vim-scripts/grep.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'moll/vim-node'
 Plugin 'guileen/vim-node-dict'
@@ -138,7 +136,6 @@ let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_files_number = 5
 let g:startify_custom_indices = ['a','s','d','f']
 
-
 " ariline  custom fonts
 let g:airline_powerline_fonts=1
 " airline don't chect whitespace
@@ -154,8 +151,6 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_style_error_symbol = '✠'
 let g:syntastic_warning_symbol = '∆'
 let g:syntastic_style_warning_symbol = '≈'
-
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " signify enable by :SignifyToggle
 let g:signify_disable_by_default = 1
@@ -554,6 +549,9 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 "JS Beautify buffer npm install -g js-beautify
 nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
+
+"JS Beautify buffer npm install -g js-beautify
+nnoremap <leader>es :%!esformatter<CR>
 "tern js
 let g:tern_show_argument_hints='on_hold'
 
