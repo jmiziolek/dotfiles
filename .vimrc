@@ -131,7 +131,6 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*node_modules                    "nodejs modules
 set wildignore+=*touch/                    "sencha SDK 
 set wildignore+=*.sass-cache                     "sass tmp
 
@@ -170,20 +169,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-set complete=.,w,b,u,U,t,i,d
-set omnifunc=syntaxcomplete#Complete
-set completefunc=syntaxcomplete#Complete
-
-augroup omni_complete
-  " clear commands before resetting
-  autocmd!
-  " Enable omnicomplete for supported filetypes
-  autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
 
 " remove fugitive scratch buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -418,16 +403,26 @@ au CursorHoldI * stopinsert
 au InsertEnter * let updaterestore=&updatetime | set updatetime=5000
 au InsertLeave * let &updatetime=updaterestore
 
-" Enable omni completion.
-autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-au BufNewFile,BufRead *.ftl set filetype=ftl
-autocmd FileType css imap <buffer> {{ {<CR>}<Esc>ko
+
+set complete=.,w,b,u,U,t,i,d
+set omnifunc=syntaxcomplete#Complete
+set completefunc=syntaxcomplete#Complete
+
+augroup omni_complete
+  " clear commands before resetting
+  autocmd!
+  " Enable omnicomplete for supported filetypes
+  autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+augroup END
+
 let g:syntastic_enable_signs=1
 
-" You might also find this useful
 " PHP Generated Code Highlights (HTML & SQL)
 let php_sql_query=1
 let php_htmlInStrings=1
@@ -447,8 +442,8 @@ vmap <C-j> xp`[V`]
 
 let g:ctrlp_map = '<c-Space>'
 let g:ctrlp_cmd = 'CtrlP'
-
 map <leader>b :CtrlPBuffer<CR>
+
 map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
 " reset with <c-w>=
@@ -463,7 +458,6 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-let g:user_emmet_wrap_with_abbreviation = '<F8>'
             \'\.pyc$', '\.swp$', '\.egg-info$',
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
@@ -536,21 +530,23 @@ inoremap <silent> <leader>y <ESC>:YRShow<cr>
 " change directory to current file
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
+" completion popup
 imap <leader><tab> <C-x><C-o>
+"reforam paragraph
 nnoremap <leader>q gqip
 
 "Next/previous in quickfix list
-nnoremap <c-n> :cnext<CR>
-nnoremap <c-p> :cprevious<CR>
+" if D does not work replace with M meta/command
+nnoremap <D-n> :cnext<CR>
+nnoremap <D-p> :cprevious<CR>
 
 "Map escape key to smash jk -- much faster
 inoremap jk <Esc>
 inoremap kj <Esc>
 nmap <space> :
 
+"no GUI
 set guioptions=
-"set guioptions=T
-"set guioptions-=m  "remove menu bar
 
 " supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
