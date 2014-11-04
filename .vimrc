@@ -1,7 +1,4 @@
 set nocompatible
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
 filetype off " required!
 
 if has("win32") || has("win16")
@@ -149,12 +146,13 @@ let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_style_error_symbol = '✠'
-let g:syntastic_warning_symbol = '∆'
+let g:syntastic_warning_symbol = '•'
 let g:syntastic_style_warning_symbol = '≈'
+let g:used_javascript_libs = 'underscore,angularjs,chai'
 
 " signify enable by :SignifyToggle
 let g:signify_disable_by_default = 1
-let g:signify_vcs_list = [ 'git', 'cvs' ]
+let g:signify_vcs_list = ['git']
 
 " disable <C-l> as jsdoc mapping
 let g:jsdoc_default_mapping = 0
@@ -195,7 +193,6 @@ set smartcase
 set noswapfile
 "updatetime 2sec ,writes swap file ;-)
 set updatetime=1000
-set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 " Height of the command bar
 set cmdheight=1
@@ -204,9 +201,6 @@ set cmdheight=1
 
 " Comma as Leader
 let mapleader = ","
-
-let g:session_autosave = 'yes'
-let g:session_autoload = 'yes'
 
 " No annoying sound on errors
 set noerrorbells
@@ -439,6 +433,7 @@ let g:ctrlp_map = '<c-Space>'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
 
+"better vertical split
 map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
 " reset with <c-w>=
@@ -453,7 +448,7 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$',
+            \'\.pyc$', '\.swp$', '\.egg-info$', 'node_modules'
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
             \ '\.embed\.manifest$', '\.embed\.manifest.res$',
@@ -547,6 +542,12 @@ set guioptions=
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<leader>n"
+let g:UltiSnipsJumpBackwardTrigger="<leader>k"
+
+
 "JS Beautify buffer npm install -g js-beautify
 nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 
@@ -585,11 +586,6 @@ function! QuickfixFilenames()
   endfor
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
-
-let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<leader>n"
-let g:UltiSnipsJumpBackwardTrigger="<leader>k"
 
 function! RunAntInSrcDir()
     exec '!cd M:\P\WEB-INF\build && ant ci_automatic_update'
