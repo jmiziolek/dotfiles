@@ -92,6 +92,8 @@ let $LANG='en_US'
 language messages en
 set encoding=utf-8
 set selectmode=
+"colors in terminal
+set term=builtin_ansi
 syntax on
 colorscheme solarized
 set background=light
@@ -126,8 +128,8 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*touch/                    "sencha SDK 
 set wildignore+=*.sass-cache                     "sass tmp
+set wildignore+=*node_modules                    "nodejs modules
 
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_files_number = 5
@@ -448,7 +450,7 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$', 'node_modules'
+            \'\.pyc$', '\.swp$', '\.egg-info$', 'node_modules',
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
             \ '\.embed\.manifest$', '\.embed\.manifest.res$',
