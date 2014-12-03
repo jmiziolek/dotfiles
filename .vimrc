@@ -75,6 +75,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'burnettk/vim-angular'
+Plugin 'matthewsimo/angular-vim-snippets'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'pangloss/vim-javascript'
 Plugin 'moll/vim-node'
@@ -83,6 +84,7 @@ Plugin 'amirh/HTML-AutoCloseTag'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'vim-scripts/CSApprox'
 Plugin 'elzr/vim-json'
+Plugin 'shime/vim-livedown'
 
 call vundle#end()
 filetype plugin indent on
@@ -216,9 +218,9 @@ let g:user_emmet_install_global = 0
 let g:user_emmet_next_key = '<c-e>'
 let g:user_emmet_prev_key = '<c-q>'
 let g:use_emmet_complete_tag = 1
-autocmd FileType html,css,scss,sass imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+autocmd FileType xhtml, html,css,scss,sass imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
-autocmd FileType html,css,scss,sass EmmetInstall
+autocmd FileType xhtml, html,css,scss,sass EmmetInstall
 
 "disable Entering Ex Mode 
 :map Q <Nop>
@@ -557,6 +559,13 @@ nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 nnoremap <leader>es :%!esformatter<CR>
 "tern js
 let g:tern_show_argument_hints='on_hold'
+
+" should markdown preview get shown automatically upon opening markdown buffer
+let g:livedown_autorun = 0
+" should the browser window pop-up upon previewing
+let g:livedown_open = 1 
+" the port on which Livedown server will run
+let g:livedown_port = 1337
 
 " yo angular generator settings
 let g:angular_source_directory = 'app/scripts'
