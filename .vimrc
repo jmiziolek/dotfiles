@@ -43,6 +43,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'kien/ctrlp.vim'
+Plugin 'fisadev/vim-ctrlp-cmdpalette'
 Plugin 'vim-startify'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
@@ -214,13 +215,13 @@ autocmd GUIEnter * set vb t_vb=
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
-let g:user_emmet_install_global = 0
+let g:user_emmet_install_global = 1
 let g:user_emmet_next_key = '<c-e>'
 let g:user_emmet_prev_key = '<c-q>'
 let g:use_emmet_complete_tag = 1
-autocmd FileType xhtml, html,css,scss,sass imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
-autocmd FileType xhtml, html,css,scss,sass EmmetInstall
+" let terminal resize scale the internal windows
+autocmd VimResized * :wincmd =
 
 "disable Entering Ex Mode 
 :map Q <Nop>
@@ -437,6 +438,8 @@ let g:ctrlp_map = '<c-Space>'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
 
+let g:ctrlp_cmdpalette_execute = 1
+
 "better vertical split
 map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
@@ -452,7 +455,7 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$', 'node_modules',
+            \'\.pyc$', '\.swp$', '\.egg-info$',
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
             \ '\.embed\.manifest$', '\.embed\.manifest.res$',
