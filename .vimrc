@@ -72,6 +72,7 @@ Plugin 'danielmiessler/VimBlog'
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-scripts/vcscommand.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
 " Filetype Specific
 Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
@@ -79,6 +80,7 @@ Plugin 'burnettk/vim-angular'
 Plugin 'matthewsimo/angular-vim-snippets'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'pangloss/vim-javascript'
+Plugin 'facebook/vim-flow'
 Plugin 'moll/vim-node'
 Plugin 'guileen/vim-node-dict'
 Plugin 'amirh/HTML-AutoCloseTag'
@@ -110,7 +112,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 "set guifont=Source\ Code\ Pro:h11
-set guifont=Sauce\ Code\ Powerline:h16
+set guifont=Sauce\ Code\ Powerline:h15
 set smartindent
 set autoindent
 set copyindent    " copy the previous indentation on autoindenting
@@ -211,12 +213,13 @@ let mapleader = ","
 set noerrorbells
 set novisualbell
 set t_vb=
-autocmd GUIEnter * set vb t_vb=
+autocmd! GUIEnter * set vb t_vb=
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
+let g:user_emmet_expandabbr_key = '<c-e>'
 let g:user_emmet_install_global = 1
-let g:user_emmet_next_key = '<c-e>'
+let g:user_emmet_next_key = '<c-w>'
 let g:user_emmet_prev_key = '<c-q>'
 let g:use_emmet_complete_tag = 1
 
@@ -427,6 +430,10 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 
 set pastetoggle=<F2>
 
+" put under/over with indentation
+nnoremap <silent> <leader>pu :pu<CR>`[=`]
+nnoremap <silent> <leader>po :pu!<CR>`[=`]
+
 "Bubble single lines (kicks butt)
 nmap <C-k> ddkP
 nmap <C-j> ddp
@@ -602,7 +609,7 @@ function! QuickfixFilenames()
 endfunction
 
 function! RunAntInSrcDir()
-    exec '!cd M:\P\WEB-INF\build && ant ci_automatic_update'
+    exec '!cd M:\P\WEB-INF\build && ant build-name'
 endfunction
 
 map <F4> :call RunAntInSrcDir()<CR>
