@@ -11,12 +11,11 @@ if has("win32") || has("win16")
     set directory=~/vimfiles/tmp/swap//   " swap files
     set rtp+=~/vimfiles/bundle/vundle/
     "au GUIEnter * simalt ~s
-
 else
   set undodir=~/.vim/tmp/undo//     " undo files
   set backupdir=~/.vim/tmp/backup// " backups
   set directory=~/.vim/tmp/swap//   " swap files
-  set rtp+=~/vimfiles/bundle/vundle/
+  set rtp+=~/.vim/bundle/vundle/
 endif
 
 " Make those folders automatically if they don't already exist.
@@ -33,7 +32,7 @@ endif
 call vundle#begin()
 
 Plugin 'gmarik/vundle'
-Plugin 'Raimondi/delimitMate'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab' 
 Plugin 'altercation/vim-colors-solarized'
@@ -50,7 +49,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'mattn/webapi-vim'
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'Townk/vim-autoclose'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'nelstrom/vim-visual-star-search'
@@ -59,33 +57,32 @@ Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'koron/nyancat-vim'
-Plugin 'mattn/flappyvird-vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'rking/ag.vim'
-Plugin 'vim-scripts/grep.vim'
 Plugin 'dhruvasagar/vim-vinegar'
-Plugin 'tommcdo/vim-exchange'
 Plugin 'junegunn/goyo.vim'
 Plugin 'mtth/scratch.vim'
-Plugin 'danielmiessler/VimBlog'
+Plugin 'szw/vim-g'
+Plugin 'ZoomWin'
+Plugin 'sickill/vim-pasta'
 " VCS
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-scripts/vcscommand.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
-" Filetype Specific
+"Filetype Specific
+Plugin 'ashisha/image.vim'
 Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'mephux/vim-jsfmt'
 Plugin 'burnettk/vim-angular'
 Plugin 'matthewsimo/angular-vim-snippets'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'pangloss/vim-javascript'
-Plugin 'facebook/vim-flow'
+Plugin 'mxw/vim-jsx'
 Plugin 'moll/vim-node'
 Plugin 'guileen/vim-node-dict'
-Plugin 'amirh/HTML-AutoCloseTag'
 Plugin 'hail2u/vim-css3-syntax'
-Plugin 'vim-scripts/CSApprox'
 Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
 
@@ -93,7 +90,6 @@ call vundle#end()
 filetype plugin indent on
 
 set langmenu=none
-let $LANG='en_US'
 language messages en
 set encoding=utf-8
 set selectmode=
@@ -145,7 +141,7 @@ let g:airline_powerline_fonts=1
 " airline don't chect whitespace
 let g:airline#extensions#whitespace#checks = []
 " jshint for JS syntastic
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jsxhint']
 "default config file overrides project .jshintrc
 "let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
 let g:syntastic_html_validator_parser = 'html5'
@@ -155,7 +151,14 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_style_error_symbol = '✠'
 let g:syntastic_warning_symbol = '•'
 let g:syntastic_style_warning_symbol = '≈'
-let g:used_javascript_libs = 'underscore,angularjs,chai'
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors = ['proprietary attribute "se-']
+let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
+
+"let g:js_fmt_fail_silently = 1
+let g:js_fmt_autosave = 0
+"let g:js_fmt_command = "jsfmt"
+"let g:js_fmt_options = '--no-format'
 
 " signify enable by :SignifyToggle
 let g:signify_disable_by_default = 1
@@ -190,7 +193,7 @@ set scrolloff=8         " Number of lines from vertical edge to start scrolling
 set sidescrolloff=15 " Number of cols from horizontal edge to start scrolling
 set sidescroll=5       " Number of cols to scroll at a time
 
-set mousehide
+"set mousehide
 set timeoutlen=300
 "Switch between buffers without saving
 set hidden
@@ -204,7 +207,6 @@ set ssop-=folds      " do not store folds
 " Height of the command bar
 set cmdheight=1
 " Disable blinking cursor
-:set guicursor+=a:blinkon0
 
 " Comma as Leader
 let mapleader = ","
@@ -258,6 +260,9 @@ map <C-left> :bp<cr>
 
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -356,8 +361,8 @@ augroup BWCCreateDir
   autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+"Remove the Windows ^M - when the encodings gets messed up
+noremap <F5> mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -381,8 +386,7 @@ nmap <silent> ,sv :so $MYVIMRC<CR>
 nmap <leader>td :TernDef<CR>
 nmap <leader>tr :TernRename<CR>
 "ACK/SilverSearcher config
-nnoremap <C-a> :Ag
-vnoremap <C-a> :Ag
+nnoremap <C-a> :Ag 
 
 "persistent undo file
 " undodir OS dependent
@@ -400,23 +404,11 @@ au CursorHoldI * stopinsert
 au InsertEnter * let updaterestore=&updatetime | set updatetime=5000
 au InsertLeave * let &updatetime=updaterestore
 
-
 set complete=.,w,b,u,U,t,i,d
 set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
 
-augroup omni_complete
-  " clear commands before resetting
-  autocmd!
-  " Enable omnicomplete for supported filetypes
-  autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-augroup END
+autocmd FileType sass,scss setlocal omnifunc=csscomplete#CompleteCSS
 
 let g:syntastic_enable_signs=1
 
@@ -558,8 +550,23 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<leader>n"
-let g:UltiSnipsJumpBackwardTrigger="<leader>k"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+
+augroup vimrc_linenumbering
+    autocmd!
+    autocmd WinLeave *
+                \ if &number |
+                \   set norelativenumber |
+                \ endif
+    autocmd BufWinEnter *
+                \ if &number |
+                \   set relativenumber |
+                \ endif
+    autocmd VimEnter *
+                \ if &number |
+                \   set relativenumber |
+                \ endif
+augroup END
 
 
 "JS Beautify buffer npm install -g js-beautify
@@ -569,6 +576,11 @@ nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 nnoremap <leader>es :%!esformatter<CR>
 "tern js
 let g:tern_show_argument_hints='on_hold'
+
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" nested syntax highlighting for *.md
+au BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
 
 " should markdown preview get shown automatically upon opening markdown buffer
 let g:livedown_autorun = 0
@@ -581,7 +593,7 @@ let g:livedown_port = 1337
 let g:angular_source_directory = 'app/scripts'
 let g:angular_test_directory = 'test/spec'
 
-au FileType javascript set dictionary+=~/HOME/.vim/bundle/vim-node-dict/dict/node.dict
+au FileType javascript set dictionary+=~/.vim/bundle/vim-node-dict/dict/node.dict
 
 " Extended Text Objects {{{1
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
@@ -608,10 +620,54 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
-function! RunAntInSrcDir()
-    exec '!cd M:\P\WEB-INF\build && ant build-name'
-endfunction
 
-map <F4> :call RunAntInSrcDir()<CR>
+"function! DisableIfNonCounted(move) range
+    "if v:count
+        "return a:move
+    "else
+        "" You can make this do something annoying like:
+           "" echoerr "Count required!"
+           "" sleep 2
+        "return ""
+    "endif
+"endfunction
 
-so ~/.local.vim
+"function! RunAntInSrcDir()
+    "exec '!cd M:\P\WEB-INF\build && ant build-name'
+"endfunction
+"map <F4> :call RunAntInSrcDir()<CR>
+
+ 
+"function! SetDisablingOfBasicMotionsIfNonCounted(on)
+    "let keys_to_disable = get(g:, "keys_to_disable_if_not_preceded_by_count", ["j", "k", "l", "h", "gj", "gk"])
+    "if a:on
+        "for key in keys_to_disable
+            "execute "noremap <expr> <silent> " . key . " DisableIfNonCounted('" . key . "')"
+        "endfor
+        "let g:keys_to_disable_if_not_preceded_by_count = keys_to_disable
+        "let g:is_non_counted_basic_motions_disabled = 1
+    "else
+        "for key in keys_to_disable
+            "try
+                "execute "unmap " . key
+            "catch /E31:/
+            "endtry
+        "endfor
+        "let g:is_non_counted_basic_motions_disabled = 0
+    "endif
+"endfunction
+ 
+"function! ToggleDisablingOfBasicMotionsIfNonCounted()
+    "let is_disabled = get(g:, "is_non_counted_basic_motions_disabled", 0)
+    "if is_disabled
+        "call SetDisablingOfBasicMotionsIfNonCounted(0)
+    "else
+        "call SetDisablingOfBasicMotionsIfNonCounted(1)
+    "endif
+"endfunction
+ 
+"command! ToggleDisablingOfNonCountedBasicMotions :call ToggleDisablingOfBasicMotionsIfNonCounted()
+"command! DisableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(1)
+"command! EnableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(0)
+ 
+DisableNonCountedBasicMotions
