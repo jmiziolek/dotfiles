@@ -65,6 +65,7 @@ Plugin 'mtth/scratch.vim'
 Plugin 'szw/vim-g'
 Plugin 'ZoomWin'
 Plugin 'sickill/vim-pasta'
+Plugin 'mnpk/vim-jira-complete'
 " VCS
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-scripts/vcscommand.vim'
@@ -95,6 +96,10 @@ set encoding=utf-8
 set selectmode=
 "colors in terminal
 set term=builtin_ansi
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
+
 syntax on
 colorscheme solarized
 set background=light
@@ -362,7 +367,7 @@ augroup BWCCreateDir
 augroup END
 
 "Remove the Windows ^M - when the encodings gets messed up
-noremap <F5> mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <F6> mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -620,6 +625,9 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
+let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
+
+so "~/local.vim"
 
 "function! DisableIfNonCounted(move) range
     "if v:count
