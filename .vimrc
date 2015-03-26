@@ -49,12 +49,10 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'mattn/webapi-vim'
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'mattn/emmet-vim'
 Plugin 'bling/vim-airline'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'koron/nyancat-vim'
 Plugin 'editorconfig/editorconfig-vim'
@@ -66,11 +64,19 @@ Plugin 'szw/vim-g'
 Plugin 'ZoomWin'
 Plugin 'sickill/vim-pasta'
 Plugin 'mnpk/vim-jira-complete'
+
+" Plugins that don't play well with the terminal
+if has("gui_running")
+  Plugin 'SirVer/ultisnips'
+  Plugin 'Valloric/YouCompleteMe'
+endif
+
 " VCS
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-scripts/vcscommand.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
+
 "Filetype Specific
 Plugin 'ashisha/image.vim'
 Plugin 'othree/html5.vim'
@@ -90,8 +96,8 @@ Plugin 'shime/vim-livedown'
 call vundle#end()
 filetype plugin indent on
 
-set langmenu=none
-language messages en
+"set langmenu=none
+"language messages en
 set encoding=utf-8
 set selectmode=
 "colors in terminal
@@ -186,7 +192,7 @@ set modelines=0
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
 
-" better clipboard integration on ms windows
+" better systen clipboard integration
 set clipboard=unnamed
 
 " When completing by tag, show not just the function name
@@ -585,7 +591,7 @@ let g:tern_show_argument_hints='on_hold'
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " nested syntax highlighting for *.md
 au BufNewFile,BufReadPost *.md set filetype=markdown
-let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
+let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
 
 " should markdown preview get shown automatically upon opening markdown buffer
 let g:livedown_autorun = 0
