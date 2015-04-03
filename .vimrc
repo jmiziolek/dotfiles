@@ -32,6 +32,7 @@ endif
 call vundle#begin()
 
 Plugin 'gmarik/vundle'
+Plugin 'sjl/gundo.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab' 

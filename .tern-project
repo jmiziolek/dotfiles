@@ -1,0 +1,15 @@
+{
+    "libs": [
+        "browser",
+        "ecma5",
+        "underscore",
+        "jquery"
+    ],
+    "plugins": {
+        "node": {},
+        "angular": {},
+        "doc_comment": {
+            "fullDocs": true
+        }
+    }
+}
