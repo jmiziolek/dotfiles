@@ -1,3 +1,11 @@
+" THINGS TODO ON NEW INSTALL
+" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" Inside of ~/.vim make /tmp, inside of which mkdir swap backup undo
+" install ctags, ag" brew install silver-searcher ack ctags
+" cd ~/.vim/bundle/YouCompleteMe" ./install.sh --clang-completer
+" cd .vim/bundle/tern_for_vim/ && npm install
+set nocompatible
+
 set nocompatible
 filetype off " required!
 
