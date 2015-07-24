@@ -51,7 +51,6 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'kien/ctrlp.vim'
-Plugin 'fisadev/vim-ctrlp-cmdpalette'
 Plugin 'vim-startify'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
@@ -73,6 +72,8 @@ Plugin 'szw/vim-g'
 Plugin 'ZoomWin'
 Plugin 'sickill/vim-pasta'
 Plugin 'mnpk/vim-jira-complete'
+Plugin 'rizzatti/dash.vim'
+Plugin 'wincent/ferret'
 
 " Plugins that don't play well with the terminal
 if has("gui_running")
@@ -110,7 +111,6 @@ filetype plugin indent on
 set encoding=utf-8
 set selectmode=
 "colors in terminal
-set term=builtin_ansi
 if $TERM == "xterm-256color"
   set t_Co=256
 endif
@@ -126,10 +126,11 @@ set history=1000
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
+"set expandtab
 "set guifont=Source\ Code\ Pro:h11
-set guifont=Sauce\ Code\ Powerline:h15
+set guifont=Sauce\ Code\ Powerline:h14
 set smartindent
+set smarttab
 set autoindent
 set copyindent    " copy the previous indentation on autoindenting
 set splitbelow
@@ -152,12 +153,15 @@ set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.sass-cache                     "sass tmp
 set wildignore+=*node_modules                    "nodejs modules
 
+set colorcolumn=120
+set synmaxcol=180
+
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_files_number = 5
 let g:startify_custom_indices = ['a','s','d','f']
 
 " ariline  custom fonts
-let g:airline_powerline_fonts=1
+
 " airline don't chect whitespace
 let g:airline#extensions#whitespace#checks = []
 " jshint for JS syntastic
@@ -253,7 +257,7 @@ autocmd VimResized * :wincmd =
 
 " Map Goyo toggle to <Leader> + spacebar
 nnoremap <Leader><Space> :Goyo<CR>  
-let g:goyo_width = 80
+let g:goyo_width = 120
 let g:goyo_margin_top = 4
 let g:goyo_margin_bottom = 4
 let g:goyo_linenr = 0
@@ -334,7 +338,7 @@ map Y y$
 nnoremap D d$
 
 " get rid of the silly characters in separators
-set fillchars = ""
+"set fillchars = ""
 
 "view the current buffer in NERDTree
 map <leader>r :NERDTreeFind<cr>
@@ -415,8 +419,8 @@ set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 au BufNewFile,BufRead *.less set filetype=less
-"autosave on focuslost
-au FocusLost * :wa
+"autosave on focuslost with silent ignore of buffers without filename
+au FocusLost * silent! wa
 "
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 au CursorHoldI * stopinsert
@@ -453,12 +457,10 @@ nmap <C-j> ddp
 vmap <C-k> xkP`[V`]
 vmap <C-j> xp`[V`]
 
-let g:ctrlp_map = '<c-Space>'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
 
-let g:ctrlp_cmdpalette_execute = 1
-
+"let g:ctrlp_cmdpalette_execute = 1
 "better vertical split
 map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
@@ -543,8 +545,9 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent> <leader>y :YRShow<cr>
 inoremap <silent> <leader>y <ESC>:YRShow<cr>
 
+nmap <silent> <leader>d <Plug>DashSearch
 " change directory to current file
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " completion popup
 imap <leader><tab> <C-x><C-o>
@@ -560,6 +563,18 @@ nnoremap <D-p> :cprevious<CR>
 inoremap jk <Esc>
 inoremap kj <Esc>
 nmap <space> :
+
+" console remaps
+:cnoremap <C-b>  <Left>
+:cnoremap <C-f>  <Right>
+:cnoremap <C-d>  <Delete>
+:cnoremap <M-b>  <S-Left>
+:cnoremap <M-f>  <S-Right>
+:cnoremap <M-d>  <S-right><Delete>
+:cnoremap <Esc>b <S-Left>
+:cnoremap <Esc>f <S-Right>
+:cnoremap <Esc>d <S-right><Delete>
+:cnoremap <C-g>  <C-c>
 
 "no GUI
 set guioptions=
@@ -642,7 +657,7 @@ endfunction
 
 let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
 
-so "~/local.vim"
+so ~/local.vim
 
 "function! DisableIfNonCounted(move) range
     "if v:count
@@ -693,4 +708,26 @@ so "~/local.vim"
 "command! DisableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(1)
 "command! EnableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(0)
  
-DisableNonCountedBasicMotions
+"DisableNonCountedBasicMotions
+
+let g:terminal_scrollback_buffer_size=100000
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_z=''
+" NEOVIM
+if !has('nvim')
+	let g:airline_powerline_fonts=1
+
+	let g:ctrlp_map = '<c-Space>'
+else 
+	let g:airline_powerline_fonts=0
+	let g:ctrlp_map = '<leader>p'
+	"This maps Leader + e to exit terminal mode. 
+	tnoremap <leader>e <C-\><C-n>
+	" move from the neovim terminal window to somewhere else
+	tnoremap <C-h> <C-\><C-n><C-w>h
+	tnoremap <C-j> <C-\><C-n><C-w>j
+	tnoremap <C-k> <C-\><C-n><C-w>k
+	tnoremap <C-l> <C-\><C-n><C-w>l
+	"nmap <BS> <C-W>h
+endif
