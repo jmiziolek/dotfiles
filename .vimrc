@@ -1,7 +1,7 @@
 " THINGS TODO ON NEW INSTALL
-" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-" Inside of ~/.vim make /tmp, inside of which mkdir swap backup undo
-" install ctags, ag" brew install silver-searcher ack ctags
+" git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+" run: brew install the_silver_searcher ctags
+" paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " cd ~/.vim/bundle/YouCompleteMe" ./install.sh --clang-completer
 " cd .vim/bundle/tern_for_vim/ && npm install
 set nocompatible
@@ -23,7 +23,7 @@ else
   set undodir=~/.vim/tmp/undo//     " undo files
   set backupdir=~/.vim/tmp/backup// " backups
   set directory=~/.vim/tmp/swap//   " swap files
-  set rtp+=~/.vim/bundle/vundle/
+  set rtp+=~/.vim/bundle/Vundle.vim/
 endif
 
 " Make those folders automatically if they don't already exist.
@@ -165,7 +165,7 @@ let g:startify_custom_indices = ['a','s','d','f']
 " airline don't chect whitespace
 let g:airline#extensions#whitespace#checks = []
 " jshint for JS syntastic
-let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_javascript_checkers = ['jshint']
 "default config file overrides project .jshintrc
 "let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
 let g:syntastic_html_validator_parser = 'html5'
@@ -340,13 +340,6 @@ nnoremap D d$
 " get rid of the silly characters in separators
 "set fillchars = ""
 
-"view the current buffer in NERDTree
-map <leader>r :NERDTreeFind<cr>
-let NERDTreeMinimalUI=1
-map <silent> <leader>s :NERDTree<CR><C-w>p:NERDTreeFind<CR>
-" Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
-let NERDTreeHijackNetrw=1
 
 "Keep search pattern at the center of the screen
 nnoremap <silent> n nzz
@@ -472,9 +465,17 @@ nmap <c-w>k :res -10<cr>
 
 "Shortcut for NERDTreeToggle
 nmap <leader>nt :NERDTreeToggle<cr>
+"view the current buffer in NERDTree
+map <leader>r :NERDTreeFind<cr>
+" Show the bookmarks table on startup
+let NERDTreeShowBookmarks=1
+let NERDTreeHijackNetrw=1
+let NERDTreeMinimalUI=1
 "Show hidden files in NerdTree
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
+let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
+let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
             \'\.pyc$', '\.swp$', '\.egg-info$',
             \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
@@ -482,9 +483,6 @@ let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$',
             \ '\.embed\.manifest$', '\.embed\.manifest.res$',
             \ '\.intermediate\.manifest$', '^mt.dep$' ]
 
-let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
-let NERDTreeShowBookmarks=1
-let NERDTreeHightlightCursorline=1
 
 " clear search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
