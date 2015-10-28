@@ -1,6 +1,6 @@
 [user]
-	name = Jakub Miziolek
-	email = jakub.miziolek@gmail.com
+	name = Jakub Miziołek
+	email = mail@jakubmiziolek.pl
 [http]
 	postBuffer = 524288000
 	sslVerify = false

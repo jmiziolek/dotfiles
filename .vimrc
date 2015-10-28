@@ -39,6 +39,9 @@ endif
 
 call vundle#begin()
 
+"neovim TrueColor support
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 Plugin 'gmarik/vundle'
 Plugin 'sjl/gundo.vim'
 Plugin 'jiangmiao/auto-pairs'
@@ -74,12 +77,12 @@ Plugin 'sickill/vim-pasta'
 Plugin 'mnpk/vim-jira-complete'
 Plugin 'rizzatti/dash.vim'
 Plugin 'wincent/ferret'
+Plugin 'terryma/vim-expand-region'
+Plugin 'morhetz/gruvbox'
 
 " Plugins that don't play well with the terminal
-if has("gui_running")
-  Plugin 'SirVer/ultisnips'
-  Plugin 'Valloric/YouCompleteMe'
-endif
+Plugin 'SirVer/ultisnips'
+Plugin 'Valloric/YouCompleteMe'
 
 " VCS
 Plugin 'mhinz/vim-signify'
@@ -102,6 +105,7 @@ Plugin 'guileen/vim-node-dict'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
+Plugin 'othree/jspc.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -116,7 +120,8 @@ if $TERM == "xterm-256color"
 endif
 
 syntax on
-colorscheme solarized
+"colorscheme solarized
+colorscheme gruvbox
 set background=light
 set autoread
 set backspace=indent,eol,start
@@ -156,12 +161,15 @@ set wildignore+=*node_modules                    "nodejs modules
 set colorcolumn=120
 set synmaxcol=180
 
+" expand-region remaps
+"map K <Plug>(expand_region_expand)
+"map J <Plug>(expand_region_shrink)
+
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_files_number = 5
 let g:startify_custom_indices = ['a','s','d','f']
 
 " ariline  custom fonts
-
 " airline don't chect whitespace
 let g:airline#extensions#whitespace#checks = []
 " jshint for JS syntastic
@@ -245,8 +253,8 @@ set lazyredraw
 
 let g:user_emmet_expandabbr_key = '<c-e>'
 let g:user_emmet_install_global = 1
-let g:user_emmet_next_key = '<c-w>'
-let g:user_emmet_prev_key = '<c-q>'
+"let g:user_emmet_next_key = '<c-w>'
+"let g:user_emmet_prev_key = '<c-q>'
 let g:use_emmet_complete_tag = 1
 
 " let terminal resize scale the internal windows
@@ -453,15 +461,20 @@ vmap <C-j> xp`[V`]
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
 
+" jump to end of pasted text
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
 "let g:ctrlp_cmdpalette_execute = 1
 "better vertical split
 map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
-" reset with <c-w>=
-nmap <c-w>l :vertical res +10<cr>
-nmap <c-w>h :vertical res -10<cr>
-nmap <c-w>j :res +10<cr>
-nmap <c-w>k :res -10<cr>
+"" reset with <c-w>=
+"nmap <c-w>l :vertical res +10<cr>
+"nmap <c-w>h :vertical res -10<cr>
+"nmap <c-w>j :res +10<cr>
+"nmap <c-w>k :res -10<cr>
 
 "Shortcut for NERDTreeToggle
 nmap <leader>nt :NERDTreeToggle<cr>
@@ -711,7 +724,6 @@ so ~/local.vim
 let g:terminal_scrollback_buffer_size=100000
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_section_z=''
 " NEOVIM
 if !has('nvim')
 	let g:airline_powerline_fonts=1
