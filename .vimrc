@@ -42,7 +42,7 @@ call vundle#begin()
 "neovim TrueColor support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
@@ -233,7 +233,7 @@ set ignorecase
 set noinf
 set smartcase
 set noswapfile
-"updatetime 2sec ,writes swap file ;-)
+"updatetime 1sec ,writes swap file ;-)
 set updatetime=1000
 set ssop-=folds      " do not store folds
 " Height of the command bar
@@ -407,9 +407,6 @@ vnoremap <tab> %
 nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
-" Tern js
-nmap <leader>td :TernDef<CR>
-nmap <leader>tr :TernRename<CR>
 "ACK/SilverSearcher config
 nnoremap <C-a> :Ag 
 
@@ -620,8 +617,11 @@ nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 
 "JS Beautify buffer npm install -g js-beautify
 nnoremap <leader>es :%!esformatter<CR>
-"tern js
-let g:tern_show_argument_hints='on_hold'
+" Tern js
+nmap <leader>td :TernDef<CR>
+nmap <leader>tr :TernRename<CR>
+let g:tern_show_argument_hints = 'on_hold'
+let g:tern_show_signature_in_pum = 1
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " nested syntax highlighting for *.md

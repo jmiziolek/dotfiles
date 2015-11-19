@@ -29,7 +29,7 @@
 [url "https://"]
 	insteadOf = git://
 [core]
-	excludesfile = /Users/jmiziolek/.gitignore_global
+	excludesfile = ~/.gitignore
 	autocrlf = input
 [diff]
 	tool = vimdiff
