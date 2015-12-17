@@ -1,7 +1,16 @@
-snippet con "Console Debugger"
+# i on end of first snippet line means snippet
+# will be expanded even in middle of WORD boundary
+
+snippet con "Console Debugger" i
 console.log(${1})
 endsnippet
 
-snippet te "Throw Error"
+snippet te "Throw Error" i
 throw Error('Bang!')${1}
+endsnippet
+
+snippet f "function" i
+function() {
+	$0
+}
 endsnippet

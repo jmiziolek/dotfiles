@@ -15,3 +15,20 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+/var
+Samsung
+Desktop
+Pictures
+Music
+Applications
+Documents
+Library
+Downloads
+.vim/tmp
+.vagrant
+.npm
+www
+VirtualBox VMs
+Dropbox
+
+.atom

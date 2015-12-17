@@ -5,8 +5,6 @@
 " cd ~/.vim/bundle/YouCompleteMe" ./install.sh --clang-completer
 " cd .vim/bundle/tern_for_vim/ && npm install
 set nocompatible
-
-set nocompatible
 filetype off " required!
 
 if has("win32") || has("win16")
@@ -79,6 +77,8 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'wincent/ferret'
 Plugin 'terryma/vim-expand-region'
 Plugin 'morhetz/gruvbox'
+Plugin 'mattn/gist-vim'
+
 
 " Plugins that don't play well with the terminal
 Plugin 'SirVer/ultisnips'
@@ -117,9 +117,13 @@ filetype plugin indent on
 set encoding=utf-8
 set selectmode=
 "colors in terminal
-if $TERM == "xterm-256color"
-  set t_Co=256
-endif
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set termencoding=utf-8
+
+
+" get rid of the silly characters in separators
+"set fillchars = ""
 
 syntax on
 "colorscheme solarized
@@ -167,6 +171,7 @@ set synmaxcol=180
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
 
+let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_files_number = 5
 let g:startify_custom_indices = ['a','s','d','f']
@@ -347,9 +352,6 @@ map Y y$
 "Made D delete to the end of line
 nnoremap D d$
 
-" get rid of the silly characters in separators
-"set fillchars = ""
-
 
 "Keep search pattern at the center of the screen
 nnoremap <silent> n nzz
@@ -410,7 +412,7 @@ nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
 "ACK/SilverSearcher config
-nnoremap <C-a> :Ag 
+"nnoremap <C-a> :Ag 
 
 "persistent undo file
 " undodir OS dependent
@@ -672,67 +674,13 @@ let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
 
 so ~/local.vim
 
-"function! DisableIfNonCounted(move) range
-    "if v:count
-        "return a:move
-    "else
-        "" You can make this do something annoying like:
-           "" echoerr "Count required!"
-           "" sleep 2
-        "return ""
-    "endif
-"endfunction
-
-"function! RunAntInSrcDir()
-    "exec '!cd M:\P\WEB-INF\build && ant build-name'
-"endfunction
-"map <F4> :call RunAntInSrcDir()<CR>
-
- 
-"function! SetDisablingOfBasicMotionsIfNonCounted(on)
-    "let keys_to_disable = get(g:, "keys_to_disable_if_not_preceded_by_count", ["j", "k", "l", "h", "gj", "gk"])
-    "if a:on
-        "for key in keys_to_disable
-            "execute "noremap <expr> <silent> " . key . " DisableIfNonCounted('" . key . "')"
-        "endfor
-        "let g:keys_to_disable_if_not_preceded_by_count = keys_to_disable
-        "let g:is_non_counted_basic_motions_disabled = 1
-    "else
-        "for key in keys_to_disable
-            "try
-                "execute "unmap " . key
-            "catch /E31:/
-            "endtry
-        "endfor
-        "let g:is_non_counted_basic_motions_disabled = 0
-    "endif
-"endfunction
- 
-"function! ToggleDisablingOfBasicMotionsIfNonCounted()
-    "let is_disabled = get(g:, "is_non_counted_basic_motions_disabled", 0)
-    "if is_disabled
-        "call SetDisablingOfBasicMotionsIfNonCounted(0)
-    "else
-        "call SetDisablingOfBasicMotionsIfNonCounted(1)
-    "endif
-"endfunction
- 
-"command! ToggleDisablingOfNonCountedBasicMotions :call ToggleDisablingOfBasicMotionsIfNonCounted()
-"command! DisableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(1)
-"command! EnableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(0)
- 
-"DisableNonCountedBasicMotions
-
+let g:airline_powerline_fonts=1
 let g:terminal_scrollback_buffer_size=100000
-let g:airline_left_sep=''
-let g:airline_right_sep=''
 " NEOVIM
 if !has('nvim')
-	let g:airline_powerline_fonts=1
 
 	let g:ctrlp_map = '<c-Space>'
 else 
-	let g:airline_powerline_fonts=0
 	let g:ctrlp_map = '<leader>p'
 	"This maps Leader + e to exit terminal mode. 
 	tnoremap <leader>e <C-\><C-n>
