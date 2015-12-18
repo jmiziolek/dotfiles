@@ -2,7 +2,7 @@
 " git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 " run: brew install the_silver_searcher ctags
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
-" cd ~/.vim/bundle/YouCompleteMe" ./install.sh --clang-completer
+" cd ~/.vim/bundle/YouCompleteMe" ./install.sh
 " cd .vim/bundle/tern_for_vim/ && npm install
 set nocompatible
 filetype off " required!
