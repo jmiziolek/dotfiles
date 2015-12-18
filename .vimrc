@@ -40,7 +40,6 @@ call vundle#begin()
 "neovim TrueColor support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
