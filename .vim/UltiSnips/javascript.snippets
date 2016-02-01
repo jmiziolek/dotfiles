@@ -20,3 +20,17 @@ function(done) {
 	$0
 }
 endsnippet
+
+snippet rt "function" i
+return done()
+$0
+endsnippet
+
+snippet self "self" i
+var self = this
+$0
+endsnippet
+
+snippet str "stringify" i
+JSON.stringify($0, null, 2)
+endsnippet

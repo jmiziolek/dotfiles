@@ -66,7 +66,6 @@ Plugin 'koron/nyancat-vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'rking/ag.vim'
 Plugin 'dhruvasagar/vim-vinegar'
-Plugin 'junegunn/goyo.vim'
 Plugin 'mtth/scratch.vim'
 Plugin 'szw/vim-g'
 Plugin 'ZoomWin'
@@ -77,6 +76,7 @@ Plugin 'wincent/ferret'
 Plugin 'terryma/vim-expand-region'
 Plugin 'morhetz/gruvbox'
 Plugin 'mattn/gist-vim'
+Plugin 'tpope/vim-speeddating'
 
 
 " Plugins that don't play well with the terminal
@@ -138,7 +138,7 @@ set shiftwidth=4
 set softtabstop=4
 "set expandtab
 "set guifont=Source\ Code\ Pro:h11
-set guifont=Sauce\ Code\ Powerline:h14
+set guifont=Sauce\ Code\ Powerline:h12
 set smartindent
 set smarttab
 set autoindent
@@ -163,7 +163,7 @@ set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.sass-cache                     "sass tmp
 set wildignore+=*node_modules                    "nodejs modules
 
-set colorcolumn=120
+set colorcolumn=80
 set synmaxcol=180
 
 " expand-region remaps
@@ -217,7 +217,7 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 "prevents some security exploits
 set modelines=0
 " Syntax coloring lines that are too long just slows down the world
-set synmaxcol=2048
+set synmaxcol=248
 
 " better systen clipboard integration
 set clipboard=unnamed
@@ -268,13 +268,6 @@ autocmd VimResized * :wincmd =
 
 "disable Entering Ex Mode 
 :map Q <Nop>
-
-" Map Goyo toggle to <Leader> + spacebar
-nnoremap <Leader><Space> :Goyo<CR>  
-let g:goyo_width = 120
-let g:goyo_margin_top = 4
-let g:goyo_margin_bottom = 4
-let g:goyo_linenr = 0
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
@@ -491,7 +484,7 @@ let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
             \'\.pyc$', '\.swp$', '\.egg-info$',
-            \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
+            \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$','\.DS_Store$',
             \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
             \ '\.embed\.manifest$', '\.embed\.manifest.res$',
             \ '\.intermediate\.manifest$', '^mt.dep$' ]
@@ -626,6 +619,10 @@ nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
 
+autocmd BufLeave *.css,*.less,*scss normal! mS
+autocmd BufLeave *.js,*.coffee      normal! mJ
+autocmd BufLeave */test/*,*/spec/*  normal! mT
+
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " nested syntax highlighting for *.md
 au BufNewFile,BufReadPost *.md set filetype=markdown
@@ -680,7 +677,7 @@ if !has('nvim')
 
 	let g:ctrlp_map = '<c-Space>'
 else 
-	let g:ctrlp_map = '<leader>p'
+	let g:ctrlp_map = '<leader><Space>'
 	"This maps Leader + e to exit terminal mode. 
 	tnoremap <leader>e <C-\><C-n>
 	" move from the neovim terminal window to somewhere else

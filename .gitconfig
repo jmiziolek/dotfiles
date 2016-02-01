@@ -27,6 +27,8 @@
 	remotes = remote -v
 	la = shortlog -s -n
 	d = difftool
+	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 [url "https://"]
 	insteadOf = git://
 [core]
