@@ -40,52 +40,48 @@ call vundle#begin()
 "neovim TrueColor support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-Plugin 'sjl/gundo.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab' 
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'edsono/vim-matchit'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-startify'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'edsono/vim-matchit'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'mattn/webapi-vim'
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'honza/vim-snippets'
-Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'editorconfig/editorconfig-vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'bling/vim-airline'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'koron/nyancat-vim'
-Plugin 'editorconfig/editorconfig-vim'
 Plugin 'rking/ag.vim'
+Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-speeddating'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'koron/nyancat-vim'
 Plugin 'dhruvasagar/vim-vinegar'
 Plugin 'mtth/scratch.vim'
 Plugin 'szw/vim-g'
 Plugin 'ZoomWin'
 Plugin 'sickill/vim-pasta'
-Plugin 'mnpk/vim-jira-complete'
-Plugin 'rizzatti/dash.vim'
 Plugin 'wincent/ferret'
 Plugin 'terryma/vim-expand-region'
-Plugin 'morhetz/gruvbox'
 Plugin 'mattn/gist-vim'
-Plugin 'tpope/vim-speeddating'
+Plugin 'moll/vim-bbye'
+Plugin 'bronson/vim-trailing-whitespace'
 
-
-" Plugins that don't play well with the terminal
-Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
+" Colors
+Plugin 'morhetz/gruvbox'
 
 " VCS
 Plugin 'mhinz/vim-signify'
-Plugin 'vim-scripts/vcscommand.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
 
@@ -106,7 +102,6 @@ Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
 Plugin 'othree/jspc.vim'
 Plugin 'francoiscabrol/ranger.vim'
-Plugin 'rbgrouleff/bclose.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -125,7 +120,6 @@ set termencoding=utf-8
 "set fillchars = ""
 
 syntax on
-"colorscheme solarized
 colorscheme gruvbox
 set background=light
 set autoread
@@ -178,6 +172,15 @@ let g:startify_custom_indices = ['a','s','d','f']
 " ariline  custom fonts
 " airline don't chect whitespace
 let g:airline#extensions#whitespace#checks = []
+
+let g:airline#extensions#default#section_truncate_width = {
+	\ 'b': 79,
+	\ 'x': 60,
+	\ 'y': 88,
+	\ 'z': 45,
+	\ 'warning': 80,
+	\ 'error': 80,
+	\ }
 " jshint for JS syntastic
 let g:syntastic_javascript_checkers = ['jshint']
 "default config file overrides project .jshintrc
@@ -316,29 +319,7 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
-
-
-nmap <leader>bc :Bclose<CR>
+nmap <leader>bc :Bdelete<CR>
 "Make Y behave like other capitals
 map Y y$
 "Made D delete to the end of line
@@ -687,3 +668,11 @@ else
 	tnoremap <C-l> <C-\><C-n><C-w>l
 	"nmap <BS> <C-W>h
 endif
+
+" execute macro over visual selection
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction

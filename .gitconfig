@@ -9,6 +9,7 @@
 	ci = commit
 	br = branch
 	df = diff
+	dsf = "!git diff --color $@ | diff-so-fancy"
 	lg = log -p
 	st = status -sb
 	ci = commit
