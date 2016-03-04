@@ -56,9 +56,12 @@ Plugin 'vim-scripts/YankRing.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'mattn/emmet-vim'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'rking/ag.vim'
+Plugin 'moll/vim-bbye'
+Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-speeddating'
 Plugin 'Valloric/YouCompleteMe'
@@ -67,6 +70,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'koron/nyancat-vim'
 Plugin 'dhruvasagar/vim-vinegar'
+Plugin 'godlygeek/tabular'
 Plugin 'mtth/scratch.vim'
 Plugin 'szw/vim-g'
 Plugin 'ZoomWin'
@@ -74,8 +78,8 @@ Plugin 'sickill/vim-pasta'
 Plugin 'wincent/ferret'
 Plugin 'terryma/vim-expand-region'
 Plugin 'mattn/gist-vim'
-Plugin 'moll/vim-bbye'
-Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'francoiscabrol/ranger.vim'
+Plugin 'myusuf3/numbers.vim'
 
 " Colors
 Plugin 'morhetz/gruvbox'
@@ -93,7 +97,8 @@ Plugin 'mephux/vim-jsfmt'
 Plugin 'burnettk/vim-angular'
 Plugin 'matthewsimo/angular-vim-snippets'
 Plugin 'heavenshell/vim-jsdoc'
-Plugin 'pangloss/vim-javascript'
+Plugin 'othree/yajs.vim'
+Plugin 'gavocanov/vim-js-indent'
 Plugin 'mxw/vim-jsx'
 Plugin 'moll/vim-node'
 Plugin 'guileen/vim-node-dict'
@@ -101,7 +106,6 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
 Plugin 'othree/jspc.vim'
-Plugin 'francoiscabrol/ranger.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -450,6 +454,10 @@ map :vs :vsplit<cr><c-w>l
 "nmap <c-w>j :res +10<cr>
 "nmap <c-w>k :res -10<cr>
 
+" Split line (sister to [J]oin lines above)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+
 "Shortcut for NERDTreeToggle
 nmap <leader>nt :NERDTreeToggle<cr>
 "view the current buffer in NERDTree
@@ -572,23 +580,6 @@ let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-augroup vimrc_linenumbering
-    autocmd!
-    autocmd WinLeave *
-                \ if &number |
-                \   set norelativenumber |
-                \ endif
-    autocmd BufWinEnter *
-                \ if &number |
-                \   set relativenumber |
-                \ endif
-    autocmd VimEnter *
-                \ if &number |
-                \   set relativenumber |
-                \ endif
-augroup END
-
-
 "JS Beautify buffer npm install -g js-beautify
 nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
 
@@ -599,6 +590,9 @@ nmap <leader>td :TernDef<CR>
 nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
+
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
 
 autocmd BufLeave *.css,*.less,*scss normal! mS
 autocmd BufLeave *.js,*.coffee      normal! mJ
