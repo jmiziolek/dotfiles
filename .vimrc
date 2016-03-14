@@ -136,7 +136,7 @@ set shiftwidth=4
 set softtabstop=4
 "set expandtab
 "set guifont=Source\ Code\ Pro:h11
-set guifont=Sauce\ Code\ Powerline:h12
+set guifont=Sauce\ Code\ Powerline:h13
 set smartindent
 set smarttab
 set autoindent
@@ -167,6 +167,10 @@ set synmaxcol=180
 " expand-region remaps
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
+"
+nnoremap <leader>m :let g:ycm_auto_trigger=0<CR>" turn off YCM
+nnoremap <leader>M :let g:ycm_auto_trigger=1<CR>" turn on YCM
+let g:ycm_auto_trigger=0
 
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
