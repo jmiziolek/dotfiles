@@ -80,6 +80,7 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'mattn/gist-vim'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'myusuf3/numbers.vim'
+Plugin 'mazubieta/gitlink-vim'
 
 " Colors
 Plugin 'morhetz/gruvbox'
@@ -136,7 +137,7 @@ set shiftwidth=4
 set softtabstop=4
 "set expandtab
 "set guifont=Source\ Code\ Pro:h11
-set guifont=Sauce\ Code\ Powerline:h13
+set guifont=Sauce\ Code\ Powerline:h14
 set smartindent
 set smarttab
 set autoindent
@@ -213,8 +214,13 @@ let g:js_fmt_autosave = 0
 let g:signify_disable_by_default = 1
 let g:signify_vcs_list = ['git']
 
+" :GitLink for github link
+" TODO add redir @* to copy to clipboard
+command GitLink :echo gitlink#GitLink()
+
 " disable <C-l> as jsdoc mapping
 let g:jsdoc_default_mapping = 0
+let g:jsdoc_enable_es6 = 1
 
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -330,6 +336,10 @@ endfunction
 nmap <leader>bc :Bdelete<CR>
 "Make Y behave like other capitals
 map Y y$
+" yanking does not move the cursor now!
+vnoremap y myy`y
+vnoremap Y myY`y
+
 "Made D delete to the end of line
 nnoremap D d$
 
