@@ -81,6 +81,8 @@ Plugin 'mattn/gist-vim'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'mazubieta/gitlink-vim'
+Plugin 'wellle/targets.vim'
+
 
 " Colors
 Plugin 'morhetz/gruvbox'
@@ -91,7 +93,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
 
 "Filetype Specific
-Plugin 'ashisha/image.vim'
 Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'mephux/vim-jsfmt'
@@ -161,6 +162,7 @@ set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.sass-cache                     "sass tmp
 set wildignore+=*node_modules                    "nodejs modules
+set wildignore+=*fixtures                    "nodejs modules
 
 set colorcolumn=80
 set synmaxcol=180
@@ -473,7 +475,7 @@ map :vs :vsplit<cr><c-w>l
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 "Shortcut for NERDTreeToggle
-nmap <leader>nt :NERDTreeToggle<cr>
+"nmap <leader>nt :NERDTreeToggle<cr>
 "view the current buffer in NERDTree
 map <leader>r :NERDTreeFind<cr>
 " Show the bookmarks table on startup
@@ -590,7 +592,7 @@ set guioptions=
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
@@ -684,3 +686,7 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+"MACROS
+" Function to fat arrow ES6
+let @e='dwf)a => '
