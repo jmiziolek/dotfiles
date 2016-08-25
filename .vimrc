@@ -2,7 +2,6 @@
 " git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 " run: brew install the_silver_searcher ctags
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
-" cd ~/.vim/bundle/YouCompleteMe" ./install.sh
 " cd .vim/bundle/tern_for_vim/ && npm install
 set nocompatible
 filetype off " required!
@@ -64,7 +63,6 @@ Plugin 'moll/vim-bbye'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-speeddating'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'nelstrom/vim-visual-star-search'
@@ -82,6 +80,7 @@ Plugin 'francoiscabrol/ranger.vim'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'mazubieta/gitlink-vim'
 Plugin 'wellle/targets.vim'
+Plugin 'Shougo/deoplete.nvim'
 
 
 " Colors
@@ -171,9 +170,6 @@ set synmaxcol=180
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
 "
-nnoremap <leader>m :let g:ycm_auto_trigger=0<CR>" turn off YCM
-nnoremap <leader>M :let g:ycm_auto_trigger=1<CR>" turn on YCM
-let g:ycm_auto_trigger=0
 
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
@@ -308,11 +304,9 @@ imap <C-o> <CR><Esc>O
 map <C-right> :bn<cr>
 map <C-left> :bp<cr>
 
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
