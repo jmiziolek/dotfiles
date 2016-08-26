@@ -1,6 +1,7 @@
 [user]
-	name = Jakub Miziołek
-	email = mail@jakubmiziolek.pl
+	name = 
+	email = 
+	signinkey = 4BE29FD62D640B3A
 [http]
 	postBuffer = 524288000
 	sslVerify = false
@@ -33,7 +34,7 @@
 [url "https://"]
 	insteadOf = git://
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/jmiziolek/.gitignore_global
 	autocrlf = input
 [diff]
 	tool = vimdiff
@@ -56,3 +57,5 @@
 	trustExitCode = true
 [push]
 	default = simple
+[commit]
+	template = /Users/jmiziolek/.stCommitMsg
