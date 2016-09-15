@@ -82,7 +82,6 @@ Plugin 'mazubieta/gitlink-vim'
 Plugin 'wellle/targets.vim'
 Plugin 'Shougo/deoplete.nvim'
 
-
 " Colors
 Plugin 'morhetz/gruvbox'
 
@@ -106,6 +105,7 @@ Plugin 'guileen/vim-node-dict'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
+Plugin 'isRuslan/vim-es6'
 
 call vundle#end()
 filetype plugin indent on
@@ -447,6 +447,7 @@ vmap <C-j> xp`[V`]
 
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
+let g:ctrlp_map = '<leader><Space>'
 
 " jump to end of pasted text
 vnoremap <silent> y y`]
@@ -656,12 +657,9 @@ so ~/local.vim
 
 let g:airline_powerline_fonts=1
 let g:terminal_scrollback_buffer_size=100000
-" NEOVIM
-if !has('nvim')
 
-	let g:ctrlp_map = '<c-Space>'
-else 
-	let g:ctrlp_map = '<leader><Space>'
+" NEOVIM
+if has('nvim')
 	"This maps Leader + e to exit terminal mode. 
 	tnoremap <leader>e <C-\><C-n>
 	" move from the neovim terminal window to somewhere else
@@ -681,5 +679,5 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 "MACROS
-" Function to fat arrow ES6
+"Refactor function to fat arrow ES6
 let @e='dwf)a => '
