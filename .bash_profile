@@ -19,4 +19,9 @@ alias repl='node ~/www/nodejs/repl.js'
 alias ssp='ssh peachdev'
 eval "$(rbenv init -)"
 
+mcd () {
+  mkdir "$1"
+  cd "$1"
+}
+
 export PATH=/usr/local/bin:$PATH
