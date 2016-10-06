@@ -1,2 +1,3 @@
+# ESC goes into normal mode where most things work just like in vim
 set editing-mode vi
 set keymap vi-command

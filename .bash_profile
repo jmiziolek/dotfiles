@@ -1,5 +1,6 @@
 source ~/.profile
 export CLICOLOR=1
+set -o vi
 
 # Git branch in prompt.
 parse_git_branch() {
@@ -17,6 +18,7 @@ alias cpa='cmus-remote --pause'
 alias repl='node ~/www/nodejs/repl.js'
 alias ssp='ssh peachdev'
 alias vim='nvim'
+alias vi='nvim'
 eval "$(rbenv init -)"
 
 mcd () {

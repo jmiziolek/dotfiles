@@ -188,10 +188,12 @@ let g:airline#extensions#default#section_truncate_width = {
 	\ 'error': 80,
 	\ }
 " jshint for JS syntastic
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_enable_signs=1
+let g:syntastic_javascript_checkers = ['jshint', 'eslint']
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_html_validator_parser = 'html5'
 "default config file overrides project .jshintrc
 "let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
-let g:syntastic_html_validator_parser = 'html5'
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
 let g:syntastic_error_symbol = '✗'
@@ -422,7 +424,9 @@ set completefunc=syntaxcomplete#Complete
 
 autocmd FileType sass,scss setlocal omnifunc=csscomplete#CompleteCSS
 
-let g:syntastic_enable_signs=1
+" tabs for makefiles
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
 
 " PHP Generated Code Highlights (HTML & SQL)
 let php_sql_query=1
