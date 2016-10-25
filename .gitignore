@@ -1,34 +1,31 @@
-## generic files to ignore
-*~
-*.lock
 *.DS_Store
-*.swp
+*.lock
 *.out
-
-# OS generated files #
-######################
+*.swp
+*~
 .DS_Store
-.tern-project
 .DS_Store?
-._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
-Thumbs.db
-/var
-Samsung
-Desktop
-Pictures
-Music
-Applications
-Documents
-Library
-Downloads
-.vim/tmp
-.vagrant
-.npm
-www
-VirtualBox VMs
-Dropbox
-
+._*
 .atom
+.npm
+.tern-project
+.vagrant
+.vim/tmp
+/var
+node_modules
+Applications
+Desktop
+Documents
+Downloads
+Dropbox
+Google Drive
+Library
+Music
+Pictures
+Samsung
+Thumbs.db
+VirtualBox VMs
+ehthumbs.db
+www
