@@ -36,9 +36,6 @@ endif
 
 call vundle#begin()
 
-"neovim TrueColor support
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-startify'
@@ -81,6 +78,7 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'mazubieta/gitlink-vim'
 Plugin 'wellle/targets.vim'
 Plugin 'Shougo/deoplete.nvim'
+Plugin 'junegunn/goyo.vim'
 
 " Colors
 Plugin 'morhetz/gruvbox'
@@ -116,6 +114,12 @@ set encoding=utf-8
 set selectmode=
 "colors in terminal
 set t_Co=256
+
+"neovim colors
+if has("nvim")
+  set termguicolors
+endif 
+
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 
