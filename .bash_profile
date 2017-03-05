@@ -19,6 +19,7 @@ alias repl='node ~/www/nodejs/repl.js'
 alias ssp='ssh peachdev'
 alias vim='nvim'
 alias vi='nvim'
+alias cmo='node cmo.js'
 eval "$(rbenv init -)"
 
 mcd () {

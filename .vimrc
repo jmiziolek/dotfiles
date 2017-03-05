@@ -104,6 +104,7 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
 Plugin 'isRuslan/vim-es6'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin indent on
