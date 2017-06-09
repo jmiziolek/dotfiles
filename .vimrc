@@ -48,8 +48,9 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-projectionist'
 Plugin 'vim-scripts/YankRing.vim'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'vim-airline/vim-airline'
@@ -90,7 +91,9 @@ Plugin 'gregsexton/gitv'
 
 "Filetype Specific
 Plugin 'othree/html5.vim'
+Plugin 'othree/es.next.syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'othree/jspc.vim'
 Plugin 'mephux/vim-jsfmt'
 Plugin 'burnettk/vim-angular'
 Plugin 'matthewsimo/angular-vim-snippets'
@@ -105,6 +108,7 @@ Plugin 'elzr/vim-json'
 Plugin 'shime/vim-livedown'
 Plugin 'isRuslan/vim-es6'
 Plugin 'fatih/vim-go'
+Plugin '1995eaton/vim-better-javascript-completion'
 
 call vundle#end()
 filetype plugin indent on
@@ -192,22 +196,19 @@ let g:airline#extensions#default#section_truncate_width = {
 	\ 'warning': 80,
 	\ 'error': 80,
 	\ }
-" jshint for JS syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_javascript_checkers = ['jshint', 'eslint']
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_html_validator_parser = 'html5'
-"default config file overrides project .jshintrc
-"let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_style_error_symbol = '✠'
-let g:syntastic_warning_symbol = '•'
-let g:syntastic_style_warning_symbol = '≈'
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors = ['proprietary attribute "se-']
 let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
+
+let g:ale_linters = { 'javascript': ['eslint', 'jshint'] }
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_sign_column_always = 0
+let g:ale_statusline_format = ['? %d', '? %d', '? ok']
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap <silent> <C-m> <Plug>(ale_next_wrap)
 
 "let g:js_fmt_fail_silently = 1
 let g:js_fmt_autosave = 0
@@ -512,7 +513,6 @@ nmap <F11> :call OpenPathInExplorer()<CR>
 nmap <leader>f :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
-nmap <leader>l :SyntasticToggleMode<CR>
 
 "Home & End with capitalized directions
 noremap H ^
@@ -625,7 +625,7 @@ let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascr
 " should markdown preview get shown automatically upon opening markdown buffer
 let g:livedown_autorun = 0
 " should the browser window pop-up upon previewing
-let g:livedown_open = 1 
+let g:livedown_open = 1
 " the port on which Livedown server will run
 let g:livedown_port = 1337
 
