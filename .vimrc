@@ -200,7 +200,8 @@ let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
 let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
 
-let g:ale_linters = { 'javascript': ['eslint', 'jshint'] }
+"let g:ale_linters = { 'javascript': ['eslint', 'jshint'] }
+let g:ale_linters = { 'javascript': ['jshint'] }
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_sign_column_always = 0
@@ -208,7 +209,7 @@ let g:ale_statusline_format = ['? %d', '? %d', '? ok']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-nmap <silent> <C-m> <Plug>(ale_next_wrap)
+nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
 "let g:js_fmt_fail_silently = 1
 let g:js_fmt_autosave = 0

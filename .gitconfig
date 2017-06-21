@@ -19,7 +19,7 @@
 	dc = diff --cached
 	aa = add --all
 	ff = merge --ff-only
-	pullff = pull --ff-only 
+	pullff = pull --ff-only
 	noff = merge --no-ff
 	ds = diff --stat=160,120
 	dh1 = diff HEAD~1
@@ -36,6 +36,7 @@
 [core]
 	excludesfile = /Users/jmiziolek/.gitignore_global
 	autocrlf = input
+	editor = nvim
 [diff]
 	tool = vimdiff
 	algorithm = patience
@@ -56,6 +57,6 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [push]
-	default = simple
+	default = current
 [commit]
 	template = /Users/jmiziolek/.stCommitMsg
