@@ -80,6 +80,7 @@ Plugin 'mazubieta/gitlink-vim'
 Plugin 'wellle/targets.vim'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'junegunn/goyo.vim'
+Plugin 'wakatime/vim-wakatime'
 
 " Colors
 Plugin 'morhetz/gruvbox'
@@ -134,7 +135,7 @@ set termencoding=utf-8
 
 syntax on
 colorscheme gruvbox
-set background=light
+set background=dark
 set autoread
 set backspace=indent,eol,start
 set number
@@ -168,7 +169,7 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.sass-cache                     "sass tmp
-set wildignore+=*node_modules                    "nodejs modules
+"set wildignore+=*node_modules                    "nodejs modules
 set wildignore+=*fixtures                    "nodejs modules
 
 set colorcolumn=80
@@ -255,6 +256,7 @@ set sidescrolloff=15 " Number of cols from horizontal edge to start scrolling
 set sidescroll=5       " Number of cols to scroll at a time
 
 "set mousehide
+set mouse=a
 set timeoutlen=300
 "Switch between buffers without saving
 set hidden
@@ -663,7 +665,7 @@ endfunction
 
 let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
 
-so ~/local.vim
+"so ~/local.vim
 
 let g:airline_powerline_fonts=1
 let g:terminal_scrollback_buffer_size=100000

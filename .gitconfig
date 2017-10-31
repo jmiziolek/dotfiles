@@ -1,7 +1,7 @@
 [user]
 	name = 
-	email = 
 	signinkey = 4BE29FD62D640B3A
+	email = 
 [http]
 	postBuffer = 524288000
 	sslVerify = false
@@ -47,9 +47,10 @@
 	prompt = false
 	trustExitCode = true
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
 	required = true
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	clean = git-lfs clean -- %f
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
