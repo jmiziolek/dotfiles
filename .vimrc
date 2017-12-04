@@ -249,7 +249,7 @@ set clipboard=unnamed
 " When completing by tag, show not just the function name
 set showfulltag
 " Add ignorance of whitespace to diff
-set diffopt+=iwhite,vertical,filler
+set diffopt+=vertical,filler
 
 set scrolloff=8         " Number of lines from vertical edge to start scrolling
 set sidescrolloff=15 " Number of cols from horizontal edge to start scrolling

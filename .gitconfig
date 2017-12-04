@@ -1,7 +1,7 @@
 [user]
-	name = 
+	name = Jakub Miziolek
 	signinkey = 4BE29FD62D640B3A
-	email = 
+	email = saradok@gmail.com
 [http]
 	postBuffer = 524288000
 	sslVerify = false

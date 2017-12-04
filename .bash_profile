@@ -17,6 +17,7 @@ fi
 alias cpa='cmus-remote --pause'
 alias repl='node ~/www/nodejs/repl.js'
 alias ssp='ssh peachdev'
+alias sss='ssh s9d'
 alias vim='nvim'
 alias vi='nvim'
 alias cmo='node cmo.js'
