@@ -3,6 +3,7 @@
 " run: brew install the_silver_searcher ctags
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " cd .vim/bundle/tern_for_vim/ && npm install
+" pip3 install --upgrade neovim
 set nocompatible
 filetype off " required!
 
@@ -17,10 +18,10 @@ if has("win32") || has("win16")
     set rtp+=~/vimfiles/bundle/vundle/
     "au GUIEnter * simalt ~s
 else
-  set undodir=~/.vim/tmp/undo//     " undo files
-  set backupdir=~/.vim/tmp/backup// " backups
-  set directory=~/.vim/tmp/swap//   " swap files
-  set rtp+=~/.vim/bundle/Vundle.vim/
+  set undodir=~/.config/nvim/tmp/undo//     " undo files
+  set backupdir=~/.config/nvim/tmp/backup// " backups
+  set directory=~/.config/nvim/tmp/swap//   " swap files
+  set rtp+=~/.config/nvim/bundle/Vundle.vim/
 endif
 
 " Make those folders automatically if they don't already exist.
@@ -34,7 +35,7 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 
-call vundle#begin()
+call vundle#begin('~/.config/nvim/bundle')
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
@@ -80,7 +81,6 @@ Plugin 'mazubieta/gitlink-vim'
 Plugin 'wellle/targets.vim'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'junegunn/goyo.vim'
-Plugin 'wakatime/vim-wakatime'
 
 " Colors
 Plugin 'morhetz/gruvbox'
@@ -636,7 +636,7 @@ let g:livedown_port = 1337
 let g:angular_source_directory = 'app/scripts'
 let g:angular_test_directory = 'test/spec'
 
-au FileType javascript set dictionary+=~/.vim/bundle/vim-node-dict/dict/node.dict
+au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-node-dict/dict/node.dict
 
 " Extended Text Objects {{{1
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
