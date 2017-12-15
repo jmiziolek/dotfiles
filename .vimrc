@@ -5,7 +5,6 @@
 " cd .vim/bundle/tern_for_vim/ && npm install
 " pip3 install --upgrade neovim
 set nocompatible
-filetype off " required!
 
 if has("win32") || has("win16")
     set ffs=dos
@@ -15,13 +14,12 @@ if has("win32") || has("win16")
     set undodir=~/vimfiles/undodir//
     set backupdir=~/vimfiles/tmp/backup/ " backups
     set directory=~/vimfiles/tmp/swap//   " swap files
-    set rtp+=~/vimfiles/bundle/vundle/
+    "autosave
     "au GUIEnter * simalt ~s
 else
   set undodir=~/.config/nvim/tmp/undo//     " undo files
   set backupdir=~/.config/nvim/tmp/backup// " backups
   set directory=~/.config/nvim/tmp/swap//   " swap files
-  set rtp+=~/.config/nvim/bundle/Vundle.vim/
 endif
 
 " Make those folders automatically if they don't already exist.
@@ -35,83 +33,82 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 
-call vundle#begin('~/.config/nvim/bundle')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'vim-startify'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'adelarsq/vim-matchit'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-projectionist'
-Plugin 'vim-scripts/YankRing.vim'
-Plugin 'w0rp/ale'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ternjs/tern_for_vim'
-Plugin 'rking/ag.vim'
-Plugin 'moll/vim-bbye'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-speeddating'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'koron/nyancat-vim'
-Plugin 'dhruvasagar/vim-vinegar'
-Plugin 'godlygeek/tabular'
-Plugin 'mtth/scratch.vim'
-Plugin 'szw/vim-g'
-Plugin 'ZoomWin'
-Plugin 'sickill/vim-pasta'
-Plugin 'wincent/ferret'
-Plugin 'terryma/vim-expand-region'
-Plugin 'mattn/gist-vim'
-Plugin 'francoiscabrol/ranger.vim'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'mazubieta/gitlink-vim'
-Plugin 'wellle/targets.vim'
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'junegunn/goyo.vim'
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'kien/ctrlp.vim'
+Plug 'mhinz/vim-startify'
+Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdtree'
+Plug 'ervandew/supertab'
+Plug 'scrooloose/nerdcommenter'
+Plug 'adelarsq/vim-matchit'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-projectionist'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mattn/emmet-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ternjs/tern_for_vim'
+Plug 'rking/ag.vim'
+Plug 'moll/vim-bbye'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-speeddating'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'koron/nyancat-vim'
+Plug 'dhruvasagar/vim-vinegar'
+Plug 'godlygeek/tabular'
+Plug 'mtth/scratch.vim'
+Plug 'szw/vim-g'
+Plug 'sickill/vim-pasta'
+Plug 'wincent/ferret'
+Plug 'terryma/vim-expand-region'
+Plug 'mattn/gist-vim'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'myusuf3/numbers.vim'
+Plug 'mazubieta/gitlink-vim'
+Plug 'wellle/targets.vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'junegunn/goyo.vim'
 
 " Colors
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
 " VCS
-Plugin 'mhinz/vim-signify'
-Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 
 "Filetype Specific
-Plugin 'othree/html5.vim'
-Plugin 'othree/es.next.syntax.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'othree/jspc.vim'
-Plugin 'mephux/vim-jsfmt'
-Plugin 'burnettk/vim-angular'
-Plugin 'matthewsimo/angular-vim-snippets'
-Plugin 'heavenshell/vim-jsdoc'
-Plugin 'othree/yajs.vim'
-Plugin 'gavocanov/vim-js-indent'
-Plugin 'mxw/vim-jsx'
-Plugin 'moll/vim-node'
-Plugin 'guileen/vim-node-dict'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'elzr/vim-json'
-Plugin 'shime/vim-livedown'
-Plugin 'isRuslan/vim-es6'
-Plugin 'fatih/vim-go'
-Plugin '1995eaton/vim-better-javascript-completion'
+Plug 'othree/html5.vim'
+Plug 'othree/es.next.syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/jspc.vim'
+Plug 'mephux/vim-jsfmt'
+Plug 'burnettk/vim-angular'
+Plug 'matthewsimo/angular-vim-snippets'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'othree/yajs.vim'
+Plug 'gavocanov/vim-js-indent'
+Plug 'mxw/vim-jsx'
+Plug 'moll/vim-node'
+Plug 'guileen/vim-node-dict'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'elzr/vim-json'
+Plug 'shime/vim-livedown'
+Plug 'isRuslan/vim-es6'
+Plug 'fatih/vim-go'
+Plug '1995eaton/vim-better-javascript-completion'
 
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 
 "set langmenu=none

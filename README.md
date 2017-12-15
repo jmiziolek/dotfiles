@@ -9,10 +9,13 @@ Security & Privacy -> require password immediately
 Security & Privacy -> General -> Disable log out after X minutes of inactivity
 Trackpad -> Point & Click -> enable tap to click
 
-#Noevim 
+#Neovim 
 
 `pip3 install --user neovim`
 `:UpdateRemotePlugins`
 `npm install -g neovim`
 `gem install neovim`
 
+```
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
