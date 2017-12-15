@@ -1,7 +1,6 @@
 [user]
 	name = Jakub Miziolek
 	signinkey = 4BE29FD62D640B3A
-	email = saradok@gmail.com
 [http]
 	postBuffer = 524288000
 	sslVerify = false
@@ -34,7 +33,7 @@
 [url "https://"]
 	insteadOf = git://
 [core]
-	excludesfile = /Users/jmiziolek/.gitignore_global
+	excludesfile = /Users/jakubmiziolek/.gitignore_global
 	autocrlf = input
 	editor = nvim
 [diff]
@@ -60,4 +59,4 @@
 [push]
 	default = current
 [commit]
-	template = /Users/jmiziolek/.stCommitMsg
+	template = /Users/jakubmiziolek/.stCommitMsg
