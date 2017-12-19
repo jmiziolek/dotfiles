@@ -19,3 +19,5 @@ Trackpad -> Point & Click -> enable tap to click
 ```
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+
+Edit `/etc/ssh/ssh_config` to stop SendEnv LANG*
