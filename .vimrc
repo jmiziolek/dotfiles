@@ -1,9 +1,11 @@
 " THINGS TODO ON NEW INSTALL
-" git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " run: brew install the_silver_searcher ctags
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " cd .vim/bundle/tern_for_vim/ && npm install
 " pip3 install --upgrade neovim
+" defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 set nocompatible
 
 if has("win32") || has("win16")
@@ -48,6 +50,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
@@ -58,7 +61,7 @@ Plug 'ternjs/tern_for_vim'
 Plug 'rking/ag.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'sjl/gundo.vim'
+Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-speeddating'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -74,25 +77,31 @@ Plug 'terryma/vim-expand-region'
 Plug 'mattn/gist-vim'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'myusuf3/numbers.vim'
-Plug 'mazubieta/gitlink-vim'
 Plug 'wellle/targets.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'junegunn/goyo.vim'
+Plug 'wakatime/vim-wakatime'
 
 " Colors
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/seoul256.vim'
 
 " VCS
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+Plug 'mazubieta/gitlink-vim'
 
 "Filetype Specific
+Plug 'reedes/vim-pencil'
+Plug 'stephpy/vim-yaml'
+Plug 'prettier/vim-prettier'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 Plug 'othree/html5.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jspc.vim'
-Plug 'mephux/vim-jsfmt'
 Plug 'burnettk/vim-angular'
 Plug 'matthewsimo/angular-vim-snippets'
 Plug 'heavenshell/vim-jsdoc'
@@ -107,6 +116,9 @@ Plug 'shime/vim-livedown'
 Plug 'isRuslan/vim-es6'
 Plug 'fatih/vim-go'
 Plug '1995eaton/vim-better-javascript-completion'
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'reedes/vim-pencil'
 
 call plug#end()
 filetype plugin indent on
@@ -135,15 +147,16 @@ colorscheme gruvbox
 set background=dark
 set autoread
 set backspace=indent,eol,start
+set eol
 set number
 set nobackup
 set history=1000
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 "set expandtab
 "set guifont=Source\ Code\ Pro:h11
-set guifont=Sauce\ Code\ Powerline:h14
+set guifont=Sauce\ Code\ Powerline:h13
 set smartindent
 set smarttab
 set autoindent
@@ -155,6 +168,7 @@ set cursorline
 set laststatus=2
 set linespace=2
 set incsearch
+set inccommand="split"
 set nowrap
 set title
 "set list lcs=trail:Â·,tab:Â»Â·
@@ -166,7 +180,7 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.sass-cache                     "sass tmp
-"set wildignore+=*node_modules                    "nodejs modules
+set wildignore+=*node_modules                    "nodejs modules
 set wildignore+=*fixtures                    "nodejs modules
 
 set colorcolumn=80
@@ -176,11 +190,24 @@ set synmaxcol=180
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
 "
-
+let &shell='/bin/bash --login'
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
-let g:startify_files_number = 5
-let g:startify_custom_indices = ['a','s','d','f']
+let g:startify_session_dir = '~/.config/nvim/session'
+
+let g:startify_lists = [
+			\ { 'header': ['   Sessions'],       'type': 'sessions' },
+			\ { 'header': ['   Bookmarks'],            'type': 'bookmarks' },
+			\ { 'header': ['   MRU'],            'type': 'files' },
+			\ ]
+" startify MRU from home dir 
+"\ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
+
+let g:startify_bookmarks = [
+				\ { 'c': '~/.config/nvim/init.vim' },
+				\ { 't': '~/Documents/todo.md' },
+				\ { 'n': '~/Documents/notes.md' }
+				\ ]
 
 " ariline  custom fonts
 " airline don't chect whitespace
@@ -198,10 +225,13 @@ let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
 let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
 
-"let g:ale_linters = { 'javascript': ['eslint', 'jshint'] }
-let g:ale_linters = { 'javascript': ['jshint'] }
+let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'] }
+let g:ale_fixers = { 'javascript': ['prettier', 'eslint'] }
+"let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
 let g:ale_sign_column_always = 0
 let g:ale_statusline_format = ['? %d', '? %d', '? ok']
 let g:ale_echo_msg_error_str = 'E'
@@ -209,13 +239,8 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
-"let g:js_fmt_fail_silently = 1
-let g:js_fmt_autosave = 0
-"let g:js_fmt_command = "jsfmt"
-"let g:js_fmt_options = '--no-format'
-
 " signify enable by :SignifyToggle
-let g:signify_disable_by_default = 1
+let g:signify_disable_by_default = 0
 let g:signify_vcs_list = ['git']
 
 " :GitLink for github link
@@ -407,6 +432,8 @@ nmap <silent> ,sv :so $MYVIMRC<CR>
 
 "ACK/SilverSearcher config
 "nnoremap <C-a> :Ag 
+"
+let g:ag_working_path_mode='r'
 
 "persistent undo file
 " undodir OS dependent
@@ -611,7 +638,7 @@ let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
 
 " toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>u :MundoToggle<CR>
 
 autocmd BufLeave *.css,*.less,*scss normal! mS
 autocmd BufLeave *.js,*.coffee      normal! mJ
@@ -669,7 +696,7 @@ let g:terminal_scrollback_buffer_size=100000
 
 " NEOVIM
 if has('nvim')
-	"This maps Leader + e to exit terminal mode. 
+	"This maps Leader + e to exit terminal mode.
 	tnoremap <leader>e <C-\><C-n>
 	" move from the neovim terminal window to somewhere else
 	tnoremap <C-h> <C-\><C-n><C-w>h
@@ -686,6 +713,16 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+augroup pencil
+  autocmd!
+	  autocmd FileType markdown,mkd call pencil#init()
+	\ | call lexical#init()
+	\ | call litecorrect#init()
+	\ | call textobj#quote#init()
+	\ | call textobj#sentence#init()
+  autocmd FileType text         call pencil#init()
+augroup END
 
 "MACROS
 "Refactor function to fat arrow ES6
