@@ -155,8 +155,8 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 "set expandtab
-"set guifont=Source\ Code\ Pro:h11
 set guifont=Sauce\ Code\ Powerline:h13
+"set guifont=FiraCode:h13
 set smartindent
 set smarttab
 set autoindent
@@ -190,18 +190,19 @@ set synmaxcol=180
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
 "
-let &shell='/bin/bash --login'
+let &shell='/bin/bash'
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_custom_header = ['   MEMENTO MORI']
+let g:startify_files_number = 5
 
 let g:startify_lists = [
 			\ { 'header': ['   Sessions'],       'type': 'sessions' },
 			\ { 'header': ['   Bookmarks'],            'type': 'bookmarks' },
 			\ { 'header': ['   MRU'],            'type': 'files' },
+			\ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
 			\ ]
-" startify MRU from home dir 
-"\ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
 
 let g:startify_bookmarks = [
 				\ { 'c': '~/.config/nvim/init.vim' },
