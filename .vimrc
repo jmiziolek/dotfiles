@@ -89,8 +89,9 @@ Plug 'junegunn/seoul256.vim'
 " VCS
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
+Plug 'junegunn/gv.vim'
 Plug 'mazubieta/gitlink-vim'
+Plug 'sodapopcan/vim-twiggy'
 
 "Filetype Specific
 Plug 'reedes/vim-pencil'
@@ -190,7 +191,7 @@ set synmaxcol=180
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
 "
-let &shell='/bin/bash'
+"let &shell='/bin/bash --login'
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
@@ -319,12 +320,6 @@ autocmd VimResized * :wincmd =
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-
-" Vimgreps in the current file
-map <leader>gr :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
@@ -541,6 +536,7 @@ nmap <F11> :call OpenPathInExplorer()<CR>
 nmap <leader>f :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
+nmap <leader>s :Gstatus<CR>
 
 "Home & End with capitalized directions
 noremap H ^
@@ -584,6 +580,7 @@ nnoremap <C-l> <C-w>l
 "YankRing mappings
 nnoremap <silent> <leader>y :YRShow<cr>
 inoremap <silent> <leader>y <ESC>:YRShow<cr>
+let g:yankring_history_dir = '.config/nvim'
 
 nmap <silent> <leader>d <Plug>DashSearch
 " change directory to current file
@@ -694,6 +691,11 @@ let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
 
 let g:airline_powerline_fonts=1
 let g:terminal_scrollback_buffer_size=100000
+
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ww :e %%
+map <leader>ws :sp %%
+map <leader>wv :vsp %%
 
 " NEOVIM
 if has('nvim')
