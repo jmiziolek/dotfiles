@@ -580,7 +580,7 @@ nnoremap <C-l> <C-w>l
 "YankRing mappings
 nnoremap <silent> <leader>y :YRShow<cr>
 inoremap <silent> <leader>y <ESC>:YRShow<cr>
-let g:yankring_history_dir = '.config/nvim'
+let g:yankring_history_dir = '~/.config/nvim'
 
 nmap <silent> <leader>d <Plug>DashSearch
 " change directory to current file
