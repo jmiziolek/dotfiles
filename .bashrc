@@ -18,7 +18,7 @@ alias preview="fzf --preview 'bat --color \"always\" {}'"
 # add support for ctrl+o to open selected file in VS Code
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
 alias cpa='cmus-remote --pause'
-alias cmo='node cmo.js'
+alias cmo='node ~/dotfiles/cmo.js'
 alias repl='node ~/www/nodejs/repl.js'
 alias vim='nvim'
 alias vi='nvim'
