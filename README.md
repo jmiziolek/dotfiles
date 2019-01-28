@@ -1,6 +1,9 @@
 dotfiles
 ========
 
+```
+sh -c "`curl -fsSL https://raw.githubusercontent.com/jmiziolek/dotfiles/master/setup/remote-install.sh`"
+```
 
 # Mac OS settings
 Displays -> Disable "adjusting brightness"

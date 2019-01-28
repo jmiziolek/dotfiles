@@ -1,38 +1,36 @@
 " THINGS TODO ON NEW INSTALL
 " curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" run: brew install the_silver_searcher ctags
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
-" cd .vim/bundle/tern_for_vim/ && npm install
 " pip3 install --upgrade neovim
-" defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+" :UpdateRemotePlugins
 set nocompatible
 
 if has("win32") || has("win16")
-    set ffs=dos
-    set shell=cmd.exe
-    source $VIMRUNTIME/mswin.vim
-    behave mswin
-    set undodir=~/vimfiles/undodir//
-    set backupdir=~/vimfiles/tmp/backup/ " backups
-    set directory=~/vimfiles/tmp/swap//   " swap files
-    "autosave
-    "au GUIEnter * simalt ~s
+		set ffs=dos
+		set shell=cmd.exe
+		source $VIMRUNTIME/mswin.vim
+		behave mswin
+		set undodir=~/vimfiles/undodir//
+		set backupdir=~/vimfiles/tmp/backup/ " backups
+		set directory=~/vimfiles/tmp/swap//   " swap files
+		"autosave
+		"au GUIEnter * simalt ~s
 else
-  set undodir=~/.config/nvim/tmp/undo//     " undo files
-  set backupdir=~/.config/nvim/tmp/backup// " backups
-  set directory=~/.config/nvim/tmp/swap//   " swap files
+	set undodir=~/.config/nvim/tmp/undo//     " undo files
+	set backupdir=~/.config/nvim/tmp/backup// " backups
+	set directory=~/.config/nvim/tmp/swap//   " swap files
 endif
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
+		call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+		call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
+		call mkdir(expand(&directory), "p")
 endif
 
 
@@ -58,6 +56,7 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ternjs/tern_for_vim'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'rking/ag.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
@@ -113,7 +112,7 @@ Plug 'moll/vim-node'
 Plug 'guileen/vim-node-dict'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'elzr/vim-json'
-Plug 'shime/vim-livedown'
+Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
 Plug 'isRuslan/vim-es6'
 Plug 'fatih/vim-go'
 Plug '1995eaton/vim-better-javascript-completion'
@@ -130,12 +129,6 @@ set encoding=utf-8
 set selectmode=
 "colors in terminal
 set t_Co=256
-
-"neovim colors
-if has("nvim")
-  set termguicolors
-endif 
-
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 
@@ -157,12 +150,11 @@ set shiftwidth=2
 set softtabstop=2
 "set expandtab
 set guifont=Sauce\ Code\ Powerline:h13
-"set guifont=FiraCode:h13
 set smartindent
 set smarttab
 set autoindent
 set copyindent    " copy the previous indentation on autoindenting
-set splitbelow
+set splitbelow splitright
 set ruler
 set autowrite
 set cursorline
@@ -180,22 +172,33 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*.sass-cache                     "sass tmp
-set wildignore+=*node_modules                    "nodejs modules
-set wildignore+=*fixtures                    "nodejs modules
+set wildignore+=*node_modules                    " nodejs modules
+set wildignore+=*fixtures												 " test files
 
 set colorcolumn=80
-set synmaxcol=180
+set synmaxcol=120
 
-" expand-region remaps
-"map K <Plug>(expand_region_expand)
-"map J <Plug>(expand_region_shrink)
-"
+"" Autosave only when there is something to save. Always saving makes build
+" watchers crazy
+function! SaveIfUnsaved()
+		if &modified
+				:silent! w
+		endif
+endfunction
+au FocusLost,BufLeave * :call SaveIfUnsaved()
+
+" neovim terminal cursor highlight
+:hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+
+"non-login shell used inside terminal mode
 "let &shell='/bin/bash --login'
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
-let g:startify_custom_header = ['   MEMENTO MORI']
+
+let daystillforty = system('/Users/jakub/dotfiles/deadline.sh')
+
+let g:startify_custom_header = [ daystillforty ]
 let g:startify_files_number = 5
 
 let g:startify_lists = [
@@ -254,9 +257,9 @@ let g:jsdoc_default_mapping = 0
 let g:jsdoc_enable_es6 = 1
 
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+	\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+	\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 
 " remove fugitive scratch buffers
@@ -314,6 +317,8 @@ let g:use_emmet_complete_tag = 1
 
 " let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
+command! -nargs=* ST split | terminal <args>
+command! -nargs=* VT vsplit | terminal <args>
 
 "disable Entering Ex Mode 
 :map Q <Nop>
@@ -337,24 +342,24 @@ set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
 
 function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+		let l:saved_reg = @"
+		execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+		let l:pattern = escape(@", '\\/.*$^~[]')
+		let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
+		if a:direction == 'b'
+				execute "normal ?" . l:pattern . "^M"
+		elseif a:direction == 'gv'
+				call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
+		elseif a:direction == 'replace'
+				call CmdLine("%s" . '/'. l:pattern . '/')
+		elseif a:direction == 'f'
+				execute "normal /" . l:pattern . "^M"
+		endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+		let @/ = l:pattern
+		let @" = l:saved_reg
 endfunction
 
 nmap <leader>bc :Bdelete<CR>
@@ -378,9 +383,9 @@ nnoremap <silent> g# g#zz
 
  " When editing a file, always jump to the last known cursor position.
 autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\   exe "normal g`\"" |
+	\ endif
 augroup END
 
 " wordpress syntax hightlight
@@ -393,16 +398,16 @@ au BufNewFile,BufRead *.js set cindent
 
 " Create parent folder when saving file
 function s:MkNonExDir(file, buf)
-  if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-    let dir=fnamemodify(a:file, ':h')
-    if !isdirectory(dir)
-      call mkdir(dir, 'p')
-    endif
-  endif
+	if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+		let dir=fnamemodify(a:file, ':h')
+		if !isdirectory(dir)
+			call mkdir(dir, 'p')
+		endif
+	endif
 endfunction
 augroup BWCCreateDir
-  autocmd!
-  autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+	autocmd!
+	autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
 "Remove the Windows ^M - when the encodings gets messed up
@@ -515,11 +520,11 @@ let NERDTreeChDirMode=2
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$',
-            \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$','\.DS_Store$',
-            \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-            \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-            \ '\.intermediate\.manifest$', '^mt.dep$' ]
+						\'\.pyc$', '\.swp$', '\.egg-info$',
+						\ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$','\.DS_Store$',
+						\ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
+						\ '\.embed\.manifest$', '\.embed\.manifest.res$',
+						\ '\.intermediate\.manifest$', '^mt.dep$' ]
 
 
 " clear search highlight
@@ -527,10 +532,10 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 
 " Open current file in Explorer (simple version)
 function OpenPathInExplorer()
-    if has("win32") || has("win16")
-        let filepath=substitute(expand("%:p"), '/', '\', 'g')
-        :exe '!start explorer.exe /select,"' . filepath . '"'
-    endif
+		if has("win32") || has("win16")
+				let filepath=substitute(expand("%:p"), '/', '\', 'g')
+				:exe '!start explorer.exe /select,"' . filepath . '"'
+		endif
 endfunction
 nmap <F11> :call OpenPathInExplorer()<CR>
 nmap <leader>f :!open %:p:h<CR>
@@ -634,7 +639,8 @@ nmap <leader>td :TernDef<CR>
 nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
-
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
 " toggle gundo
 nnoremap <leader>u :MundoToggle<CR>
 
@@ -663,26 +669,26 @@ au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-node-dict/dict/
 " Extended Text Objects {{{1
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
 for item in items
-  exe "nnoremap yi".item." T".item."yt".item
-  exe "nnoremap ya".item." F".item."yf".item
-  exe "nnoremap ci".item." T".item."ct".item
-  exe "nnoremap ca".item." F".item."cf".item
-  exe "nnoremap di".item." T".item."dt".item
-  exe "nnoremap da".item." F".item."df".item
-  exe "nnoremap vi".item." T".item."vt".item
-  exe "nnoremap va".item." F".item."vf".item
+	exe "nnoremap yi".item." T".item."yt".item
+	exe "nnoremap ya".item." F".item."yf".item
+	exe "nnoremap ci".item." T".item."ct".item
+	exe "nnoremap ca".item." F".item."cf".item
+	exe "nnoremap di".item." T".item."dt".item
+	exe "nnoremap da".item." F".item."df".item
+	exe "nnoremap vi".item." T".item."vt".item
+	exe "nnoremap va".item." F".item."vf".item
 endfor
 
 nnoremap viz v[zo]z$
 
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 function! QuickfixFilenames()
-  " Building a hash ensures we get each buffer only once
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+	" Building a hash ensures we get each buffer only once
+	let buffer_numbers = {}
+	for quickfix_item in getqflist()
+		let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+	endfor
+	return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
 let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
@@ -699,6 +705,8 @@ map <leader>wv :vsp %%
 
 " NEOVIM
 if has('nvim')
+	set termguicolors
+	tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 	"This maps Leader + e to exit terminal mode.
 	tnoremap <leader>e <C-\><C-n>
 	" move from the neovim terminal window to somewhere else
@@ -713,18 +721,18 @@ endif
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
+	echo "@".getcmdline()
+	execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
 augroup pencil
-  autocmd!
-	  autocmd FileType markdown,mkd call pencil#init()
-	\ | call lexical#init()
+	autocmd!
+		autocmd FileType markdown,mkd call pencil#init()
+	"\ | call lexical#init()
 	\ | call litecorrect#init()
 	\ | call textobj#quote#init()
 	\ | call textobj#sentence#init()
-  autocmd FileType text         call pencil#init()
+	autocmd FileType text         call pencil#init()
 augroup END
 
 "MACROS
