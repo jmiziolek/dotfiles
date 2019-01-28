@@ -7,30 +7,30 @@
 set nocompatible
 
 if has("win32") || has("win16")
-		set ffs=dos
-		set shell=cmd.exe
-		source $VIMRUNTIME/mswin.vim
-		behave mswin
-		set undodir=~/vimfiles/undodir//
-		set backupdir=~/vimfiles/tmp/backup/ " backups
-		set directory=~/vimfiles/tmp/swap//   " swap files
-		"autosave
-		"au GUIEnter * simalt ~s
+    set ffs=dos
+    set shell=cmd.exe
+    source $VIMRUNTIME/mswin.vim
+    behave mswin
+    set undodir=~/vimfiles/undodir//
+    set backupdir=~/vimfiles/tmp/backup/ " backups
+    set directory=~/vimfiles/tmp/swap//   " swap files
+    "autosave
+    "au GUIEnter * simalt ~s
 else
-	set undodir=~/.config/nvim/tmp/undo//     " undo files
-	set backupdir=~/.config/nvim/tmp/backup// " backups
-	set directory=~/.config/nvim/tmp/swap//   " swap files
+  set undodir=~/.config/nvim/tmp/undo//     " undo files
+  set backupdir=~/.config/nvim/tmp/backup// " backups
+  set directory=~/.config/nvim/tmp/swap//   " swap files
 endif
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-		call mkdir(expand(&undodir), "p")
+    call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-		call mkdir(expand(&backupdir), "p")
+    call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-		call mkdir(expand(&directory), "p")
+    call mkdir(expand(&directory), "p")
 endif
 
 
@@ -181,9 +181,9 @@ set synmaxcol=120
 "" Autosave only when there is something to save. Always saving makes build
 " watchers crazy
 function! SaveIfUnsaved()
-		if &modified
-				:silent! w
-		endif
+    if &modified
+        :silent! w
+    endif
 endfunction
 au FocusLost,BufLeave * :call SaveIfUnsaved()
 
@@ -248,8 +248,7 @@ nmap <silent> <C-b> <Plug>(ale_next_wrap)
 let g:signify_disable_by_default = 0
 let g:signify_vcs_list = ['git']
 
-" :GitLink for github link
-" TODO add redir @* to copy to clipboard
+" :GitLink for github link cmd + click to open
 command GitLink :echo gitlink#GitLink()
 
 " disable <C-l> as jsdoc mapping
@@ -257,10 +256,9 @@ let g:jsdoc_default_mapping = 0
 let g:jsdoc_enable_es6 = 1
 
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-	\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-	\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " remove fugitive scratch buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -326,7 +324,7 @@ command! -nargs=* VT vsplit | terminal <args>
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
-" When you press <leader>r you can search and replace the selected text
+" search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 " Ctrl+S save
@@ -342,24 +340,24 @@ set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
 
 function! VisualSelection(direction, extra_filter) range
-		let l:saved_reg = @"
-		execute "normal! vgvy"
+    let l:saved_reg = @"
+    execute "normal! vgvy"
 
-		let l:pattern = escape(@", '\\/.*$^~[]')
-		let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-		if a:direction == 'b'
-				execute "normal ?" . l:pattern . "^M"
-		elseif a:direction == 'gv'
-				call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-		elseif a:direction == 'replace'
-				call CmdLine("%s" . '/'. l:pattern . '/')
-		elseif a:direction == 'f'
-				execute "normal /" . l:pattern . "^M"
-		endif
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
 
-		let @/ = l:pattern
-		let @" = l:saved_reg
+    let @/ = l:pattern
+    let @" = l:saved_reg
 endfunction
 
 nmap <leader>bc :Bdelete<CR>
@@ -383,9 +381,9 @@ nnoremap <silent> g# g#zz
 
  " When editing a file, always jump to the last known cursor position.
 autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\   exe "normal g`\"" |
-	\ endif
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
 augroup END
 
 " wordpress syntax hightlight
@@ -398,16 +396,16 @@ au BufNewFile,BufRead *.js set cindent
 
 " Create parent folder when saving file
 function s:MkNonExDir(file, buf)
-	if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-		let dir=fnamemodify(a:file, ':h')
-		if !isdirectory(dir)
-			call mkdir(dir, 'p')
-		endif
-	endif
+  if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+    let dir=fnamemodify(a:file, ':h')
+    if !isdirectory(dir)
+      call mkdir(dir, 'p')
+    endif
+  endif
 endfunction
 augroup BWCCreateDir
-	autocmd!
-	autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+  autocmd!
+  autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
 "Remove the Windows ^M - when the encodings gets messed up
@@ -520,11 +518,11 @@ let NERDTreeChDirMode=2
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-						\'\.pyc$', '\.swp$', '\.egg-info$',
-						\ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$','\.DS_Store$',
-						\ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-						\ '\.embed\.manifest$', '\.embed\.manifest.res$',
-						\ '\.intermediate\.manifest$', '^mt.dep$' ]
+            \'\.pyc$', '\.swp$', '\.egg-info$',
+            \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$','\.DS_Store$',
+            \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
+            \ '\.embed\.manifest$', '\.embed\.manifest.res$',
+            \ '\.intermediate\.manifest$', '^mt.dep$' ]
 
 
 " clear search highlight
@@ -532,10 +530,10 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 
 " Open current file in Explorer (simple version)
 function OpenPathInExplorer()
-		if has("win32") || has("win16")
-				let filepath=substitute(expand("%:p"), '/', '\', 'g')
-				:exe '!start explorer.exe /select,"' . filepath . '"'
-		endif
+    if has("win32") || has("win16")
+        let filepath=substitute(expand("%:p"), '/', '\', 'g')
+        :exe '!start explorer.exe /select,"' . filepath . '"'
+    endif
 endfunction
 nmap <F11> :call OpenPathInExplorer()<CR>
 nmap <leader>f :!open %:p:h<CR>
@@ -587,7 +585,6 @@ nnoremap <silent> <leader>y :YRShow<cr>
 inoremap <silent> <leader>y <ESC>:YRShow<cr>
 let g:yankring_history_dir = '~/.config/nvim'
 
-nmap <silent> <leader>d <Plug>DashSearch
 " change directory to current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
@@ -629,11 +626,6 @@ let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-"JS Beautify buffer npm install -g js-beautify
-nnoremap <leader>js :%!js-beautify -j -q -B -f -<CR>
-
-"JS Beautify buffer npm install -g js-beautify
-nnoremap <leader>es :%!esformatter<CR>
 " Tern js
 nmap <leader>td :TernDef<CR>
 nmap <leader>tr :TernRename<CR>
@@ -669,26 +661,26 @@ au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-node-dict/dict/
 " Extended Text Objects {{{1
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
 for item in items
-	exe "nnoremap yi".item." T".item."yt".item
-	exe "nnoremap ya".item." F".item."yf".item
-	exe "nnoremap ci".item." T".item."ct".item
-	exe "nnoremap ca".item." F".item."cf".item
-	exe "nnoremap di".item." T".item."dt".item
-	exe "nnoremap da".item." F".item."df".item
-	exe "nnoremap vi".item." T".item."vt".item
-	exe "nnoremap va".item." F".item."vf".item
+  exe "nnoremap yi".item." T".item."yt".item
+  exe "nnoremap ya".item." F".item."yf".item
+  exe "nnoremap ci".item." T".item."ct".item
+  exe "nnoremap ca".item." F".item."cf".item
+  exe "nnoremap di".item." T".item."dt".item
+  exe "nnoremap da".item." F".item."df".item
+  exe "nnoremap vi".item." T".item."vt".item
+  exe "nnoremap va".item." F".item."vf".item
 endfor
 
 nnoremap viz v[zo]z$
 
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 function! QuickfixFilenames()
-	" Building a hash ensures we get each buffer only once
-	let buffer_numbers = {}
-	for quickfix_item in getqflist()
-		let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-	endfor
-	return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
 let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
@@ -721,20 +713,21 @@ endif
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 function! ExecuteMacroOverVisualRange()
-	echo "@".getcmdline()
-	execute ":'<,'>normal @".nr2char(getchar())
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
 augroup pencil
-	autocmd!
-		autocmd FileType markdown,mkd call pencil#init()
+  autocmd!
+	  autocmd FileType markdown,mkd call pencil#init()
 	"\ | call lexical#init()
 	\ | call litecorrect#init()
 	\ | call textobj#quote#init()
 	\ | call textobj#sentence#init()
-	autocmd FileType text         call pencil#init()
+  autocmd FileType text         call pencil#init()
 augroup END
 
 "MACROS
+
 "Refactor function to fat arrow ES6
 let @e='dwf)a => '
