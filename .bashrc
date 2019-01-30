@@ -1,15 +1,11 @@
-export CLICOLOR=1
 set -o vi
-
-# Git branch in prompt.
-parse_git_branch() {
+export CLICOLOR=1
+export GIT_DIFF_OPTS=-u0
+export GPG_TTY=$(tty)
+git_branch() {
 		git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-
-export PS1="\u@mbp \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-export GIT_DIFF_OPTS=-u0
-
-export GPG_TTY=$(tty)
+export PS1="\u@mbp \W\[\033[32m\]\$(git_branch)\[\033[00m\] $ "
 
 alias python='python3'
 export PATH=/usr/local/bin:$PATH
@@ -22,6 +18,7 @@ alias cmo='node ~/dotfiles/cmo.js'
 alias repl='node ~/www/nodejs/repl.js'
 alias vim='nvim'
 alias vi='nvim'
+alias v='nvim'
 alias cat='bat'
 alias find='fd'
 alias cl='clear'
@@ -56,10 +53,7 @@ alias c='clear'
 alias g="git"
 alias his="history | cut -c 8- | sort -u"
 alias o="open ."
-alias v="vim"
-alias r="ruby"
 alias n="node"
-alias p="python"
 alias y="yarn"
 alias chrome="open -a \"Google Chrome\""
 # restart
