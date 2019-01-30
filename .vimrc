@@ -184,8 +184,7 @@ au FocusLost,BufLeave * :call SaveIfUnsaved()
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
-
-let daystill = system('/Users/jakub/dotfiles/deadline.sh')
+let daystill = systemlist('/Users/jakub/dotfiles/deadline.sh')[0]
 
 let g:startify_custom_header = [ daystill ]
 let g:startify_files_number = 5
