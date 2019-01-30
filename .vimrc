@@ -54,8 +54,6 @@ Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ternjs/tern_for_vim'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'rking/ag.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
@@ -86,34 +84,29 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'mazubieta/gitlink-vim'
-Plug 'sodapopcan/vim-twiggy'
+Plug 'sodapopcan/vim-twiggy' " Twiggy:
 
 "Filetype Specific
-Plug 'reedes/vim-pencil'
-Plug 'stephpy/vim-yaml'
-Plug 'prettier/vim-prettier'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'othree/html5.vim'
-Plug 'othree/es.next.syntax.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/jspc.vim'
-Plug 'burnettk/vim-angular'
-Plug 'matthewsimo/angular-vim-snippets'
-Plug 'heavenshell/vim-jsdoc'
-Plug 'othree/yajs.vim'
-Plug 'gavocanov/vim-js-indent'
-Plug 'mxw/vim-jsx'
-Plug 'moll/vim-node'
-Plug 'guileen/vim-node-dict'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'elzr/vim-json'
-Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
-Plug 'isRuslan/vim-es6'
-Plug '1995eaton/vim-better-javascript-completion'
-Plug 'leafgarland/typescript-vim'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'reedes/vim-pencil'
+Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
+Plug 'othree/html5.vim', {'for': 'html'}
+Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'reedes/vim-pencil', { 'for': 'markdown' }
+Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript' }
+Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript', 'css', 'html', 'json', 'markdown', 'yaml'] }
+Plug 'moll/vim-node', { 'for': 'javascript' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
+Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
+Plug 'isRuslan/vim-es6', { 'for': 'javascript' } " delete candidate
+Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' } " delete candidate
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 
 call plug#end()
 filetype plugin indent on
@@ -192,9 +185,9 @@ let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
 
-let daystillforty = system('/Users/jakub/dotfiles/deadline.sh')
+let daystill = system('/Users/jakub/dotfiles/deadline.sh')
 
-let g:startify_custom_header = [ daystillforty ]
+let g:startify_custom_header = [ daystill ]
 let g:startify_files_number = 5
 
 let g:startify_lists = [
@@ -261,22 +254,15 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "prevents some security exploits
 set modelines=0
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=248
-
 " better systen clipboard integration
 set clipboard=unnamed
-
 " When completing by tag, show not just the function name
 set showfulltag
 " Add ignorance of whitespace to diff
 set diffopt+=vertical,filler
-
 set scrolloff=8         " Number of lines from vertical edge to start scrolling
 set sidescrolloff=15 " Number of cols from horizontal edge to start scrolling
 set sidescroll=5       " Number of cols to scroll at a time
-
-"set mousehide
 set mouse=a
 set timeoutlen=300
 "Switch between buffers without saving
@@ -285,12 +271,11 @@ set ignorecase
 set noinf
 set smartcase
 set noswapfile
-"updatetime 1sec ,writes swap file ;-)
+"updatetime 1sec, writes swap file ;-)
 set updatetime=1000
-set ssop-=folds      " do not store folds
+set ssop-=folds " do not store folds
 " Height of the command bar
 set cmdheight=1
-" Disable blinking cursor
 
 " Comma as Leader
 let mapleader = ","
@@ -300,14 +285,8 @@ set noerrorbells
 set novisualbell
 set t_vb=
 autocmd! GUIEnter * set vb t_vb=
-" Don't redraw while executing macros (good performance config)
+" Don't redraw while executing macros (for performance)
 set lazyredraw
-
-let g:user_emmet_expandabbr_key = '<c-e>'
-let g:user_emmet_install_global = 1
-"let g:user_emmet_next_key = '<c-w>'
-"let g:user_emmet_prev_key = '<c-q>'
-let g:use_emmet_complete_tag = 1
 
 " let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
@@ -322,9 +301,6 @@ vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Ctrl+S save
-map <C-s> <esc>:w!<CR>
 
 imap <C-o> <CR><Esc>O
 " move between buffers with arrows
@@ -366,7 +342,6 @@ vnoremap Y myY`y
 "Made D delete to the end of line
 nnoremap D d$
 
-
 "Keep search pattern at the center of the screen
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
@@ -381,9 +356,6 @@ autocmd BufReadPost *
   \   exe "normal g`\"" |
   \ endif
 augroup END
-
-" wordpress syntax hightlight
-"autocmd BufEnter *.php :set syn=wordpress
 
 " Autoindent for PHP and Javascript
 "au! BufNewFile,BufRead *.php set filetype=php.html.javascript.css
@@ -425,9 +397,9 @@ vnoremap <tab> %
 nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
-"ACK/SilverSearcher config
-"nnoremap <C-a> :Ag 
-"
+"SilverSearcher config
+nnoremap <C-s> :Ag 
+
 let g:ag_working_path_mode='r'
 
 "persistent undo file
@@ -455,7 +427,6 @@ autocmd FileType sass,scss setlocal omnifunc=csscomplete#CompleteCSS
 " tabs for makefiles
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
-
 " PHP Generated Code Highlights (HTML & SQL)
 let php_sql_query=1
 let php_htmlInStrings=1
@@ -470,12 +441,12 @@ set pastetoggle=<F2>
 nnoremap <silent> <leader>pu :pu<CR>`[=`]
 nnoremap <silent> <leader>po :pu!<CR>`[=`]
 
-"Bubble single lines (kicks butt)
-nmap <C-k> ddkP
-nmap <C-j> ddp
+"Bubble single lines
+nmap <C-u> ddkP
+nmap <C-d> ddp
 "Bubble multiple lines reuires unimpaired plugin
-vmap <C-k> xkP`[V`]
-vmap <C-j> xp`[V`]
+vmap <C-u> xkP`[V`]
+vmap <C-d> xp`[V`]
 
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
@@ -490,11 +461,11 @@ nnoremap <silent> p p`]
 "better vertical split
 map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
-"" reset with <c-w>=
-"nmap <c-w>l :vertical res +10<cr>
-"nmap <c-w>h :vertical res -10<cr>
-"nmap <c-w>j :res +10<cr>
-"nmap <c-w>k :res -10<cr>
+" reset with <c-w>=
+nmap <C-w>l :vertical res +20<cr>
+nmap <C-w>h :vertical res -20<cr>
+nmap <C-w>j :res +20<cr>
+nmap <C-w>k :res -20<cr>
 
 " Split line (sister to [J]oin lines above)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
@@ -524,14 +495,6 @@ let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$',
 " clear search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
 
-" Open current file in Explorer (simple version)
-function OpenPathInExplorer()
-    if has("win32") || has("win16")
-        let filepath=substitute(expand("%:p"), '/', '\', 'g')
-        :exe '!start explorer.exe /select,"' . filepath . '"'
-    endif
-endfunction
-nmap <F11> :call OpenPathInExplorer()<CR>
 nmap <leader>f :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
@@ -623,7 +586,7 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " Tern js
-nmap <leader>td :TernDef<CR>
+nmap <leader>td :TernDefPreview<CR>
 nmap <leader>tt :TernDoc<CR>
 nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
@@ -648,12 +611,6 @@ let g:livedown_autorun = 0
 let g:livedown_open = 1
 " the port on which Livedown server will run
 let g:livedown_port = 1337
-
-" yo angular generator settings
-let g:angular_source_directory = 'app/scripts'
-let g:angular_test_directory = 'test/spec'
-
-au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-node-dict/dict/node.dict
 
 " Extended Text Objects {{{1
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
@@ -726,5 +683,5 @@ augroup END
 
 "MACROS
 
-"Refactor function to fat arrow ES6
+"Refactor js function to fat arrow ES6
 let @e='dwf)a => '
