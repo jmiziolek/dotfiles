@@ -31,12 +31,7 @@ alias pp='cd ~/www/jmdocs'
 alias youtubedl='youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn dc:build && docker network create swarm && yarn dc:up'
 alias dockerruns='node ~/www/nodejs/docker.js'
-
-# Project specific
 alias cdg='cd `git rev-parse --show-toplevel`'
-alias nodusdb='`ssh -A -i ~/.ssh/jakubmiziolek -L 5432:terraform-20180820144344278700000001.ctzr9u47ng3c.eu-central-1.rds.amazonaws.com:5432 deploy@35.159.35.172`'
-alias nodusstaging='ssh -i ~/.ssh/jakubmiziolek  deploy@35.159.35.172'
-alias nodusprod='ssh -J ubuntu@18.185.157.203 ec2-user@10.226.1.110'
 alias tq='node ~/www/nodejs/docker.js && cd ~/www/nodus/nodus-backend && yarn dc:run:web:test'
 
 # GIT aliases
@@ -99,4 +94,6 @@ mcd () {
 	mkdir "$1"
 	cd "$1"
 }
+
+source ~/.localrc;
 
