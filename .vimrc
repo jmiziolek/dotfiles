@@ -52,7 +52,6 @@ Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'mattn/emmet-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ternjs/tern_for_vim'
@@ -73,7 +72,6 @@ Plug 'szw/vim-g'
 Plug 'sickill/vim-pasta'
 Plug 'wincent/ferret'
 Plug 'terryma/vim-expand-region'
-Plug 'mattn/gist-vim'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'wellle/targets.vim'
@@ -83,7 +81,6 @@ Plug 'wakatime/vim-wakatime'
 
 " Colors
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/seoul256.vim'
 
 " VCS
 Plug 'mhinz/vim-signify'
@@ -114,7 +111,6 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'elzr/vim-json'
 Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
 Plug 'isRuslan/vim-es6'
-Plug 'fatih/vim-go'
 Plug '1995eaton/vim-better-javascript-completion'
 Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
@@ -154,7 +150,8 @@ set smartindent
 set smarttab
 set autoindent
 set copyindent    " copy the previous indentation on autoindenting
-set splitbelow splitright
+set splitbelow
+set splitright
 set ruler
 set autowrite
 set cursorline
@@ -318,7 +315,7 @@ autocmd VimResized * :wincmd =
 command! -nargs=* ST split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
 
-"disable Entering Ex Mode 
+"disable Entering Ex Mode
 :map Q <Nop>
 
 " When you press gv you vimgrep after the selected text
@@ -628,6 +625,7 @@ let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " Tern js
 nmap <leader>td :TernDef<CR>
+nmap <leader>tt :TernDoc<CR>
 nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
