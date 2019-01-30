@@ -179,8 +179,7 @@ au FocusLost,BufLeave * :call SaveIfUnsaved()
 " neovim terminal cursor highlight
 :hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
-"non-login shell used inside terminal mode
-"let &shell='/bin/bash --login'
+"let &shell='/bin/bash --login' non-login shell used inside terminal mode
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
