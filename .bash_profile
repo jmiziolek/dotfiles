@@ -4,6 +4,8 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 		. `brew --prefix`/etc/bash_completion
 fi
 
+export EDITOR=nvim
+
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [ -f /Users/jakub/www/nodus/nodus-backend/src/app/lambda/aws/node_modules/tabtab/.completions/serverless.bash ] && . /Users/jakub/www/nodus/nodus-backend/src/app/lambda/aws/node_modules/tabtab/.completions/serverless.bash

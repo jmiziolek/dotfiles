@@ -1,6 +1,5 @@
 [user]
 	name = Jakub Miziolek
-	signinkey = 4BE29FD62D640B3A
 [http]
 	postBuffer = 524288000
 	sslVerify = false
@@ -9,7 +8,6 @@
 	ci = commit
 	br = branch
 	df = diff
-	dsf = "!git diff --color $@ | diff-so-fancy"
 	lg = log -p
 	st = status -sb
 	ci = commit
@@ -21,7 +19,8 @@
 	pullff = pull --ff-only
 	noff = merge --no-ff
 	ds = diff --stat=160,120
-	dh1 = diff HEAD~1
+	dh = diff HEAD~1
+	dsf = "!git diff --color $@ | diff-so-fancy"
 	lol = log --oneline --graph --all --decorate
 	l = log --graph --pretty="tformat:%C(yellow)%h%Creset\\ %Cgreen(%ar)%Creset\\ %C(cyan)<%an>%Creset\\ %C(magenta)%d%Creset\\ %s"
 	branches = branch -a
@@ -33,12 +32,9 @@
 [url "https://"]
 	insteadOf = git://
 [core]
-	excludesfile = /Users/jakubmiziolek/.gitignore_global
+	excludesfile = /Users/jakub/.gitignore
 	autocrlf = input
 	editor = nvim
-[diff]
-	tool = vimdiff
-	algorithm = patience
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
@@ -53,4 +49,4 @@
 [push]
 	default = current
 [commit]
-	template = /Users/jakubmiziolek/.stCommitMsg
+	template = /Users/jakub/.stCommitMsg
