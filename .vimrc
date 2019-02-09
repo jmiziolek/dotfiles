@@ -75,6 +75,8 @@ Plug 'wellle/targets.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'junegunn/goyo.vim'
 Plug 'wakatime/vim-wakatime'
+Plug 'kassio/neoterm'
+Plug 'janko/vim-test'
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -104,6 +106,7 @@ Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6', { 'for': 'javascript' } " delete candidate
 Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' } " delete candidate
+Plug 'guileen/vim-node-dict'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
@@ -179,7 +182,8 @@ au FocusLost,BufLeave * :call SaveIfUnsaved()
 " neovim terminal cursor highlight
 :hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
-"let &shell='/bin/bash --login' non-login shell used inside terminal mode
+"non-login shell used inside terminal mode
+"let &shell='/bin/bash --login'
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
@@ -197,6 +201,7 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [
 				\ { 'c': '~/.config/nvim/init.vim' },
+				\ { 'd': '~/www/jmdocs/' },
 				\ { 't': '~/Documents/todo.md' },
 				\ { 'n': '~/Documents/notes.md' }
 				\ ]
@@ -249,6 +254,7 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 
 " remove fugitive scratch buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufReadPost term://* set bufhidden=delete
 
 "prevents some security exploits
 set modelines=0
@@ -290,6 +296,7 @@ set lazyredraw
 autocmd VimResized * :wincmd =
 command! -nargs=* ST split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
+command! -nargs=* VV vsplit | :Ter tq<CR>
 
 "disable Entering Ex Mode
 :map Q <Nop>
@@ -440,11 +447,11 @@ nnoremap <silent> <leader>pu :pu<CR>`[=`]
 nnoremap <silent> <leader>po :pu!<CR>`[=`]
 
 "Bubble single lines
-nmap <C-u> ddkP
-nmap <C-d> ddp
+"nmap <C-d> ddkP
+"nmap <C-p> ddp
 "Bubble multiple lines reuires unimpaired plugin
-vmap <C-u> xkP`[V`]
-vmap <C-d> xp`[V`]
+"vmap <C-u> xkP`[V`]
+"vmap <C-d> xp`[V`]
 
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
@@ -457,7 +464,7 @@ nnoremap <silent> p p`]
 
 "let g:ctrlp_cmdpalette_execute = 1
 "better vertical split
-map :vs :vsplit<cr><c-w>l
+"map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
 " reset with <c-w>=
 nmap <C-w>l :vertical res +20<cr>
@@ -497,6 +504,8 @@ nmap <leader>f :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
 nmap <leader>s :Gstatus<CR>
+nmap <leader>c :Gcommit<CR>
+nmap <leader>p :Gpush<CR>
 
 "Home & End with capitalized directions
 noremap H ^
@@ -585,7 +594,7 @@ let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " Tern js
 nmap <leader>td :TernDefPreview<CR>
-nmap <leader>tt :TernDoc<CR>
+nmap <leader>tf :TernDoc<CR>
 nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
@@ -593,6 +602,9 @@ let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 " toggle gundo
 nnoremap <leader>u :MundoToggle<CR>
+
+au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-ode-dict/dict/node.dict
+let g:jsx_ext_required = 1
 
 autocmd BufLeave *.css,*.less,*scss normal! mS
 autocmd BufLeave *.js,*.coffee      normal! mJ

@@ -6,6 +6,8 @@ git_branch() {
 		git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 export PS1="\u@mbp \W\[\033[32m\]\$(git_branch)\[\033[00m\] $ "
+# [\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\
+
 
 alias python='python3'
 export PATH=/usr/local/bin:$PATH
@@ -19,17 +21,18 @@ alias repl='node ~/www/nodejs/repl.js'
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
+alias v.='nvim .'
 alias cat='bat'
 alias find='fd'
 alias cl='clear'
 alias h='cd ~ && ls'
 alias p='cd ~/www/nodus/nodus-backend'
-alias pp='cd ~/www/jmdocs'
+alias d='cd ~/www/jmdocs'
 alias youtubedl='youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn dc:build && docker network create swarm && yarn dc:up'
 alias dockerruns='node ~/www/nodejs/docker.js'
 alias cdg='cd `git rev-parse --show-toplevel`'
-alias tq='node ~/www/nodejs/docker.js && cd ~/www/nodus/nodus-backend && yarn dc:run:web:test'
+alias tq='node ~/www/nodejs/docker.js && cd ~/www/nodus/nodus-backend && yarn dc:run:web:test || true && node ~/www/nodejs/docker.js'
 
 # GIT aliases
 alias gs='git status'
