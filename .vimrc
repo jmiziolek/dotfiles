@@ -691,6 +691,19 @@ augroup pencil
   autocmd FileType text         call pencil#init()
 augroup END
 
+
+function! SwitchWindow(count)
+    if a:count == 0
+        let windownumber = 1
+    else
+        let windownumber = a:count
+    endif
+    let l:current_buf = winbufnr(0)
+    exe "buffer" . winbufnr(windownumber)
+    exe windownumber."wincmd w"
+    exe "buffer" . l:current_buf
+endfunction
+nnoremap leader>wx :<c-u>call SwitchWindow(v:count)<cr>
 "MACROS
 
 "Refactor js function to fat arrow ES6
