@@ -33,6 +33,9 @@ alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a
 alias dockerruns='node ~/www/nodejs/docker.js'
 alias cdg='cd `git rev-parse --show-toplevel`'
 alias tq='node ~/www/nodejs/docker.js && cd ~/www/nodus/nodus-backend && yarn dc:run:web:test || true && node ~/www/nodejs/docker.js'
+alias TQ='tq'
+alias Tq='tq'
+alias tQ='tq'
 
 # GIT aliases
 alias gs='git status'
@@ -94,3 +97,10 @@ mcd () {
 
 source ~/.localrc;
 
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/serverless.bash ] && . /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/serverless.bash
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash ] && . /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash

@@ -48,5 +48,6 @@
 	clean = git-lfs clean -- %f
 [push]
 	default = current
+	followTags = true
 [commit]
 	template = /Users/jakub/.stCommitMsg

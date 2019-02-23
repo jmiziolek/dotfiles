@@ -38,45 +38,46 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-startify'
-Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
-Plug 'adelarsq/vim-matchit'
+Plug 'adelarsq/vim-matchit' " % operator improved
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-eunuch'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
+Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'rking/ag.vim'
-Plug 'moll/vim-bbye'
+Plug 'moll/vim-bbye' " Bdelete
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'simnalamburt/vim-mundo'
-Plug 'tpope/vim-speeddating'
+Plug 'simnalamburt/vim-mundo' " Gundo fork
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'koron/nyancat-vim'
 Plug 'dhruvasagar/vim-vinegar'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular' "filtering and alignment
 Plug 'mtth/scratch.vim'
-Plug 'szw/vim-g'
-Plug 'sickill/vim-pasta'
-Plug 'wincent/ferret'
+Plug 'sickill/vim-pasta' " better pasting
+Plug 'wincent/ferret'  " :Ack and Acks that in fact use rg or ag
 Plug 'terryma/vim-expand-region'
 Plug 'myusuf3/numbers.vim'
-Plug 'wellle/targets.vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'junegunn/goyo.vim'
+Plug 'wellle/targets.vim' " additional text-objects
+"Plug 'Shougo/deoplete.nvim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'wakatime/vim-wakatime'
+Plug 'jiangmiao/auto-pairs'
 Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
+Plug 'dpelle/vim-LanguageTool'
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -86,7 +87,7 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'mazubieta/gitlink-vim'
-Plug 'sodapopcan/vim-twiggy' " Twiggy:
+Plug 'sjl/splice.vim/' " Merge conflicts
 
 "Filetype Specific
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
@@ -97,19 +98,17 @@ Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'reedes/vim-pencil', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript' }
-Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript', 'css', 'html', 'json', 'markdown', 'yaml'] }
+"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript' }
+"Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript', 'css', 'html', 'json', 'markdown', 'yaml'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
-Plug 'isRuslan/vim-es6', { 'for': 'javascript' } " delete candidate
-Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' } " delete candidate
 Plug 'guileen/vim-node-dict'
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+"Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+"Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+"Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 
 call plug#end()
 filetype plugin indent on
@@ -152,8 +151,10 @@ set autowrite
 set cursorline
 set laststatus=2
 set linespace=2
+set nrformats-=octal
 set incsearch
 set inccommand="split"
+
 set nowrap
 set title
 "set list lcs=trail:Â·,tab:Â»Â·
@@ -161,11 +162,13 @@ set wildmenu
 set wildmode=list:longest
 set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.o,*.out,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*node_modules                    " nodejs modules
-set wildignore+=*fixtures												 " test files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+set switchbuf=useopen " switch to the open buffer in another split?!
 
 set colorcolumn=80
 set synmaxcol=120
@@ -189,6 +192,7 @@ let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
 let daystill = systemlist('/Users/jakub/dotfiles/deadline.sh')[0]
 
+set sessionoptions-=options
 let g:startify_custom_header = [ daystill ]
 let g:startify_files_number = 5
 
@@ -223,7 +227,8 @@ let g:bufferline_rotate = 2
 let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
 
 let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'] }
-let g:ale_fixers = { 'javascript': ['prettier', 'eslint'] }
+let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'],}
+"let g:prettier#autoformat = 0 from vim-prettier
 "let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
@@ -241,7 +246,7 @@ let g:signify_disable_by_default = 0
 let g:signify_vcs_list = ['git']
 
 " :GitLink for github link cmd + click to open
-command GitLink :echo gitlink#GitLink()
+command! GitLink :echo gitlink#GitLink()
 
 " disable <C-l> as jsdoc mapping
 let g:jsdoc_default_mapping = 0
@@ -278,6 +283,9 @@ set noswapfile
 "updatetime 1sec, writes swap file ;-)
 set updatetime=1000
 set ssop-=folds " do not store folds
+set foldmethod=indent
+set foldnestmax=3
+set nofoldenable
 " Height of the command bar
 set cmdheight=1
 
@@ -296,10 +304,12 @@ set lazyredraw
 autocmd VimResized * :wincmd =
 command! -nargs=* ST split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
-command! -nargs=* VV vsplit | :Ter tq<CR>
+command! -nargs=* VV :vert Tnew tq<CR>
 
 "disable Entering Ex Mode
 :map Q <Nop>
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
@@ -314,7 +324,7 @@ map <C-left> :bp<cr>
 
 set completeopt-=preview
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -349,11 +359,18 @@ nnoremap D d$
 
 "Keep search pattern at the center of the screen
 nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
+noremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
+" Same when jumping around
+nnoremap <silent> g; g;zz
+nnoremap <silent> g, g,zz
+
+" Easy buffer navigation
+noremap <leader>bp :bprevious<cr>
+noremap <leader>bn :bnext<cr>
 
  " When editing a file, always jump to the last known cursor position.
 autocmd BufReadPost *
@@ -368,7 +385,7 @@ au BufNewFile,BufRead *.php set cindent
 au BufNewFile,BufRead *.js set cindent
 
 " Create parent folder when saving file
-function s:MkNonExDir(file, buf)
+function! s:MkNonExDir(file, buf)
   if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
     let dir=fnamemodify(a:file, ':h')
     if !isdirectory(dir)
@@ -402,10 +419,14 @@ vnoremap <tab> %
 nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
-"SilverSearcher config
-nnoremap <C-s> :Ag 
+"Searcher config
+nnoremap <C-s> :Ack 
 
 let g:ag_working_path_mode='r'
+
+if has('path_extra')
+	setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
 
 "persistent undo file
 " undodir OS dependent
@@ -439,23 +460,36 @@ let php_htmlInStrings=1
 "Helpeful abbreviations
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-
-set pastetoggle=<F2>
+cabbrev A Ack
+cabbrev Ag Ack
+let g:pasta_paste_before_mapping = ',P'
+let g:pasta_paste_after_mapping = ',p'
 
 " put under/over with indentation
 nnoremap <silent> <leader>pu :pu<CR>`[=`]
 nnoremap <silent> <leader>po :pu!<CR>`[=`]
 
-"Bubble single lines
-"nmap <C-d> ddkP
-"nmap <C-p> ddp
-"Bubble multiple lines reuires unimpaired plugin
-"vmap <C-u> xkP`[V`]
-"vmap <C-d> xp`[V`]
+" Bubbling lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
 let g:ctrlp_map = '<leader><Space>'
+" Use Silver Searcher for CtrlP plugin (if available)
+" Fallback to git ls-files for fast listing.
+" Because we use fast strategies, disable caching.
+let g:ctrlp_use_caching = 0
+if executable('ag')
+		set grepprg=ag\ --nogroup\ --nocolor
+		let g:ctrlp_user_command = 'cd %s && ag -l --nocolor -g ""'
+else
+	let g:ctrlp_user_command = ['.git',
+		\ 'cd %s && git ls-files . -co --exclude-standard',
+		\ 'find %s -type f' ]
+endif
 
 " jump to end of pasted text
 vnoremap <silent> y y`]
@@ -486,15 +520,11 @@ let NERDTreeHijackNetrw=1
 let NERDTreeMinimalUI=1
 "Show hidden files in NerdTree
 let NERDTreeShowHidden=1
-let NERDTreeChDirMode=2
+let NERDTreeChDirMode=1
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$',
-            \ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$','\.DS_Store$',
-            \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-            \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-            \ '\.intermediate\.manifest$', '^mt.dep$' ]
+            \'\.pyc$', '\.swp$', '\.egg-info$','\.DS_Store$' ]
 
 
 " clear search highlight
@@ -568,6 +598,7 @@ nnoremap <D-p> :cprevious<CR>
 inoremap jk <Esc>
 inoremap kj <Esc>
 nmap <space> :
+inoremap <C-U> <C-G>u<C-U>
 
 " console remaps
 :cnoremap <C-b>  <Left>
@@ -592,10 +623,11 @@ let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-" Tern js
-nmap <leader>td :TernDefPreview<CR>
-nmap <leader>tf :TernDoc<CR>
-nmap <leader>tr :TernRename<CR>
+" Tern js replaced by TServer
+autocmd FileType javascript nmap <buffer> <leader>td :YcmCompleter GoTo<CR>
+"nmap <leader>td :TernDefPreview<CR>
+"nmap <leader>tf :TernDoc<CR>
+"nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
 let g:tern#command = ["tern"]
@@ -606,9 +638,10 @@ nnoremap <leader>u :MundoToggle<CR>
 au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-ode-dict/dict/node.dict
 let g:jsx_ext_required = 1
 
+" Automatically mark files for quick access
 autocmd BufLeave *.css,*.less,*scss normal! mS
 autocmd BufLeave *.js,*.coffee      normal! mJ
-autocmd BufLeave */test/*,*/spec/*  normal! mT
+autocmd BufLeave */test/*,*/tests/*,*.test.js,*.spec.js  normal! mT
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " nested syntax highlighting for *.md
@@ -634,6 +667,8 @@ for item in items
   exe "nnoremap vi".item." T".item."vt".item
   exe "nnoremap va".item." F".item."vf".item
 endfor
+
+nnoremap <leader>tc :<c-u>exec v:count.'Tclear'<cr>
 
 nnoremap viz v[zo]z$
 
@@ -691,6 +726,16 @@ augroup pencil
   autocmd FileType text         call pencil#init()
 augroup END
 
+" Make sure pasting in visual mode doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
 
 function! SwitchWindow(count)
     if a:count == 0
@@ -703,7 +748,14 @@ function! SwitchWindow(count)
     exe windownumber."wincmd w"
     exe "buffer" . l:current_buf
 endfunction
-nnoremap leader>wx :<c-u>call SwitchWindow(v:count)<cr>
+nnoremap <leader>wx :<c-u>call SwitchWindow(v:count)<cr>
+
+function! GoogleSearch()
+     let searchterm = getreg("g")
+     silent! exec "silent! !open \"https://google.com/search?q=" . searchterm . "\" &"
+endfunction
+vnoremap <leader>g "gy<Esc>:call GoogleSearch()<CR>
+
 "MACROS
 
 "Refactor js function to fat arrow ES6
