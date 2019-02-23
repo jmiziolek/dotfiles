@@ -53,12 +53,13 @@ source ~/.bash_profile
 # Install apps
 paragraph 'Homebrew apps'
 
+brew cask install google-chrome
+brew cask install docker
 brew cask install vlc
 brew cask install iterm2
 brew cask install the-unarchiver
 brew cask install smcfancontrol
 brew cask install java
-brew cask install github
 brew cask install postman
 
 brew install atomicparsley
@@ -71,7 +72,6 @@ brew install ctags
 brew install fd
 brew install ffmpeg
 brew install fzf
-brew install git
 brew install git
 brew install git-crypt
 brew install git-extras
@@ -86,12 +86,10 @@ brew install node
 brew install prettyping
 brew install ranger
 brew install rbenv
-brew install redis
 brew install rlwrap
-brew install the_silver_searcher
+brew install ripgrep
 brew install tig
 brew install tree
-brew install w3m
 brew install wine
 brew install yamllint
 brew install yarn
@@ -113,4 +111,3 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Cleanup after installation
 paragraph 'Clean up'
 brew cleanup
-rm -f -r /Library/Caches/Homebrew/*
