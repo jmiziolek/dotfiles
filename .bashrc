@@ -2,6 +2,8 @@ set -o vi
 export CLICOLOR=1
 export GIT_DIFF_OPTS=-u0
 export GPG_TTY=$(tty)
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 git_branch() {
 		git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -104,3 +106,4 @@ source ~/.localrc;
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [ -f /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash ] && . /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash
+

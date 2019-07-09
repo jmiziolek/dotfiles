@@ -3,6 +3,7 @@
 " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " pip3 install --upgrade neovim
+" in .local/share/nvim/plugged/YouCompleteMe/third_party/ycmd run: npm install -g --prefix third_party/tsserver typescript
 " :UpdateRemotePlugins
 set nocompatible
 
@@ -97,7 +98,7 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'reedes/vim-pencil', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+"Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript' }
 "Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript', 'css', 'html', 'json', 'markdown', 'yaml'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
@@ -116,11 +117,11 @@ filetype plugin indent on
 "set langmenu=none
 "language messages en
 set encoding=utf-8
+set termencoding=utf-8
 set selectmode=
 "colors in terminal
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
-set termencoding=utf-8
 
 
 " get rid of the silly characters in separators
@@ -139,7 +140,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 "set expandtab
-set guifont=Sauce\ Code\ Powerline:h13
+set guifont=Sauce\ Code\ Powerline:h18
 set smartindent
 set smarttab
 set autoindent
@@ -165,7 +166,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.out,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*node_modules                    " nodejs modules
+set wildignore+=*/node_modules/*								 " nodejs modules
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 
 set switchbuf=useopen " switch to the open buffer in another split?!
@@ -190,7 +191,7 @@ au FocusLost,BufLeave * :call SaveIfUnsaved()
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
-let daystill = systemlist('/Users/jakub/dotfiles/deadline.sh')[0]
+let daystill = systemlist('~/dotfiles/deadline.sh')[0]
 
 set sessionoptions-=options
 let g:startify_custom_header = [ daystill ]
@@ -207,7 +208,8 @@ let g:startify_bookmarks = [
 				\ { 'c': '~/.config/nvim/init.vim' },
 				\ { 'd': '~/www/jmdocs/' },
 				\ { 't': '~/Documents/todo.md' },
-				\ { 'n': '~/Documents/notes.md' }
+				\ { 'n': '~/Documents/notes.md' },
+				\ { 'p': '~/www/kw/kc-notes.md' }
 				\ ]
 
 " ariline  custom fonts
@@ -462,8 +464,8 @@ iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
 cabbrev A Ack
 cabbrev Ag Ack
-let g:pasta_paste_before_mapping = ',P'
-let g:pasta_paste_after_mapping = ',p'
+let g:pasta_paste_before_mapping = 'gP'
+let g:pasta_paste_after_mapping = 'gp'
 
 " put under/over with indentation
 nnoremap <silent> <leader>pu :pu<CR>`[=`]
@@ -625,6 +627,7 @@ let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
 " Tern js replaced by TServer
 autocmd FileType javascript nmap <buffer> <leader>td :YcmCompleter GoTo<CR>
+autocmd FileType javascript nmap <buffer> <leader>tr :YcmCompleter RefactorRename
 "nmap <leader>td :TernDefPreview<CR>
 "nmap <leader>tf :TernDoc<CR>
 "nmap <leader>tr :TernRename<CR>

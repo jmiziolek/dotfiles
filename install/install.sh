@@ -27,7 +27,6 @@ paragraph 'Symlinks'
 ln -svf ~/.dotfiles/.bash_profile ~/.bash_profile
 ln -svf ~/.dotfiles/.bashrc ~/.bashrc
 ln -svf ~/.dotfiles/.gitconfig ~/.gitconfig
-source ~/.bash_profile
 
 # Install xcode
 paragraph 'XCode'
@@ -48,7 +47,6 @@ mkdir ~/.nvm
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 nvm install stable
-source ~/.bash_profile
 
 # Install apps
 paragraph 'Homebrew apps'
@@ -107,6 +105,8 @@ npm install -g npx
 npm install -g serverless
 
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+defaults write -g InitialKeyRepeat -int 15
+defaults write -g KeyRepeat -int 2
 
 # Cleanup after installation
 paragraph 'Clean up'

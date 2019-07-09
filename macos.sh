@@ -61,8 +61,8 @@ sudo nvram boot-args="-v"
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
-# Set sidebar icon size to medium
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
+# Set sidebar icon size to big
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 3
 
 # Increase window resize speed for Cocoa applications
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -247,7 +247,7 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+defaults write com.apple.dock tilesize -int 128
 
 # Change minimize/maximize window effect to scale
 defaults write com.apple.dock mineffect -string "scale"

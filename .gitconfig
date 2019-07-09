@@ -50,4 +50,4 @@
 	default = current
 	followTags = true
 [commit]
-	template = /Users/jakub/.stCommitMsg
+	template = ~/.stCommitMsg
