@@ -72,13 +72,13 @@ Plug 'wincent/ferret'  " :Ack and Acks that in fact use rg or ag
 Plug 'terryma/vim-expand-region'
 Plug 'myusuf3/numbers.vim'
 Plug 'wellle/targets.vim' " additional text-objects
-"Plug 'Shougo/deoplete.nvim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'wakatime/vim-wakatime'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
 Plug 'dpelle/vim-LanguageTool'
+
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -88,7 +88,7 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'mazubieta/gitlink-vim'
-Plug 'sjl/splice.vim/' " Merge conflicts
+Plug 'sjl/splice.vim' " Merge conflicts
 
 "Filetype Specific
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
@@ -98,9 +98,6 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'reedes/vim-pencil', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
-"Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
-"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript' }
-"Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript', 'css', 'html', 'json', 'markdown', 'yaml'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
@@ -173,6 +170,9 @@ set switchbuf=useopen " switch to the open buffer in another split?!
 
 set colorcolumn=80
 set synmaxcol=120
+
+set winheight=30
+set winwidth=80
 
 "" Autosave only when there is something to save. Always saving makes build
 " watchers crazy

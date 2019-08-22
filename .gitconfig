@@ -1,5 +1,6 @@
 [user]
 	name = Jakub Miziolek
+	email = jmiziolek@users.noreply.github.com
 [http]
 	postBuffer = 524288000
 	sslVerify = false
@@ -29,6 +30,7 @@
 	d = difftool
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
+	sync= !git fetch --all --prune && git rebase -p --autostash <user_input>
 [url "https://"]
 	insteadOf = git://
 [core]
