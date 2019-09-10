@@ -118,11 +118,9 @@ set termencoding=utf-8
 set selectmode=
 "colors in terminal
 set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-
 
 " get rid of the silly characters in separators
-"set fillchars = ""
+set fillchars = ""
 
 syntax on
 colorscheme gruvbox
@@ -155,7 +153,6 @@ set inccommand="split"
 
 set nowrap
 set title
-"set list lcs=trail:Â·,tab:Â»Â·
 set wildmenu
 set wildmode=list:longest
 set wildignore+=.hg,.git,.svn                    " Version control
@@ -170,17 +167,9 @@ set switchbuf=useopen " switch to the open buffer in another split?!
 
 set colorcolumn=80
 set synmaxcol=120
-
 set winheight=30
 set winwidth=80
 
-"" Autosave only when there is something to save. Always saving makes build
-" watchers crazy
-function! SaveIfUnsaved()
-    if &modified
-        :silent! w
-    endif
-endfunction
 au FocusLost,BufLeave * :call SaveIfUnsaved()
 
 " neovim terminal cursor highlight
@@ -324,31 +313,10 @@ imap <C-o> <CR><Esc>O
 map <C-right> :bn<cr>
 map <C-left> :bp<cr>
 
+" Arrow and spaces with ctrl + a
+imap <c-a> <space>=><space>
+
 set completeopt-=preview
-" Use deoplete.
-"let g:deoplete#enable_at_startup = 1
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
 nmap <leader>bc :Bdelete<CR>
 "Make Y behave like other capitals
 map Y y$
@@ -386,20 +354,6 @@ augroup END
 au BufNewFile,BufRead *.php set cindent
 au BufNewFile,BufRead *.js set cindent
 
-" Create parent folder when saving file
-function! s:MkNonExDir(file, buf)
-  if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-    let dir=fnamemodify(a:file, ':h')
-    if !isdirectory(dir)
-      call mkdir(dir, 'p')
-    endif
-  endif
-endfunction
-augroup BWCCreateDir
-  autocmd!
-  autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
-
 "Remove the Windows ^M - when the encodings gets messed up
 noremap <F6> mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
@@ -431,7 +385,6 @@ if has('path_extra')
 endif
 
 "persistent undo file
-" undodir OS dependent
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
@@ -451,7 +404,6 @@ set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
 
 autocmd FileType sass,scss setlocal omnifunc=csscomplete#CompleteCSS
-
 " tabs for makefiles
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
@@ -498,7 +450,6 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
-"let g:ctrlp_cmdpalette_execute = 1
 "better vertical split
 "map :vs :vsplit<cr><c-w>l
 " Resize windows quickly
@@ -512,9 +463,6 @@ nmap <C-w>k :res -20<cr>
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
-"Shortcut for NERDTreeToggle
-"nmap <leader>nt :NERDTreeToggle<cr>
-"view the current buffer in NERDTree
 map <leader>r :NERDTreeFind<cr>
 " Show the bookmarks table on startup
 let NERDTreeShowBookmarks=1
@@ -527,7 +475,6 @@ let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
             \'\.pyc$', '\.swp$', '\.egg-info$','\.DS_Store$' ]
-
 
 " clear search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
@@ -628,9 +575,6 @@ let g:UltiSnipsJumpForwardTrigger="<C-j>"
 " Tern js replaced by TServer
 autocmd FileType javascript nmap <buffer> <leader>td :YcmCompleter GoTo<CR>
 autocmd FileType javascript nmap <buffer> <leader>tr :YcmCompleter RefactorRename
-"nmap <leader>td :TernDefPreview<CR>
-"nmap <leader>tf :TernDoc<CR>
-"nmap <leader>tr :TernRename<CR>
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_show_signature_in_pum = 1
 let g:tern#command = ["tern"]
@@ -676,15 +620,6 @@ nnoremap <leader>tc :<c-u>exec v:count.'Tclear'<cr>
 nnoremap viz v[zo]z$
 
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-function! QuickfixFilenames()
-  " Building a hash ensures we get each buffer only once
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
-endfunction
-
 let g:jiracomplete_format = 'v:val.abbr . " - " . v:val.menu'
 
 "so ~/local.vim
@@ -713,6 +648,9 @@ endif
 
 " execute macro over visual selection
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+
+" FUNCTIONS
 
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
@@ -759,7 +697,78 @@ function! GoogleSearch()
 endfunction
 vnoremap <leader>g "gy<Esc>:call GoogleSearch()<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RemoveFancyCharacters COMMAND
+" Remove smart quotes, etc.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RemoveFancyCharacters()
+    let typo = {}
+    let typo["“"] = '"'
+    let typo["”"] = '"'
+    let typo["‘"] = "'"
+    let typo["’"] = "'"
+    let typo["–"] = '--'
+    let typo["—"] = '---'
+    let typo["…"] = '...'
+    :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
+endfunction
+command! RemoveFancyCharacters :call RemoveFancyCharacters()
+
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
+
+" Create parent folder when saving file
+function! s:MkNonExDir(file, buf)
+  if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+    let dir=fnamemodify(a:file, ':h')
+    if !isdirectory(dir)
+      call mkdir(dir, 'p')
+    endif
+  endif
+endfunction
+augroup BWCCreateDir
+  autocmd!
+  autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+"" Autosave only when there is something to save.
+function! SaveIfUnsaved()
+    if &modified
+        :silent! w
+    endif
+endfunction
+
+
 "MACROS
 
 "Refactor js function to fat arrow ES6
 let @e='dwf)a => '
+"Change to http and switch domain to localhost
+let @w="fsxf/lldt/ilocalhost:3000"

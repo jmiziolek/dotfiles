@@ -28,13 +28,17 @@ alias cat='bat'
 alias find='fd'
 alias cl='clear'
 alias h='cd ~ && ls'
-alias p='cd ~/www/nodus/nodus-backend'
+alias p='cd ~/www/kw'
 alias d='cd ~/www/jmdocs'
 alias youtubedl='youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn dc:build && docker network create swarm && yarn dc:up'
 alias dockerruns='node ~/www/nodejs/docker.js'
+alias hb='hub browse'
+alias hpr='hub pull-request'
 alias cdg='cd `git rev-parse --show-toplevel`'
-alias tq='node ~/www/nodejs/docker.js && cd ~/www/nodus/nodus-backend && yarn dc:run:web:test || true && node ~/www/nodejs/docker.js'
+alias tq='npm run test'
+alias tqw='npm run test -- --watch'
+alias nrd='npm run start:dev'
 alias TQ='tq'
 alias Tq='tq'
 alias tQ='tq'
@@ -98,6 +102,7 @@ mcd () {
 }
 
 source ~/.localrc;
+source ~/www/bash-wakatime/bash-wakatime.sh
 
 
 # tabtab source for serverless package
@@ -107,3 +112,10 @@ source ~/.localrc;
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [ -f /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash ] && . /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash
 
+export NVM_DIR="$HOME/.nvm"
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# added by travis gem
+[ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh

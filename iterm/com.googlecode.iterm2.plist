@@ -777,7 +777,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>0 448 770 429 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 814 890 603 0 0 2560 1417 </string>
+	<string>960 0 472 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 0 1440 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1448,7 +1448,7 @@
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
-			<string>Prism</string>
+			<string>tty</string>
 			<key>Non Ascii Font</key>
 			<string>Monaco 12</string>
 			<key>Non-ASCII Anti Aliased</key>
@@ -1586,9 +1586,9 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {2560, 1440}}</string>
+		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{366, 1024}</string>
+		<string>{237, 797}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -1597,7 +1597,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>70931DC1-C922-4B67-BBFD-51E96566756F</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>16</integer>
+	<integer>25</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2303,6 +2303,19 @@
 		<string>quote-reques</string>
 		<string>get-pro</string>
 	</array>
+	<key>NoSyncSearchHistory2</key>
+	<array>
+		<string>mine_sbside</string>
+		<string>mine_ss</string>
+		<string>mine_sbu</string>
+		<string>amount_of_children</string>
+		<string>prox</string>
+		<string>statusCode</string>
+		<string>ssss</string>
+		<string>confi</string>
+		<string>Http</string>
+		<string>siege</string>
+	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>572611392.45928705</real>
 	<key>OpenArrangementAtStartup</key>
@@ -2365,7 +2378,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-08-22T09:10:19Z</date>
+	<date>2019-09-04T11:20:15Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
