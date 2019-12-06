@@ -7,6 +7,13 @@
 " :UpdateRemotePlugins
 set nocompatible
 
+" Install vim-plug automatically if not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 if has("win32") || has("win16")
     set ffs=dos
     set shell=cmd.exe
@@ -39,6 +46,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-startify'
+"Plug 'justinmk/vim-dirvish'
 Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
@@ -53,7 +61,6 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
-Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -73,12 +80,10 @@ Plug 'terryma/vim-expand-region'
 Plug 'myusuf3/numbers.vim'
 Plug 'wellle/targets.vim' " additional text-objects
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
-Plug 'wakatime/vim-wakatime'
-Plug 'jiangmiao/auto-pairs'
+Plug 'cohama/lexima.vim'
 Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
 Plug 'dpelle/vim-LanguageTool'
-
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -135,7 +140,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 "set expandtab
-set guifont=Sauce\ Code\ Powerline:h18
+set guifont=Sauce\ Code\ Powerline:h16
 set smartindent
 set smarttab
 set autoindent
@@ -163,7 +168,8 @@ set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*/node_modules/*								 " nodejs modules
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 
-set switchbuf=useopen " switch to the open buffer in another split?!
+"set switchbuf=useopen " switch to the open buffer in another split?!
+let g:dirvish_mode = ':sort ,^.*[\/],'
 
 set colorcolumn=80
 set synmaxcol=120
@@ -181,6 +187,8 @@ let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
 let daystill = systemlist('~/dotfiles/deadline.sh')[0]
+" Lexima does not double spaces
+let g:lexima_enable_space_rules=0
 
 set sessionoptions-=options
 let g:startify_custom_header = [ daystill ]
@@ -217,8 +225,8 @@ let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
 let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
 
-let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'] }
-let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'],}
+let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'], 'json': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
 "let g:prettier#autoformat = 0 from vim-prettier
 "let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
@@ -414,6 +422,7 @@ let php_htmlInStrings=1
 "Helpeful abbreviations
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+iab svc0 https://svc2.kellercovered.io/kc-mgr-session/api/v1
 cabbrev A Ack
 cabbrev Ag Ack
 let g:pasta_paste_before_mapping = 'gP'
@@ -432,17 +441,19 @@ vmap <C-Down> ]egv
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>b :CtrlPBuffer<CR>
 let g:ctrlp_map = '<leader><Space>'
-" Use Silver Searcher for CtrlP plugin (if available)
+  let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+" Use ripgrep for CtrlP plugin (if available)
 " Fallback to git ls-files for fast listing.
 " Because we use fast strategies, disable caching.
-let g:ctrlp_use_caching = 0
-if executable('ag')
-		set grepprg=ag\ --nogroup\ --nocolor
-		let g:ctrlp_user_command = 'cd %s && ag -l --nocolor -g ""'
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
 else
 	let g:ctrlp_user_command = ['.git',
 		\ 'cd %s && git ls-files . -co --exclude-standard',
 		\ 'find %s -type f' ]
+	let g:ctrlp_use_caching = 1
 endif
 
 " jump to end of pasted text
@@ -485,6 +496,7 @@ nmap <leader>ch :!open -a "Google Chrome" %<CR>
 nmap <leader>s :Gstatus<CR>
 nmap <leader>c :Gcommit<CR>
 nmap <leader>p :Gpush<CR>
+nmap <leader>x :ALEFix<CR>
 
 "Home & End with capitalized directions
 noremap H ^
@@ -572,13 +584,8 @@ let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-" Tern js replaced by TServer
 autocmd FileType javascript nmap <buffer> <leader>td :YcmCompleter GoTo<CR>
 autocmd FileType javascript nmap <buffer> <leader>tr :YcmCompleter RefactorRename
-let g:tern_show_argument_hints = 'on_hold'
-let g:tern_show_signature_in_pum = 1
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
 " toggle gundo
 nnoremap <leader>u :MundoToggle<CR>
 
@@ -589,6 +596,14 @@ let g:jsx_ext_required = 1
 autocmd BufLeave *.css,*.less,*scss normal! mS
 autocmd BufLeave *.js,*.coffee      normal! mJ
 autocmd BufLeave */test/*,*/tests/*,*.test.js,*.spec.js  normal! mT
+
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " nested syntax highlighting for *.md
@@ -660,11 +675,6 @@ endfunction
 augroup pencil
   autocmd!
 	  autocmd FileType markdown,mkd call pencil#init()
-	"\ | call lexical#init()
-	\ | call litecorrect#init()
-	\ | call textobj#quote#init()
-	\ | call textobj#sentence#init()
-  autocmd FileType text         call pencil#init()
 augroup END
 
 " Make sure pasting in visual mode doesn't replace paste buffer

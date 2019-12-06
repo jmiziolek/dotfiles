@@ -1,0 +1,31 @@
+{
+    "extends": [
+      "airbnb-base",
+      "plugin:you-dont-need-lodash-underscore/compatible",
+      "plugin:security/recommended"
+    ],
+    "env": {
+      "jest/globals": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "plugins": [
+      "jest",
+      "security"
+    ],
+    "rules": {
+      "arrow-body-style": [
+        "error",
+        "as-needed",
+        {
+          "requireReturnForObjectLiteral": true
+        }
+      ],
+      "indent": [
+        "error",
+        2
+      ],
+      "security/detect-object-injection": 0
+    }
+  }
