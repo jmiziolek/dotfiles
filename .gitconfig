@@ -17,6 +17,7 @@
 	dc = diff --cached
 	aa = add --all
 	ff = merge --ff-only
+	tt = describe --abbrev=0 --tags
 	pullff = pull --ff-only
 	noff = merge --no-ff
 	ds = diff --stat=160,120
@@ -31,6 +32,7 @@
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	sync= !git fetch --all --prune && git rebase -p --autostash <user_input>
+	identity= ! git config user.name "$(git config user.$1.name)"; git config user.email "$(git config user.$1.email)"; git config user.signingkey "$(git config user.$1.signingkey)"; : https://www.micah.soy/posts/setting-up-git-identities/
 [url "https://"]
 	insteadOf = git://
 [core]

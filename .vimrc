@@ -3,7 +3,7 @@
 " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " pip3 install --upgrade neovim
-" in .local/share/nvim/plugged/YouCompleteMe/third_party/ycmd run: npm install -g --prefix third_party/tsserver typescript
+" BUGGY in .local/share/nvim/plugged/YouCompleteMe/third_party/ycmd run: npm install -g --prefix third_party/tsserver typescript BUGGY
 " :UpdateRemotePlugins
 set nocompatible
 
@@ -46,7 +46,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-startify'
-"Plug 'justinmk/vim-dirvish'
 Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
@@ -59,6 +58,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-dadbod'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
@@ -77,16 +77,18 @@ Plug 'mtth/scratch.vim'
 Plug 'sickill/vim-pasta' " better pasting
 Plug 'wincent/ferret'  " :Ack and Acks that in fact use rg or ag
 Plug 'terryma/vim-expand-region'
-Plug 'myusuf3/numbers.vim'
 Plug 'wellle/targets.vim' " additional text-objects
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'cohama/lexima.vim'
 Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
 Plug 'dpelle/vim-LanguageTool'
+Plug 'sedm0784/vim-you-autocorrect'
 
 " Colors
 Plug 'morhetz/gruvbox'
+Plug 'dylanaraps/wal.vim'
+Plug 'arcticicestudio/nord-vim'
 
 " VCS
 Plug 'mhinz/vim-signify'
@@ -96,6 +98,7 @@ Plug 'mazubieta/gitlink-vim'
 Plug 'sjl/splice.vim' " Merge conflicts
 
 "Filetype Specific
+Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 Plug 'othree/html5.vim', {'for': 'html'}
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
@@ -106,12 +109,9 @@ Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown'
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
-Plug 'guileen/vim-node-dict'
-"Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-"Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
-"Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+Plug 'guileen/vim-node-dict', {'for': 'javascript'}
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 
 call plug#end()
 filetype plugin indent on
@@ -120,6 +120,10 @@ filetype plugin indent on
 "language messages en
 set encoding=utf-8
 set termencoding=utf-8
+augroup TerminalStuff
+   au!
+  autocmd TermOpen * setlocal nonumber norelativenumber
+augroup END
 set selectmode=
 "colors in terminal
 set t_Co=256
@@ -129,18 +133,23 @@ set fillchars = ""
 
 syntax on
 colorscheme gruvbox
-set background=dark
+"colorscheme wal
+set background=light
 set autoread
+set spell
 set backspace=indent,eol,start
 set eol
-set number
+set number relativenumber
+"au TermOpen * setlocal nonumber norelativenumber
+"au TermEnter * setlocal nonumber norelativenumber
+"au TermLeave * setlocal nonumber norelativenumber
 set nobackup
 set history=1000
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 "set expandtab
-set guifont=Sauce\ Code\ Powerline:h16
+set guifont=Sauce\ Code\ Powerline:h14
 set smartindent
 set smarttab
 set autoindent
@@ -223,10 +232,11 @@ let g:airline#extensions#default#section_truncate_width = {
 	\ }
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
-let g:used_javascript_libs = 'underscore,angularjs,angularui,react,chai,jasmine'
 
-let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'], 'json': ['prettier'] }
-let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
+let g:javascript_plugin_jsdoc = 1
+
+let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'], 'json': ['prettier', 'jsonlint'], 'typescript': ['tslint'] }
+let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier', 'eslint'], 'json': ['prettier', ''], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
 "let g:prettier#autoformat = 0 from vim-prettier
 "let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
@@ -415,6 +425,11 @@ autocmd FileType sass,scss setlocal omnifunc=csscomplete#CompleteCSS
 " tabs for makefiles
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
+"augroup ILoveCorrections
+ "autocmd!
+ "autocmd FileType markdown,txt EnableAutocorrect
+"augroup END
+
 " PHP Generated Code Highlights (HTML & SQL)
 let php_sql_query=1
 let php_htmlInStrings=1
@@ -474,9 +489,8 @@ nmap <C-w>k :res -20<cr>
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
-map <leader>r :NERDTreeFind<cr>
 " Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
+let NERDTreeShowBookmarks=0
 let NERDTreeHijackNetrw=1
 let NERDTreeMinimalUI=1
 "Show hidden files in NerdTree
@@ -707,6 +721,7 @@ function! GoogleSearch()
 endfunction
 vnoremap <leader>g "gy<Esc>:call GoogleSearch()<CR>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RemoveFancyCharacters COMMAND
 " Remove smart quotes, etc.
@@ -775,6 +790,23 @@ function! SaveIfUnsaved()
     endif
 endfunction
 
+"function BEncode() range
+  "echo system('echo -n '.shellescape(getline(a:firstline, a:lastline)).'| base64')
+"endfunction
+
+"function BDecode() range
+  "echo system('echo -n '.shellescape(getline(a:firstline, a:lastline)).'| base64 -D')
+"endfunction
+
+"function Test() range
+  "echo system('echo '.shellescape(join(getline(a:firstline, a:lastline), "\n")).'| pbcopy')
+"endfunction
+"
+
+"xnoremap <leader>be <esc>:'<,'>:w !base64 -<CR>
+"
+vnoremap <leader>bd "by<Esc>:call system('base64 -d', @b)<CR>
+vnoremap <leader>be "by<Esc>:call system('base64', @b)<CR>
 
 "MACROS
 

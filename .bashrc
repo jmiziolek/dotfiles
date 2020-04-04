@@ -21,9 +21,9 @@ alias cpa='cmus-remote --pause'
 alias cmo='node ~/dotfiles/cmo.js'
 alias repl='node ~/www/nodejs/repl.js'
 alias vim='nvim'
-alias vi='nvim'
-alias v='nvim'
-alias v.='nvim .'
+alias vi='vim'
+alias v='vim'
+alias v.='vim .'
 alias cat='bat'
 alias find='fd'
 alias cl='clear'
@@ -42,6 +42,8 @@ alias nrd='npm run start:dev'
 alias TQ='tq'
 alias Tq='tq'
 alias tQ='tq'
+alias ww='curl wttr.in/Lublin?m'
+alias www='curl wttr.in/Lublin?format=v2'
 
 # GIT aliases
 alias gs='git status'
@@ -101,21 +103,20 @@ mcd () {
 	cd "$1"
 }
 
+# ESC goes into normal mode where most things work just like in vim
+set editing-mode vi
+set keymap vi-command
+
 source ~/.localrc;
-source ~/www/bash-wakatime/bash-wakatime.sh
-
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/serverless.bash ] && . /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash ] && . /Users/jakub/www/nodus/nodus-backend/lambda/node_modules/tabtab/.completions/sls.bash
 
 export NVM_DIR="$HOME/.nvm"
-
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # added by travis gem
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
+
+source /Users/jakubmiziolek/Library/Preferences/org.dystroy.broot/launcher/bash/br
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
