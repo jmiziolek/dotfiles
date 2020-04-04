@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# usage ./release.sh "Release name" v1.1.1
+
+echo $1 > temp.txt
+echo "" >> temp.txt # blank line
+# add commit messages to release description
+git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:%s >> temp.txt
+# o and c options does not work inside script :/ whateva
+hub release create -oc --file temp.txt $2
+rm temp.txt
+git fetch --tags
