@@ -44,7 +44,6 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
@@ -84,6 +83,7 @@ Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
 Plug 'dpelle/vim-LanguageTool'
 Plug 'sedm0784/vim-you-autocorrect'
+Plug 'liuchengxu/vim-which-key'
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -91,27 +91,33 @@ Plug 'dylanaraps/wal.vim'
 Plug 'arcticicestudio/nord-vim'
 
 " VCS
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'mazubieta/gitlink-vim'
 Plug 'sjl/splice.vim' " Merge conflicts
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+
 "Filetype Specific
+Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 Plug 'othree/html5.vim', {'for': 'html'}
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'reedes/vim-pencil', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
-Plug 'moll/vim-node', { 'for': 'javascript' }
+Plug 'moll/vim-node', { 'for': 'javascript,typescript,ts' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
-Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
-Plug 'guileen/vim-node-dict', {'for': 'javascript'}
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript,ts' }
+Plug 'othree/es.next.syntax.vim', { 'for': 'javascript,typescript,ts' }
+Plug 'guileen/vim-node-dict', {'for': 'javascript,typescript,ts'}
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript,ts' }
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'jparise/vim-graphql'
 
 call plug#end()
 filetype plugin indent on
@@ -134,9 +140,16 @@ set fillchars = ""
 syntax on
 colorscheme gruvbox
 "colorscheme wal
-set background=light
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+let g:gruvbox_invert_selection='0'
 set autoread
 set spell
+set spelllang=en_us,pl
 set backspace=indent,eol,start
 set eol
 set number relativenumber
@@ -181,7 +194,7 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 let g:dirvish_mode = ':sort ,^.*[\/],'
 
 set colorcolumn=80
-set synmaxcol=120
+set synmaxcol=200
 set winheight=30
 set winwidth=80
 
@@ -233,15 +246,20 @@ let g:airline#extensions#default#section_truncate_width = {
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
 
+let g:FerretExecutableArguments = {
+	\   'rd': '--vimgrep --no-heading --no-config --max-columns 4096 --smart-case'
+	\ }
+
 let g:javascript_plugin_jsdoc = 1
 
-let g:ale_linters = { 'javascript': ['eslint'], 'yaml': ['jamllint'], 'json': ['prettier', 'jsonlint'], 'typescript': ['tslint'] }
-let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier', 'eslint'], 'json': ['prettier', ''], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
+let g:ale_linters = { 'javascript': ['eslint', 'prettier'], 'yaml': ['jamllint'], 'json': ['prettier', 'jsonlint'], 'typescript': ['eslint', 'prettier', 'tslint'], 'typescriptreact': ['eslint', 'prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier', 'eslint', 'tslint'], 'typescriptreact': ['prettier', 'eslint'], 'json': ['prettier', ], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
 "let g:prettier#autoformat = 0 from vim-prettier
 "let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
+let g:ale_typescript_tslint_use_global = 0
 let g:ale_lint_on_save = 1
 let g:ale_sign_column_always = 0
 let g:ale_statusline_format = ['? %d', '? %d', '? ok']
@@ -250,12 +268,10 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
-" signify enable by :SignifyToggle
-let g:signify_disable_by_default = 0
-let g:signify_vcs_list = ['git']
-
 " :GitLink for github link cmd + click to open
 command! GitLink :echo gitlink#GitLink()
+nmap <Leader>+ <Plug>GitGutterStageHunk
+nmap <Leader>- <Plug>GitGutterUndoHunk
 
 " disable <C-l> as jsdoc mapping
 let g:jsdoc_default_mapping = 0
@@ -436,11 +452,11 @@ let php_htmlInStrings=1
 
 "Helpeful abbreviations
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-iab svc0 https://svc2.kellercovered.io/kc-mgr-session/api/v1
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 cabbrev A Ack
 cabbrev Ag Ack
 let g:pasta_paste_before_mapping = 'gP'
+map <leader>* :Ggrep --untracked <cword><CR><CR>
 let g:pasta_paste_after_mapping = 'gp'
 
 " put under/over with indentation
@@ -452,24 +468,6 @@ nmap <C-Up> [e
 nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
-
-let g:ctrlp_cmd = 'CtrlP'
-map <leader>b :CtrlPBuffer<CR>
-let g:ctrlp_map = '<leader><Space>'
-  let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-" Use ripgrep for CtrlP plugin (if available)
-" Fallback to git ls-files for fast listing.
-" Because we use fast strategies, disable caching.
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-else
-	let g:ctrlp_user_command = ['.git',
-		\ 'cd %s && git ls-files . -co --exclude-standard',
-		\ 'find %s -type f' ]
-	let g:ctrlp_use_caching = 1
-endif
 
 " jump to end of pasted text
 vnoremap <silent> y y`]
@@ -499,12 +497,20 @@ let NERDTreeChDirMode=1
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
-            \'\.pyc$', '\.swp$', '\.egg-info$','\.DS_Store$' ]
+						\'\.pyc$', '\.swp$', '\.egg-info$','\.DS_Store$' ]
+
+"let g:netrw_banner       = 0
+"let g:netrw_keepdir      = 0
+"let g:netrw_liststyle    = 1 " or 3
+"let g:netrw_sort_options = 'i'
+""let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
+"let g:netrw_winsize = 25
 
 " clear search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
 
-nmap <leader>f :!open %:p:h<CR>
+nmap <leader>F :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
 nmap <leader>s :Gstatus<CR>
@@ -598,8 +604,11 @@ let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-autocmd FileType javascript nmap <buffer> <leader>td :YcmCompleter GoTo<CR>
-autocmd FileType javascript nmap <buffer> <leader>tr :YcmCompleter RefactorRename
+autocmd FileType javascript,typescript nmap <buffer> <leader>td :YcmCompleter GoToDefinition<CR>
+autocmd FileType javascript,typescript nmap <buffer> <leader>tf :YcmCompleter GoToReferences<CR>
+autocmd FileType javascript,typescript nmap <buffer> <leader>ti :YcmCompleter GoToImplementation<CR>
+autocmd FileType javascript,typescript nmap <buffer> <leader>tr :YcmCompleter RefactorRename
+autocmd FileType javascript,typescript nmap <buffer> <leader>to :YcmCompleter OrganizeImports
 " toggle gundo
 nnoremap <leader>u :MundoToggle<CR>
 
@@ -685,11 +694,6 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
-
-augroup pencil
-  autocmd!
-	  autocmd FileType markdown,mkd call pencil#init()
-augroup END
 
 " Make sure pasting in visual mode doesn't replace paste buffer
 function! RestoreRegister()
@@ -807,6 +811,75 @@ endfunction
 "
 vnoremap <leader>bd "by<Esc>:call system('base64 -d', @b)<CR>
 vnoremap <leader>be "by<Esc>:call system('base64', @b)<CR>
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+map <leader><space> :Files<CR>
+map <leader>b :Buffers<CR>
+nnoremap <leader>a :Rg<CR>
+
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden"
+
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 "MACROS
 

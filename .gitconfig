@@ -36,7 +36,7 @@
 [url "https://"]
 	insteadOf = git://
 [core]
-	excludesfile = /Users/jakub/.gitignore
+	excludesfile = /Users/jakubmiziolek/.gitignore_global
 	autocrlf = input
 	editor = nvim
 [merge]

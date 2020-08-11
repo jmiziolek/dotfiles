@@ -18,15 +18,6 @@ prompt_dir() {
     prompt_segment blue $PRIMARY_FG ' %25<...<%~%<< '
 }
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
@@ -45,9 +36,6 @@ prompt_dir() {
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -71,14 +59,14 @@ prompt_dir() {
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
+# Which lugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git brew fzf node nvm npm vi-mode)
 # less plugins less startup time?!
-plugins=(git vi-mode)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -130,12 +118,16 @@ alias vi='vim'
 alias v='vim'
 alias v.='vim .'
 alias cat='bat'
-alias find='fd'
 alias cl='clear'
 alias h='cd ~ && ls'
-alias p='cd ~/www/kw'
+alias p='cd ~/www/moonfare/backend'
+alias pb='cd ~/www/moonfare/backend'
+alias pa='cd ~/www/moonfare/svc-agreements-and-consents-be'
+alias pq='cd ~/www/moonfare/svc-questionnaire'
+alias pf='cd ~/www/moonfare/front-client'
+alias pa='cd ~/www/moonfare/admin-panel-front'
 alias d='cd ~/www/jmdocs'
-alias youtubedl='youtube-dl -f bestaudio --embed-thumbnail --add-metadata'
+alias youtubedl='youtube-dl --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn dc:build && docker network create swarm && yarn dc:up'
 alias dockerruns='node ~/www/nodejs/docker.js'
 alias hb='hub browse'
@@ -153,14 +145,6 @@ alias ww='curl wttr.in/Lublin?m'
 alias www='curl wttr.in/Lublin?format=v2'
 alias matrix='cmatrix -u 1'
 
-# GIT aliases
-alias gs='git status'
-alias gpl='git pull'
-alias gps='git push'
-alias gc='git commit'
-alias gd='git dsf'
-#!/usr/bin/env bash
-
 # Navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -173,6 +157,7 @@ alias org="organize -s ."
 # Shortcuts
 alias c='clear'
 alias g="git"
+alias grm="git reset \$(git merge-base master \$(git rev-parse --abbrev-ref HEAD))"
 alias his="history | cut -c 8- | sort -u"
 alias o="open ."
 alias n="node"
@@ -184,13 +169,14 @@ alias off="sudo shutdown -r"
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 alias cb="clipboard"
 alias monitor="gtop"
-alias gh="gh-home"
 alias history="history | cut -c 8- | sort -u"
 
 # IP
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+setopt HIST_IGNORE_SPACE
 
 # Show/hide hidden files in Finder
 alias show-hidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
