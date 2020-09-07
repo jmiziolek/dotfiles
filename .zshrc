@@ -10,6 +10,8 @@ export ZSH="/Users/jakubmiziolek/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
+RIPGREP_CONFIG_PATH="~/.ripgreprc"
+ulimit -n 10480 10480
 
 # Vim Mode
 bindkey -v
@@ -120,6 +122,12 @@ alias v.='vim .'
 alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'
+alias p='cd ~/www/moonfare/backend'
+alias pb='cd ~/www/moonfare/backend'
+alias pa='cd ~/www/moonfare/svc-agreements-and-consents-be'
+alias pq='cd ~/www/moonfare/svc-questionnaire'
+alias pf='cd ~/www/moonfare/front-client'
+alias pa='cd ~/www/moonfare/admin-panel-front'
 alias d='cd ~/www/jmdocs'
 alias youtubedl='youtube-dl --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn dc:build && docker network create swarm && yarn dc:up'
@@ -135,9 +143,10 @@ alias nrdb='npm run start:debug'
 alias TQ='tq'
 alias Tq='tq'
 alias tQ='tq'
-alias ww='curl wttr.in/Lublin?m'
-alias www='curl wttr.in/Lublin?format=v2'
+alias ww='curl "https://wttr.in/lublin"'
+alias www='curl "https://wttr.in/lublin?format=v2"'
 alias matrix='cmatrix -u 1'
+alias apiary='~/.gem/gems/apiaryio-0.14.0/bin/apiary preview'
 
 # Navigation
 alias ..="cd .."
@@ -169,6 +178,7 @@ alias history="history | cut -c 8- | sort -u"
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+alias br0="brightness 0"
 
 setopt HIST_IGNORE_SPACE
 

@@ -1,6 +1,7 @@
 " THINGS TODO ON NEW INSTALL
 " curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" n
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " pip3 install --upgrade neovim
 " BUGGY in .local/share/nvim/plugged/YouCompleteMe/third_party/ycmd run: npm install -g --prefix third_party/tsserver typescript BUGGY
@@ -89,6 +90,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'morhetz/gruvbox'
 Plug 'dylanaraps/wal.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'naortega/matrix.vim'
 
 " VCS
 Plug 'airblade/vim-gitgutter'
@@ -141,12 +143,14 @@ syntax on
 colorscheme gruvbox
 "colorscheme wal
 set background=dark
-let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+		set termguicolors
 endif
 let g:gruvbox_invert_selection='0'
+let g:gruvbox_italic=1
 set autoread
 set spell
 set spelllang=en_us,pl
@@ -162,7 +166,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 "set expandtab
-set guifont=Sauce\ Code\ Powerline:h14
+set guifont=Sauce\ Code\ Powerline:h16
 set smartindent
 set smarttab
 set autoindent
@@ -208,6 +212,7 @@ au FocusLost,BufLeave * :call SaveIfUnsaved()
 let g:snips_author = 'Jakub Miziołek'
 let g:startify_lists = ['sessions', 'files', 'dir', 'bookmarks']
 let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
 let daystill = systemlist('~/dotfiles/deadline.sh')[0]
 " Lexima does not double spaces
 let g:lexima_enable_space_rules=0
@@ -234,6 +239,11 @@ let g:startify_bookmarks = [
 " ariline  custom fonts
 " airline don't chect whitespace
 let g:airline#extensions#whitespace#checks = []
+" change vertical to horizontal with -
+noremap <c-w>-  <c-w>t<c-w>K
+
+" change horizontal to vertical with |
+noremap <c-w>\|  <c-w>t<c-w>H
 
 let g:airline#extensions#default#section_truncate_width = {
 	\ 'b': 79,
@@ -252,8 +262,8 @@ let g:FerretExecutableArguments = {
 
 let g:javascript_plugin_jsdoc = 1
 
-let g:ale_linters = { 'javascript': ['eslint', 'prettier'], 'yaml': ['jamllint'], 'json': ['prettier', 'jsonlint'], 'typescript': ['eslint', 'prettier', 'tslint'], 'typescriptreact': ['eslint', 'prettier'] }
-let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier', 'eslint', 'tslint'], 'typescriptreact': ['prettier', 'eslint'], 'json': ['prettier', ], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
+let g:ale_linters = { 'javascript': ['eslint', 'prettier'], 'yaml': ['jamllint'], 'json': ['prettier', 'jsonlint'], 'typescript': ['eslint', 'prettier', 'tslint'], 'typescriptreact': ['eslint', 'prettier', 'tslint'] }
+let g:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'html': ['prettier'], 'typescript': ['prettier', 'eslint'], 'typescriptreact': ['prettier', 'eslint', 'tslint'], 'json': ['prettier', ], 'css': ['prettier'], 'markdown': ['prettier'], 'yaml': ['prettier'], 'sql': ['pgformatter'],}
 "let g:prettier#autoformat = 0 from vim-prettier
 "let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
@@ -270,8 +280,9 @@ nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
 " :GitLink for github link cmd + click to open
 command! GitLink :echo gitlink#GitLink()
-nmap <Leader>+ <Plug>GitGutterStageHunk
-nmap <Leader>- <Plug>GitGutterUndoHunk
+nmap ghp <Plug>(GitGutterPreviewHunk)
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
 
 " disable <C-l> as jsdoc mapping
 let g:jsdoc_default_mapping = 0
@@ -410,7 +421,8 @@ nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
 "Searcher config
-nnoremap <C-s> :Ack 
+nnoremap <C-s> :Ack<space>
+nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
 
 let g:ag_working_path_mode='r'
 
@@ -626,6 +638,8 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+let g:test#javascript#runner = 'jest'
+let g:test#preserve_screen = 1
 
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -672,7 +686,6 @@ map <leader>wv :vsp %%
 
 " NEOVIM
 if has('nvim')
-	set termguicolors
 	tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 	"This maps Leader + e to exit terminal mode.
 	tnoremap <leader>e <C-\><C-n>
@@ -861,7 +874,7 @@ command! -bang -nargs=? -complete=dir Files
 " Get text in files with Rg
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --dfa-size-limit 1G --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 " Ripgrep advanced
@@ -880,6 +893,10 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
 
 "MACROS
 
