@@ -24,3 +24,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
 ```
 
 Edit `/etc/ssh/ssh_config` to stop SendEnv LANG*
+
+
+Add Keyboard -> App Shortcutes -> Move to Built-in Retina Display 
+Add Keyboard -> App Shortcutes -> Move to MONITOR NAME (Main Menu -> Window)

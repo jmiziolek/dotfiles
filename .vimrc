@@ -85,11 +85,13 @@ Plug 'janko/vim-test'
 Plug 'dpelle/vim-LanguageTool'
 Plug 'sedm0784/vim-you-autocorrect'
 Plug 'liuchengxu/vim-which-key'
+Plug 'terryma/vim-expand-region'
+Plug 'dbeniamine/cheat.sh-vim'
 
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'dylanaraps/wal.vim'
-Plug 'arcticicestudio/nord-vim'
+Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'naortega/matrix.vim'
 
 " VCS
@@ -102,8 +104,10 @@ Plug 'sjl/splice.vim' " Merge conflicts
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
+Plug 'wsdjeg/vim-fetch'
 
 "Filetype Specific
+Plug 'ianks/vim-tsx', { 'for': 'javascript' }
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
@@ -112,6 +116,7 @@ Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'moll/vim-node', { 'for': 'javascript,typescript,ts' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript,ts' }
@@ -120,6 +125,7 @@ Plug 'guileen/vim-node-dict', {'for': 'javascript,typescript,ts'}
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript,ts' }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'jparise/vim-graphql'
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 filetype plugin indent on
@@ -141,7 +147,6 @@ set fillchars = ""
 
 syntax on
 colorscheme gruvbox
-"colorscheme wal
 set background=dark
 "let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
@@ -166,7 +171,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 "set expandtab
-set guifont=Sauce\ Code\ Powerline:h16
+set guifont=Sauce\ Code\ Powerline:h14
 set smartindent
 set smarttab
 set autoindent
@@ -201,6 +206,7 @@ set colorcolumn=80
 set synmaxcol=200
 set winheight=30
 set winwidth=80
+
 
 au FocusLost,BufLeave * :call SaveIfUnsaved()
 
@@ -245,6 +251,8 @@ noremap <c-w>-  <c-w>t<c-w>K
 " change horizontal to vertical with |
 noremap <c-w>\|  <c-w>t<c-w>H
 
+nmap <leader>nu :set rnu!<cr>
+
 let g:airline#extensions#default#section_truncate_width = {
 	\ 'b': 79,
 	\ 'x': 60,
@@ -255,6 +263,9 @@ let g:airline#extensions#default#section_truncate_width = {
 	\ }
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 2
+
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'typescript', 'ts=typescript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
+let g:vim_markdown_follow_anchor = 1
 
 let g:FerretExecutableArguments = {
 	\   'rd': '--vimgrep --no-heading --no-config --max-columns 4096 --smart-case'
@@ -348,7 +359,7 @@ command! -nargs=* VV :vert Tnew tq<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+vnoremap <silent> gv :call VisualSelection('gv', '')<CR
 
 " search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
