@@ -47,7 +47,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
 Plug 'adelarsq/vim-matchit' " % operator improved
 Plug 'tpope/vim-repeat'
@@ -78,7 +78,7 @@ Plug 'sickill/vim-pasta' " better pasting
 Plug 'wincent/ferret'  " :Ack and Acks that in fact use rg or ag
 Plug 'terryma/vim-expand-region'
 Plug 'wellle/targets.vim' " additional text-objects
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'cohama/lexima.vim'
 Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
@@ -87,6 +87,7 @@ Plug 'sedm0784/vim-you-autocorrect'
 Plug 'liuchengxu/vim-which-key'
 Plug 'terryma/vim-expand-region'
 Plug 'dbeniamine/cheat.sh-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -125,7 +126,7 @@ Plug 'guileen/vim-node-dict', {'for': 'javascript,typescript,ts'}
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript,ts' }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'jparise/vim-graphql'
-Plug 'wakatime/vim-wakatime'
+"Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 filetype plugin indent on
@@ -287,7 +288,7 @@ let g:ale_statusline_format = ['? %d', '? %d', '? ok']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-nmap <silent> <C-b> <Plug>(ale_next_wrap)
+"nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
 " :GitLink for github link cmd + click to open
 command! GitLink :echo gitlink#GitLink()
@@ -299,10 +300,10 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 let g:jsdoc_default_mapping = 0
 let g:jsdoc_enable_es6 = 1
 
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  "\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  "\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " remove fugitive scratch buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -372,7 +373,6 @@ map <C-left> :bp<cr>
 " Arrow and spaces with ctrl + a
 imap <c-a> <space>=><space>
 
-set completeopt-=preview
 nmap <leader>bc :Bdelete<CR>
 "Make Y behave like other capitals
 map Y y$
@@ -522,14 +522,15 @@ let NERDTreeHightlightCursorline=1
 let NERDTreeIgnore=['\.\.$', '\.$', '\~$','\env','\.vim$', '\~$', 
 						\'\.pyc$', '\.swp$', '\.egg-info$','\.DS_Store$' ]
 
-"let g:netrw_banner       = 0
-"let g:netrw_keepdir      = 0
-"let g:netrw_liststyle    = 1 " or 3
+" I can't netrw I can't
+"let g:netrw_banner       = 1
+"let g:netrw_keepdir      = 1
+"let g:netrw_liststyle    = 3 " 1 or 3
 "let g:netrw_sort_options = 'i'
-""let g:netrw_browse_split = 4
+"let g:netrw_browse_split = 4
 "let g:netrw_altv = 1
 "let g:netrw_winsize = 25
-
+":nnoremap <space>e :CocCommand explorer<CR>
 " clear search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
 
@@ -537,9 +538,11 @@ nmap <leader>F :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
 nmap <leader>s :Gstatus<CR>
-nmap <leader>c :Gcommit<CR>
-nmap <leader>p :Gpush<CR>
+nmap <leader>d :Gdiff<CR>
+nmap <leader>c :Git commit<CR>
+nmap <leader>p :Git push<CR>
 nmap <leader>x :ALEFix<CR>
+nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
 "Home & End with capitalized directions
 noremap H ^
@@ -620,18 +623,38 @@ inoremap <C-U> <C-G>u<C-U>
 set guioptions=
 
 " supertab
-let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+"let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-db', 'coc-word', 'coc-ultisnips', 'coc-explorer', 'coc-spell-checker', 'coc-yaml', 'coc-sh', 'coc-sql']
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-autocmd FileType javascript,typescript nmap <buffer> <leader>td :YcmCompleter GoToDefinition<CR>
-autocmd FileType javascript,typescript nmap <buffer> <leader>tf :YcmCompleter GoToReferences<CR>
-autocmd FileType javascript,typescript nmap <buffer> <leader>ti :YcmCompleter GoToImplementation<CR>
-autocmd FileType javascript,typescript nmap <buffer> <leader>tr :YcmCompleter RefactorRename
-autocmd FileType javascript,typescript nmap <buffer> <leader>to :YcmCompleter OrganizeImports
+"autocmd FileType javascript,typescript nmap <buffer> <leader>td :YcmCompleter GoToDefinition<CR>
+"autocmd FileType javascript,typescript nmap <buffer> <leader>tf :YcmCompleter GoToReferences<CR>
+"autocmd FileType javascript,typescript nmap <buffer> <leader>ti :YcmCompleter GoToImplementation<CR>
+"autocmd FileType javascript,typescript nmap <buffer> <leader>to :YcmCompleter OrganizeImports
+nmap <silent> <leader>td <Plug>(coc-definition)
+nmap <silent> <leader>tt <Plug>(coc-type-definition)
+nmap <silent> <leader>ti <Plug>(coc-implementaton)
+nmap <silent> <leader>tf <Plug>(coc-references)
+nmap <silent> <leader>tr  <Plug>(coc-rename)
+"nmap <silent> <C-b>  <Plug>coc-diagnostic-prev
+
+nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
+" CR selects first completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" tab and shift+tab to navigate completions
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
 " toggle gundo
 nnoremap <leader>u :MundoToggle<CR>
 

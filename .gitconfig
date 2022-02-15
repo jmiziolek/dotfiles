@@ -23,7 +23,6 @@
 	ds = diff --stat=160,120
 	dh = diff HEAD~1
 	dsf = "!git diff --color $@ | diff-so-fancy"
-	lol = log --oneline --graph --all --decorate
 	l = log --graph --pretty="tformat:%C(yellow)%h%Creset\\ %Cgreen(%ar)%Creset\\ %C(cyan)<%an>%Creset\\ %C(magenta)%d%Creset\\ %s"
 	branches = branch -a
 	remotes = remote -v
@@ -56,7 +55,7 @@
 [pull]
 	rebase = false
 [commit]
-	template = ~/.stCommitMsg
+	template = /Users/jakubmiziolek/.stCommitMsg
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

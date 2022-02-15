@@ -12,6 +12,8 @@ ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 RIPGREP_CONFIG_PATH="~/.ripgreprc"
 ulimit -n 10480 10480
+ulimit -f unlimited
+
 
 # Vim Mode
 bindkey -v
@@ -122,7 +124,8 @@ alias v.='vim .'
 alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'
-alias p='cd ~/www/moonfare/backend'
+alias p='cd ~/www/disco'
+alias re='cd ~/www/rekru-temp'
 alias pb='cd ~/www/moonfare/backend'
 alias pc='cd ~/www/moonfare/svc-agreements-and-consents-be'
 alias pq='cd ~/www/moonfare/svc-questionnaire'
