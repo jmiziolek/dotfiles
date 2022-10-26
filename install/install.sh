@@ -51,7 +51,7 @@ export HOMEBREW_NO_INSTALL_CLEANUP=true
 # Install apps
 paragraph 'Homebrew apps'
 
-brew install --cask google-chrome vlc iterm2 the-unarchiver postman java visual-studio-code
+brew install --cask google-chrome vlc iterm2 the-unarchiver postman visual-studio-code
 brew install atomicparsley
 brew install zsh-completion
 brew install bat
@@ -70,6 +70,7 @@ brew install htop
 brew install httpie
 brew install hub
 brew install jq
+brew install java11
 brew install moreutils
 brew install neovim
 brew install node
