@@ -108,7 +108,7 @@ export LANG=en_US.UTF-8
 export EDITOR=nvim
 
 alias python='python3'
-export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:$PATH
+export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 alias preview="fzf --preview 'bat --color \"always\" {}'"
@@ -200,7 +200,8 @@ source ~/.localrc;
 
 export GEM_HOME="$HOME/.gem"
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jakubmiziolek/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jakubmiziolek/Downloads/google-cloud-sdk/path.zsh.inc'; fi
