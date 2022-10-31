@@ -11,6 +11,9 @@ export ZSH="/Users/jakubmiziolek/.oh-my-zsh"
 ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 RIPGREP_CONFIG_PATH="~/.ripgreprc"
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
 ulimit -n 10480 10480
 ulimit -f unlimited
 
@@ -219,3 +222,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # added by travis gem
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
