@@ -4,7 +4,6 @@
 " n
 " paste ultisnips in appropriate files/folders or use :UltiSnipsEdit
 " pip3 install --upgrade neovim
-" BUGGY in .local/share/nvim/plugged/YouCompleteMe/third_party/ycmd run: npm install -g --prefix third_party/tsserver typescript BUGGY
 " :UpdateRemotePlugins
 set nocompatible
 
@@ -47,7 +46,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree'
-"Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
 Plug 'adelarsq/vim-matchit' " % operator improved
 Plug 'tpope/vim-repeat'
@@ -78,7 +76,6 @@ Plug 'sickill/vim-pasta' " better pasting
 Plug 'wincent/ferret'  " :Ack and Acks that in fact use rg or ag
 Plug 'terryma/vim-expand-region'
 Plug 'wellle/targets.vim' " additional text-objects
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'cohama/lexima.vim'
 Plug 'kassio/neoterm'
 Plug 'janko/vim-test'
@@ -88,12 +85,13 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'terryma/vim-expand-region'
 Plug 'dbeniamine/cheat.sh-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ggandor/leap.nvim'
+Plug 'github/copilot.vim'
 
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'dylanaraps/wal.vim'
-Plug 'uguu-org/vim-matrix-screensaver'
-Plug 'naortega/matrix.vim'
+Plug 'ericbn/vim-solarized'
 
 " VCS
 Plug 'airblade/vim-gitgutter'
@@ -116,7 +114,6 @@ Plug 'othree/html5.vim', {'for': 'html'}
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown',  'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'moll/vim-node', { 'for': 'javascript,typescript,ts' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
@@ -125,8 +122,8 @@ Plug 'othree/es.next.syntax.vim', { 'for': 'javascript,typescript,ts' }
 Plug 'guileen/vim-node-dict', {'for': 'javascript,typescript,ts'}
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript,ts' }
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'jparise/vim-graphql'
-"Plug 'wakatime/vim-wakatime'
+Plug 'jparise/vim-graphql', { 'for': 'typescript,ts' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 call plug#end()
 filetype plugin indent on
@@ -147,19 +144,20 @@ set t_Co=256
 set fillchars = ""
 
 syntax on
-colorscheme gruvbox
+colorscheme solarized
 set background=dark
-"let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 		set termguicolors
 endif
-let g:gruvbox_invert_selection='0'
-let g:gruvbox_italic=1
+"let g:gruvbox_invert_selection='0'
+"let g:gruvbox_italic=1
+"let g:gruvbox_contrast_dark = 'hard'
 set autoread
 set spell
-set spelllang=en_us,pl
+"set spelllang=en_us,pl
+set spelllang=pl
 set backspace=indent,eol,start
 set eol
 set number relativenumber
@@ -186,7 +184,7 @@ set laststatus=2
 set linespace=2
 set nrformats-=octal
 set incsearch
-set inccommand="split"
+set inccommand="nosplit"
 
 set nowrap
 set title
@@ -223,6 +221,8 @@ let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
 let daystill = systemlist('~/dotfiles/deadline.sh')[0]
 " Lexima does not double spaces
 let g:lexima_enable_space_rules=0
+
+nmap <leader>md <Plug>MarkdownPreview
 
 set sessionoptions-=options
 let g:startify_custom_header = [ daystill ]
@@ -299,11 +299,6 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 " disable <C-l> as jsdoc mapping
 let g:jsdoc_default_mapping = 0
 let g:jsdoc_enable_es6 = 1
-
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  "\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  "\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " remove fugitive scratch buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -537,7 +532,7 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 nmap <leader>F :!open %:p:h<CR>
 nmap <leader>t :!open -a iTerm.app %:p:h<CR>
 nmap <leader>ch :!open -a "Google Chrome" %<CR>
-nmap <leader>s :Gstatus<CR>
+nmap <leader>s :Git<CR>
 nmap <leader>d :Gdiff<CR>
 nmap <leader>c :Git commit<CR>
 nmap <leader>p :Git push<CR>
@@ -626,15 +621,15 @@ set guioptions=
 "let g:SuperTabDefaultCompletionType = "<c-n>"
 "let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-db', 'coc-word', 'coc-ultisnips', 'coc-explorer', 'coc-spell-checker', 'coc-yaml', 'coc-sh', 'coc-sql']
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-db', 'coc-word', 'coc-ultisnips', 'coc-explorer', 'coc-spell-checker', 'coc-yaml', 'coc-sh', 'coc-sql', 'coc-cspell-dicts']
+" :CocCommand cSpell.addWordToUserDictionary to add word to dictionary
+"
+
+
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 
-"autocmd FileType javascript,typescript nmap <buffer> <leader>td :YcmCompleter GoToDefinition<CR>
-"autocmd FileType javascript,typescript nmap <buffer> <leader>tf :YcmCompleter GoToReferences<CR>
-"autocmd FileType javascript,typescript nmap <buffer> <leader>ti :YcmCompleter GoToImplementation<CR>
-"autocmd FileType javascript,typescript nmap <buffer> <leader>to :YcmCompleter OrganizeImports
 nmap <silent> <leader>td <Plug>(coc-definition)
 nmap <silent> <leader>tt <Plug>(coc-type-definition)
 nmap <silent> <leader>ti <Plug>(coc-implementaton)
@@ -644,21 +639,14 @@ nmap <silent> <leader>tr  <Plug>(coc-rename)
 
 nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
 " CR selects first completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <silent><expr> <C-Space> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 " tab and shift+tab to navigate completions
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
 
 " toggle gundo
 nnoremap <leader>u :MundoToggle<CR>
 
-au FileType javascript set dictionary+=~/.config/nvim/bundle/vim-ode-dict/dict/node.dict
 let g:jsx_ext_required = 1
 
 " Automatically mark files for quick access
@@ -681,12 +669,6 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
 
-" should markdown preview get shown automatically upon opening markdown buffer
-let g:livedown_autorun = 0
-" should the browser window pop-up upon previewing
-let g:livedown_open = 1
-" the port on which Livedown server will run
-let g:livedown_port = 1337
 
 " Extended Text Objects {{{1
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
