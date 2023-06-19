@@ -21,11 +21,6 @@ if [ "$(uname)" != "Darwin" ]; then
   exit 1;
 fi
 
-# Create Symlink
-paragraph 'Symlinks'
-
-ln -svf ~/.dotfiles/.bash_profile ~/.bash_profile
-ln -svf ~./dotfiles/.zshrc ~./.zshrc
 
 # Install xcode
 paragraph 'XCode'
@@ -101,6 +96,16 @@ defaults write -g KeyRepeat -int 2
 # Cleanup after installation
 paragraph 'Clean up'
 brew cleanup
+
+
+# Create Symlink
+paragraph 'Symlinks'
+
+ln -svf ~/.dotfiles/.bash_profile ~/.bash_profile
+ln -svf ~./dotfiles/.zshrc ~./.zshrc
+ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -svf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
+ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
 
 # Zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions.git

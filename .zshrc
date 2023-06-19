@@ -75,7 +75,6 @@ prompt_dir() {
 # less plugins less startup time?!
 plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z)
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -202,26 +201,16 @@ bindkey -M vicmd v edit-command-line
 
 source ~/.localrc;
 
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export GEM_HOME="$HOME/.gem"
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/jakubmiziolek/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jakubmiziolek/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/jakubmiziolek/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jakubmiziolek/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 # added by travis gem
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+source $ZSH/oh-my-zsh.sh

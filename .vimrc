@@ -240,7 +240,6 @@ let g:startify_bookmarks = [
 				\ { 'd': '~/www/jmdocs/' },
 				\ { 't': '~/Documents/todo.md' },
 				\ { 'n': '~/Documents/notes.md' },
-				\ { 'p': '~/www/kw/kc-notes.md' }
 				\ ]
 
 " ariline  custom fonts
