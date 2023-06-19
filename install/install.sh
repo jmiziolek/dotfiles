@@ -52,18 +52,22 @@ export HOMEBREW_NO_INSTALL_CLEANUP=true
 paragraph 'Homebrew apps'
 
 brew install --cask google-chrome vlc iterm2 the-unarchiver postman visual-studio-code
+brew install --cask --no-quarantine stretchly
 brew install atomicparsley
 brew install zsh-completion
 brew install bat
+brew install bash
 brew install cmake
 brew install cmatrix
 brew install cmus
 brew install ctags
 brew install fd
+brew install findutils
 brew install ffmpeg
 brew install fzf
 brew install git
 brew install git-crypt
+brew install git-delta
 brew install git-extras
 brew install gnupg
 brew install htop

@@ -1,0 +1,7 @@
+#!/opt/homebrew/bin/bash
+
+#remove dirs with less than 1000k inside
+find . -depth -maxdepth 1  -type d -print0 |
+	while IFS= read -r -d '' dir; do
+    [ "$(du -s "$dir" | awk '{print $1;}')" -le 1000 ] && rm -rf "$dir"
+done

@@ -32,6 +32,14 @@
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	sync= !git fetch --all --prune && git rebase -p --autostash <user_input>
 	identity= ! git config user.name "$(git config user.$1.name)"; git config user.email "$(git config user.$1.email)"; git config user.signingkey "$(git config user.$1.signingkey)"; : https://www.micah.soy/posts/setting-up-git-identities/
+  # *********************
+  # Rebase workflow
+	mainbranch = "!git remote show origin | sed -n '/HEAD branch/s/.*: //p'"
+	synced = "!git pull origin $(git mainbranch) --rebase"
+	update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
+	squash = "!git rebase -v -i $(git mainbranch)"
+	publish = push origin HEAD --force-with-lease
+	pub = publish
 [url "https://"]
 	insteadOf = git://
 [core]

@@ -111,7 +111,7 @@ export LANG=en_US.UTF-8
 export EDITOR=nvim
 
 alias python='python3'
-export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
+export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/.local/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 alias preview="fzf --preview 'bat --color \"always\" {}'"
@@ -127,16 +127,13 @@ alias v.='vim .'
 alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'
-alias p='cd ~/www/disco'
-alias re='cd ~/www/rekru-temp'
-alias pb='cd ~/www/moonfare/backend'
-alias pc='cd ~/www/moonfare/svc-agreements-and-consents-be'
-alias pq='cd ~/www/moonfare/svc-questionnaire'
-alias pf='cd ~/www/moonfare/front-client'
-alias pa='cd ~/www/moonfare/admin-panel-front'
+alias p='cd ~/www/ejam/case'
+alias pb='cd ~/www/ejam/case-backend'
+alias pf='cd ~/www/ejam/case-frontend'
+alias pi='cd ~/www/ejam/case-infrastructure'
 alias d='cd ~/www/jmdocs/docs && vi ../README.md *.md'
 alias youtubedl='youtube-dl --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
-alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn dc:build && docker network create swarm && yarn dc:up'
+alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn start:dev'
 alias dockerruns='node ~/www/nodejs/docker.js'
 alias hb='hub browse'
 alias hpr='hub pull-request'
@@ -154,6 +151,7 @@ alias www='curl "https://wttr.in/lublin?format=v2"'
 alias matrix='cmatrix -u 1'
 alias apiary='~/.gem/gems/apiaryio-0.14.0/bin/apiary preview'
 alias ns='newsboat'
+alias rgf='rg --files | rg' # search for files
 
 # Navigation
 alias ..="cd .."
@@ -199,6 +197,9 @@ alias show-desktop="defaults write com.apple.finder CreateDesktop -bool true && 
 export CONNECTION_STRING=postgres://postgres:postgres@localhost:5432/EventStore
 export NVM_DIR="$HOME/.nvm"
 
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 source ~/.localrc;
 
 export GEM_HOME="$HOME/.gem"
@@ -223,3 +224,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # added by travis gem
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
