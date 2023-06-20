@@ -46,7 +46,13 @@ export HOMEBREW_NO_INSTALL_CLEANUP=true
 # Install apps
 paragraph 'Homebrew apps'
 
-brew install --cask google-chrome vlc iterm2 the-unarchiver postman visual-studio-code
+brew install --cask google-chrome
+brew install --cask vlc
+brew install --cask iterm2
+brew install --cask the-unarchiver
+brew install --cask postman
+brew install --cask visual-studio-code
+brew install --cask ngrok
 brew install --cask --no-quarantine stretchly
 brew install atomicparsley
 brew install zsh-completion
@@ -86,8 +92,7 @@ brew install yt-dlp
 
 # Install npm modules
 paragraph 'NPM modules'
-
-npm install -g clipboard-cli gh-home eslint prettier npx concurrently esformatter diff-so-fancy http-server javascript-ctags js-beautify jsfmt json-diff jsontool jsxhint livedown markdown-preview mocha n node-gyp node-inspector node-uuid nodemon npm npm-check-updates npm2dot react-tools vimdebug vtop @nestjs/cli
+npm install -g clipboard-cli eslint prettier npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm npm-check-updates @nestjs/cli
 
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write -g InitialKeyRepeat -int 15
@@ -96,7 +101,6 @@ defaults write -g KeyRepeat -int 2
 # Cleanup after installation
 paragraph 'Clean up'
 brew cleanup
-
 
 # Create Symlink
 paragraph 'Symlinks'
@@ -108,6 +112,7 @@ ln -svf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
 
 # Zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions.git
-git clone https://github.com/zsh-users/zsh-syntax-highlighting
-git clone https://github.com/agkozak/zsh-z.git
+paragraph 'Zsh Plugins'
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
