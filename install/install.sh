@@ -46,14 +46,18 @@ export HOMEBREW_NO_INSTALL_CLEANUP=true
 # Install apps
 paragraph 'Homebrew apps'
 
-brew install --cask google-chrome
-brew install --cask vlc
-brew install --cask iterm2
-brew install --cask the-unarchiver
-brew install --cask postman
-brew install --cask visual-studio-code
-brew install --cask ngrok
+brew install --cask --no-quarantine  google-chrome
+brew install --cask --no-quarantine vlc
+brew install --cask --no-quarantine iterm2
+brew install --cask --no-quarantine the-unarchiver
+brew install --cask --no-quarantine postman
+brew install --cask --no-quarantine visual-studio-code
+brew install --cask --no-quarantine ngrok
 brew install --cask --no-quarantine stretchly
+brew install --cask --no-quarantine 1password
+brew install --cask --no-quarantine imageoptim
+brew install awscli
+brew install deno
 brew install atomicparsley
 brew install zsh-completion
 brew install bat
