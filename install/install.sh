@@ -117,7 +117,7 @@ paragraph 'Symlinks'
 ln -svf ~/dotfiles/.bash_profile ~/.bash_profile
 ln -svf ~/dotfiles/.zshrc ~/.zshrc
 ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
-ln -svf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
+ln -svf ~/dotfiles/init.lua ~/.config/nvim/init.lua
 ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
 
 # Zsh
