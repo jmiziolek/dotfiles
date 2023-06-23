@@ -75,14 +75,16 @@ brew install git-crypt
 brew install git-delta
 brew install git-extras
 brew install gnupg
+brew install go
 brew install htop
 brew install httpie
-brew install hub
+brew install gh
 brew install jq
 brew install java11
 brew install moreutils
 brew install neovim
 brew install node
+brew install python
 brew install prettyping
 brew install ranger
 brew install rlwrap
@@ -96,7 +98,10 @@ brew install yt-dlp
 
 # Install npm modules
 paragraph 'NPM modules'
-npm install -g clipboard-cli eslint prettier npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm npm-check-updates @nestjs/cli
+npm install -g typescript clipboard-cli eslint prettier npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm npm-check-updates @nestjs/cli
+
+# Install python neovim
+pip3 install --upgrade neovim
 
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write -g InitialKeyRepeat -int 15
@@ -109,8 +114,8 @@ brew cleanup
 # Create Symlink
 paragraph 'Symlinks'
 
-ln -svf ~/.dotfiles/.bash_profile ~/.bash_profile
-ln -svf ~./dotfiles/.zshrc ~./.zshrc
+ln -svf ~/dotfiles/.bash_profile ~/.bash_profile
+ln -svf ~/dotfiles/.zshrc ~/.zshrc
 ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -svf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls

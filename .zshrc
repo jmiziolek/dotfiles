@@ -211,6 +211,9 @@ export NVM_DIR="$HOME/.nvm"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
+export FZF_DEFAULT_COMMAND="rg --files --hidden"
+
 # added by travis gem
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
