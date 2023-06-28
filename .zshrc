@@ -216,7 +216,6 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden"
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
-export GPG_TTY=$TTY
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
