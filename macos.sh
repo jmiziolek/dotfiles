@@ -128,16 +128,14 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # Display
 #
 
-# Enable dark mode
 osascript -e 'tell application "System Events"
 tell appearance preferences
 set dark mode to dark mode
 end tell
 end tell'
 
-# Use a dark grey background that matches the colour of the menu bar when dark
-# mode is enabled
-$HOME/bin/setwp --color=161616
+# no windows tinting with wallpaper
+defaults write -g AppleReduceDesktopTinting -bool yes
 
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1

@@ -1,6 +1,7 @@
 [user]
 	name = Jakub Miziolek
 	email = jmiziolek@users.noreply.github.com
+	signingkey = C87A8A988DA2A3349C1BDDCE47FA6AB9AA7260CE
 [http]
 	postBuffer = 524288000
 	sslVerify = false

@@ -136,8 +136,6 @@ alias d='cd ~/www/jmdocs/docs && vi ../README.md *.md'
 alias youtubedl='youtube-dl --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn start:dev'
 alias dockerruns='node ~/www/nodejs/docker.js'
-alias hb='hub browse'
-alias hpr='hub pull-request'
 alias cdg='cd `git rev-parse --show-toplevel`'
 alias tq='npm run test'
 alias tqw='npm run test -- --watch'
@@ -218,6 +216,7 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden"
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+export GPG_TTY=$TTY
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
