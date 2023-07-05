@@ -46,30 +46,30 @@ export HOMEBREW_NO_INSTALL_CLEANUP=true
 # Install apps
 paragraph 'Homebrew apps'
 
-brew install --cask --no-quarantine  google-chrome
-brew install --cask --no-quarantine vlc
-brew install --cask --no-quarantine iterm2
-brew install --cask --no-quarantine the-unarchiver
-brew install --cask --no-quarantine postman
-brew install --cask --no-quarantine visual-studio-code
-brew install --cask --no-quarantine ngrok
-brew install --cask --no-quarantine stretchly
 brew install --cask --no-quarantine 1password
+brew install --cask --no-quarantine google-chrome
 brew install --cask --no-quarantine imageoptim
-brew install awscli
-brew install deno
+brew install --cask --no-quarantine iterm2
+brew install --cask --no-quarantine ngrok
+brew install --cask --no-quarantine postman
+brew install --cask --no-quarantine stretchly
+brew install --cask --no-quarantine the-unarchiver
+brew install --cask --no-quarantine visual-studio-code
+brew install --cask --no-quarantine vlc
 brew install atomicparsley
-brew install zsh-completion
-brew install bat
+brew install awscli
 brew install bash
+brew install bat
 brew install cmake
 brew install cmatrix
 brew install cmus
 brew install ctags
+brew install deno
 brew install fd
-brew install findutils
 brew install ffmpeg
+brew install findutils
 brew install fzf
+brew install gh
 brew install git
 brew install git-crypt
 brew install git-delta
@@ -78,27 +78,28 @@ brew install gnupg
 brew install go
 brew install htop
 brew install httpie
-brew install gh
-brew install jq
 brew install java11
+brew install jq
+brew install lazygit
 brew install moreutils
 brew install neovim
 brew install node
-brew install python
 brew install prettyping
+brew install python
 brew install ranger
-brew install rlwrap
 brew install ripgrep
+brew install rlwrap
 brew install tig
 brew install tree
 brew install wine
 brew install yamllint
 brew install yarn
 brew install yt-dlp
+brew install zsh-completion
 
 # Install npm modules
 paragraph 'NPM modules'
-npm install -g typescript clipboard-cli eslint prettier npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm npm-check-updates @nestjs/cli
+npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm-check-updates @nestjs/cli
 
 # Install python neovim
 pip3 install --upgrade neovim

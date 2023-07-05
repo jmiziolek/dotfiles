@@ -28,7 +28,6 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-surround',
   'tpope/vim-rhubarb',
-  'github/copilot.vim',
   'jghauser/mkdir.nvim',
   'chrisbra/matchit',
   'ericbn/vim-solarized',
@@ -58,6 +57,39 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   {
+    'MunifTanjim/prettier.nvim',
+    bin = 'prettierd', -- or `'prettierd'` (v0.23.3+)
+    filetypes = {
+      "css",
+      "graphql",
+      "html",
+      "javascript",
+      "javascriptreact",
+      "json",
+      "less",
+      "markdown",
+      "scss",
+      "typescript",
+      "typescriptreact",
+      "yaml",
+    },
+  },
+  {
+    "zbirenbaum/copilot.lua",
+
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  },
+  {
     'Equilibris/nx.nvim',
     dependencies = {
       "nvim-telescope/telescope.nvim",
@@ -65,6 +97,7 @@ require('lazy').setup({
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
+    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
@@ -76,13 +109,15 @@ require('lazy').setup({
     },
     config = function()
       require("neo-tree").setup({
-        close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+        close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
         popup_border_style = "rounded",
         enable_git_status = true,
         enable_diagnostics = true,
         open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
         sort_case_insensitive = false,                                     -- used when sorting files and directories in the tree
         sort_function = nil,                                               -- use a custom function for sorting files and directories in the tree
+        reveal = true,
+        reveal_force_cwd = true,
         default_component_configs = {
           container = {
             enable_character_fade = true
@@ -587,6 +622,9 @@ vim.keymap.set('n', '<leader>F', ':!open %:p:h<CR>', {})
 vim.keymap.set('n', '<leader>t', ':!open -a iTerm.app %:p:h<CR>', {})
 vim.keymap.set('n', '<leader>ch', ':!open -a "Google Chrome" %<CR>', {})
 
+vim.keymap.set('n', '<leader>q', '<Plug>(prettier-format)', {}) -- formatting in normal mode
+vim.keymap.set('x', '<leader>q', '<Plug>(prettier-format)', {}) -- range_formatting in visual mode
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -644,7 +682,7 @@ vim.keymap.set('n', '<leader>u', ':MundoToggle<cr>', { silent = true })
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'sql' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'sql', 'markdown' },
 
   -- Autoinstall languages that are not installed.
   auto_install = true,
@@ -695,13 +733,7 @@ require('nvim-treesitter.configs').setup {
       },
     },
     swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
+      enable = false,
     },
   },
 }
@@ -710,7 +742,7 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -726,11 +758,11 @@ local on_attach = function(_, bufnr)
   nmap('<leader>tr', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>td', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('<leader>ti', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>td', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>ty', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>tD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction') -- fixes and refactors
-  nmap('<leader>tr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('<leader>tf', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
@@ -842,18 +874,12 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = "copilot",  group_index = 2 },
+    { name = 'nvim_lsp', group_index = 2 },
+    { name = 'luasnip',  group_index = 2 },
+    { name = "path",     group_index = 2 },
   },
 }
-
--- Restore cursor position
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.api.nvim_exec('silent! normal! g`"zv', false)
-  end,
-})
 
 -- MACROS
 --
