@@ -71,7 +71,6 @@ require('lazy').setup({
       "scss",
       "typescript",
       "typescriptreact",
-      "yaml",
     },
   },
   {
@@ -594,9 +593,10 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
 
 vim.keymap.set('n', 'D', 'd$', { silent = true })
 
--- Home & End with capitalized directions
-vim.keymap.set('n', 'H', '^', { silent = true })
-vim.keymap.set('n', 'L', '$', { silent = true })
+-- Home & End replacement with capitalized directions
+vim.keymap.set({ 'n', 'v' }, 'H', '^', { silent = true })
+vim.keymap.set({ 'n', 'v' }, 'L', '$', { silent = true })
+
 --  Make Y behave like other capitals
 vim.keymap.set('n', 'Y', 'y$', { silent = true })
 
@@ -654,7 +654,7 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set({ 'n', 'v', 'o' }, '<leader><space>', require('telescope.builtin').find_files)
+vim.keymap.set({ 'n', 'v', 'o' }, '<leader><space>', ':Telescope find_files hidden=true<CR>')
 vim.keymap.set({ 'n', 'v', 'o' }, '<leader>b', ':Telescope buffers<CR>')
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]ile names' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })

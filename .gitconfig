@@ -1,7 +1,7 @@
 [user]
 	name = Jakub Miziolek
 	email = jmiziolek@users.noreply.github.com
-	signingkey = C87A8A988DA2A3349C1BDDCE47FA6AB9AA7260CE
+	signingkey = /Users/jakubmiziolek/.ssh/jmiziolek
 [http]
 	postBuffer = 524288000
 	sslVerify = false
@@ -76,3 +76,5 @@
     light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 [commit]
 	gpgsign = true
+[gpg]
+	format = ssh

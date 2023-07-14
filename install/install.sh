@@ -42,6 +42,7 @@ brew update
 brew upgrade
 
 export HOMEBREW_NO_INSTALL_CLEANUP=true
+export HOMEBREW_NO_ANALYTICS=1
 
 # Install apps
 paragraph 'Homebrew apps'
