@@ -82,6 +82,7 @@ brew install httpie
 brew install java11
 brew install jq
 brew install lazygit
+brew install lazydocker
 brew install moreutils
 brew install neovim
 brew install node
