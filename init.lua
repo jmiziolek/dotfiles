@@ -89,6 +89,12 @@ require('lazy').setup({
     end
   },
   {
+    "Pocco81/auto-save.nvim",
+    config = function()
+      require("auto-save").setup()
+    end,
+  },
+  {
     'Equilibris/nx.nvim',
     dependencies = {
       "nvim-telescope/telescope.nvim",
