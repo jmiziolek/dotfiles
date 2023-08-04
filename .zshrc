@@ -133,7 +133,7 @@ alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'
 alias d='cd ~/www/jmdocs/docs && vi ../README.md *.md'
-alias youtubedl='youtube-dl --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
+alias youtubedl='yt-dlp --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn start:dev'
 alias dockerruns='node ~/www/nodejs/docker.js'
 alias cdg='cd `git rev-parse --show-toplevel`'
@@ -151,6 +151,7 @@ alias matrix='cmatrix -u 1'
 alias apiary='~/.gem/gems/apiaryio-0.14.0/bin/apiary preview'
 alias ns='newsboat'
 alias rgf='rg --files | rg' # search for files
+alias lg='lazygit'
 
 # Navigation
 alias ..="cd .."
