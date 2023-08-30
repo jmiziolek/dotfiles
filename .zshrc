@@ -80,7 +80,7 @@ prompt_dir() {
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git brew fzf node nvm npm vi-mode)
 # less plugins less startup time?!
-plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z dotenv)
 
 
 # User configuration
@@ -129,6 +129,7 @@ alias vim='nvim'
 alias vi='vim'
 alias v='vim'
 alias v.='vim .'
+alias tf='terraform'
 alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'

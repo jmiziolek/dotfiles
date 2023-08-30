@@ -81,8 +81,10 @@ brew install htop
 brew install httpie
 brew install java11
 brew install jq
-brew install lazygit
+brew install kubectl
+brew install kubeseal
 brew install lazydocker
+brew install lazygit
 brew install moreutils
 brew install neovim
 brew install node
