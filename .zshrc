@@ -19,8 +19,39 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 SOLARIZED_THEME="dark"
 RIPGREP_CONFIG_PATH="~/.ripgreprc"
 HISTFILE=~/.zsh_history
-HISTSIZE=999999999
+HISTSIZE=500000
 SAVEHIST=$HISTSIZE
+
+# Immediately append to history file:
+setopt INC_APPEND_HISTORY
+
+# Record timestamp in history:
+setopt EXTENDED_HISTORY
+
+# Expire duplicate entries first when trimming history:
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# Dont record an entry that was just recorded again:
+setopt HIST_IGNORE_DUPS
+
+# Delete old recorded entry if new entry is a duplicate:
+setopt HIST_IGNORE_ALL_DUPS
+
+# Do not display a line previously found:
+setopt HIST_FIND_NO_DUPS
+
+# Dont record an entry starting with a space:
+setopt HIST_IGNORE_SPACE
+
+# Dont write duplicate entries in the history file:
+setopt HIST_SAVE_NO_DUPS
+
+# Share history between all sessions:
+setopt SHARE_HISTORY
+
+# Execute commands using history (e.g.: using !$) immediatel:
+unsetopt HIST_VERIFY
+
 ulimit -n 10480 10480
 ulimit -f unlimited
 
@@ -186,8 +217,6 @@ alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 alias br0="brightness 0"
 
-setopt HIST_IGNORE_SPACE
-
 # Show/hide hidden files in Finder
 alias show-hidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide-hidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -213,12 +242,18 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
 export FZF_DEFAULT_COMMAND="rg --files --hidden"
+eval "$(mcfly init zsh)"
+
 
 # added by travis gem
 [ -f /Users/jakubmiziolek/.travis/travis.sh ] && source /Users/jakubmiziolek/.travis/travis.sh
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 source $ZSH/oh-my-zsh.sh
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

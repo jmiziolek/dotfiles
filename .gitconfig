@@ -4,7 +4,6 @@
 	signingkey = /Users/jakubmiziolek/.ssh/jmiziolek
 [http]
 	postBuffer = 524288000
-	sslVerify = false
 [alias]
 	st = status
 	ci = commit
@@ -33,8 +32,8 @@
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	sync= !git fetch --all --prune && git rebase -p --autostash <user_input>
 	identity= ! git config user.name "$(git config user.$1.name)"; git config user.email "$(git config user.$1.email)"; git config user.signingkey "$(git config user.$1.signingkey)"; : https://www.micah.soy/posts/setting-up-git-identities/
-  # *********************
-  # Rebase workflow
+	# *********************
+	# Rebase workflow
 	mainbranch = "!git remote show origin | sed -n '/HEAD branch/s/.*: //p'"
 	synced = "!git pull origin $(git mainbranch) --rebase"
 	update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
@@ -48,9 +47,9 @@
 	autocrlf = input
 	editor = nvim
 	pager = delta
-
 [diff]
-    colorMoved = default
+	colorMoved = default
+	algorithm = histogram
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
@@ -68,13 +67,15 @@
 [pull]
 	rebase = false
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [add.interactive]
-    useBuiltin = false # required for git 2.37.0
+	useBuiltin = false # required for git 2.37.0
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	navigate = true    # use n and N to move between diff sections
+	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 [commit]
 	gpgsign = true
 [gpg]
 	format = ssh
+[init]
+	defaultBranch = main  

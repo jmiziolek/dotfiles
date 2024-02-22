@@ -74,6 +74,13 @@ require('lazy').setup({
     },
   },
   {
+    "https://git.sr.ht/~nedia/auto-save.nvim",
+    event = "BufWinEnter",
+    config = function()
+      require("auto-save").setup()
+    end
+  },
+  {
     "zbirenbaum/copilot.lua",
 
     cmd = "Copilot",
@@ -87,12 +94,6 @@ require('lazy').setup({
     config = function()
       require("copilot_cmp").setup()
     end
-  },
-  {
-    "Pocco81/auto-save.nvim",
-    config = function()
-      require("auto-save").setup()
-    end,
   },
   {
     'Equilibris/nx.nvim',
@@ -471,7 +472,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  require 'kickstart.plugins.autoformat',
+  -- require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
   {
     'mhinz/vim-startify',
@@ -499,7 +500,6 @@ require('lazy').setup({
       }
     end
   },
-  { 'nvim-tree/nvim-tree.lua' },
   { import = 'custom.plugins' },
 }, {})
 
@@ -534,7 +534,7 @@ vim.o.mouse = 'a'               -- Enable mouse mode
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
 vim.o.breakindent = true        -- Enable break indent
 vim.o.undofile = true           -- Save undo history
-vim.o.undolevels = 1000
+vim.o.undolevels = 10000
 vim.o.undoreload = 10000
 vim.o.history = 10000
 vim.o.scrollback = 100000

@@ -103,7 +103,7 @@ brew install zsh-completion
 
 # Install npm modules
 paragraph 'NPM modules'
-npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm-check-updates @nestjs/cli
+npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm-check-updates @nestjs/cli jwt-cli
 
 # Install python neovim
 pip3 install --upgrade neovim
