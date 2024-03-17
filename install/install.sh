@@ -85,7 +85,9 @@ brew install kubectl
 brew install kubeseal
 brew install lazydocker
 brew install lazygit
+brew install lazydocker
 brew install moreutils
+brew install miller # csv tool like jq for json
 brew install neovim
 brew install node
 brew install prettyping

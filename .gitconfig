@@ -1,7 +1,7 @@
 [user]
 	name = Jakub Miziolek
 	email = jmiziolek@users.noreply.github.com
-	signingkey = /Users/jakubmiziolek/.ssh/jmiziolek
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDrH74eF+Rzl7ApSy7RRth7TfX3QJNyDgbMvLyNPvBsJ
 [http]
 	postBuffer = 524288000
 [alias]
@@ -79,3 +79,5 @@
 	format = ssh
 [init]
 	defaultBranch = main  
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
