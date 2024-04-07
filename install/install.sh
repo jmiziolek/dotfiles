@@ -113,6 +113,7 @@ pip3 install --upgrade neovim
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write -g InitialKeyRepeat -int 15
 defaults write -g KeyRepeat -int 2
+defaults write -g AppleFontSmoothing -int 0
 
 # Cleanup after installation
 paragraph 'Clean up'
