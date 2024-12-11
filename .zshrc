@@ -111,7 +111,7 @@ prompt_dir() {
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git brew fzf node nvm npm vi-mode)
 # less plugins less startup time?!
-plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z dotenv)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z direnv)
 
 
 # User configuration
@@ -164,7 +164,7 @@ alias tf='terraform'
 alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'
-alias d='cd ~/www/jmdocs/docs && vi ../README.md *.md'
+alias d='cd ~/www/jmdocs/ && gl && cd docs && vi ../README.md *.md'
 alias youtubedl='yt-dlp --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn start:dev'
 alias dockerruns='node ~/www/nodejs/docker.js'
