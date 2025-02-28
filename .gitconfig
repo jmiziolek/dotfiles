@@ -1,7 +1,7 @@
 [user]
 	name = Jakub Miziolek
 	email = jmiziolek@users.noreply.github.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDrH74eF+Rzl7ApSy7RRth7TfX3QJNyDgbMvLyNPvBsJ
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1suPtJUgwtXNbf9IFVJbN/sdYVxgoASTlmoS1a+S3B
 [http]
 	postBuffer = 524288000
 [alias]

@@ -1,0 +1,68 @@
+// docs: https://zed.dev/docs/configuring-zed
+// all default settings, run the `open default settings` command
+{
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "show_edit_predictions": true,
+  "assistant": {
+    "default_model": {
+      "provider": "anthropic",
+      "model": "claude-3-7-sonnet-latest"
+    },
+    "version": "2"
+  },
+
+  "redact_private_values": true,
+
+  "indent_guides": { "enabled": false },
+  "theme": "Gruvbox Dark",
+  "autosave": "on_focus_change",
+  "buffer_line_height": "standard",
+  "vim_mode": true,
+  "ui_font_size": 14,
+  "ui_font_family": "SauceCodePro Nerd Font Mono",
+  "buffer_font_size": 14,
+  "buffer__font_family": "SauceCodePro Nerd Font Mono",
+  "scrollbar": {
+    "show": "never"
+  },
+  "load_direnv": "direct",
+  "buffer_font_features": {
+    "calt": false //turn off ligatures
+  },
+  "auto_install_extensions": {
+    "html": true,
+    "dockerfile": true,
+    "toml": true,
+    "terraform": true
+  },
+  "languages": {
+    "Markdown": {
+      "preferred_line_length": 80,
+      "format_on_save": "off"
+    },
+    "SQL": {
+      "formatter": "prettier"
+    },
+    "JSON": {
+      "prettier": {
+        "allowed": true,
+        "parser": "json"
+      }
+    },
+    "JavaScript": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    }
+  },
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true,
+      "show_commit_summary": true,
+      "delay_ms": 600
+    }
+  }
+}

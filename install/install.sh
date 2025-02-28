@@ -47,20 +47,24 @@ export HOMEBREW_NO_ANALYTICS=1
 # Install apps
 paragraph 'Homebrew apps'
 
+
 brew install --cask --no-quarantine 1password
 brew install --cask --no-quarantine google-chrome
 brew install --cask --no-quarantine imageoptim
 brew install --cask --no-quarantine iterm2
 brew install --cask --no-quarantine ngrok
+brew install --cask --no-quarantine obs
 brew install --cask --no-quarantine postman
 brew install --cask --no-quarantine stretchly
 brew install --cask --no-quarantine the-unarchiver
 brew install --cask --no-quarantine visual-studio-code
 brew install --cask --no-quarantine vlc
+brew install --cask --no-quarantine zed
 brew install atomicparsley
 brew install awscli
 brew install bash
 brew install bat
+brew install claude
 brew install cmake
 brew install cmatrix
 brew install cmus
@@ -103,6 +107,9 @@ brew install yarn
 brew install yt-dlp
 brew install zsh-completion
 
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+
 # Install npm modules
 paragraph 'NPM modules'
 npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm-check-updates @nestjs/cli jwt-cli
@@ -127,6 +134,8 @@ ln -svf ~/dotfiles/.zshrc ~/.zshrc
 ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -svf ~/dotfiles/init.lua ~/.config/nvim/init.lua
 ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
+ln -svf ~/dotfiles/zed-settings.json ~/.config/zed/settings.json
+ln -svf ~/dotfiles/zed-keymap.json ~/.config/zed/keymap.json
 
 # Zsh
 paragraph 'Zsh Plugins'
