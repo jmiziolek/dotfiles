@@ -111,7 +111,7 @@ prompt_dir() {
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git brew fzf node nvm npm vi-mode)
 # less plugins less startup time?!
-plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z dotenv)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z direnv)
 
 
 # User configuration
@@ -145,7 +145,8 @@ export GIT_DIFF_OPTS=-u0
 export GPG_TTY=$(tty)
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export EDITOR=nvim
+export EDITOR=zed
+export GIT_EDITOR="zed --wait"
 
 alias python='python3'
 export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/.local/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
@@ -164,7 +165,8 @@ alias tf='terraform'
 alias cat='bat'
 alias cl='clear'
 alias h='cd ~ && ls'
-alias d='cd ~/www/jmdocs/docs && zed ../README.md *.md'
+alias d='cd ~/www/jmdocs/docs && zed .'
+alias p='cd ~/www/driveai'
 alias youtubedl='yt-dlp --format bestaudio/best --embed-thumbnail --add-metadata --extract-audio'
 alias cleardocker='yes | docker system prune -a && docker rmi $(docker images -a -q) || true && yarn start:dev'
 alias dockerruns='node ~/www/nodejs/docker.js'
@@ -264,3 +266,8 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export AWS_PROFILE=default
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
