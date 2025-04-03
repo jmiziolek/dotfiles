@@ -28,3 +28,7 @@ Edit `/etc/ssh/ssh_config` to stop SendEnv LANG*
 
 Add Keyboard -> App Shortcutes -> Move to Built-in Retina Display 
 Add Keyboard -> App Shortcutes -> Move to MONITOR NAME (Main Menu -> Window)
+
+
+Divvy settings
+<img width="755" alt="image" src="https://github.com/user-attachments/assets/e0fdbd2e-8e8c-47ce-879e-4329455cf7dd" />
