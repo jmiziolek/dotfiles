@@ -16,7 +16,9 @@ Trackpad -> Point & Click -> enable tap to click
 `git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k`
 
 
-Add Keyboard -> App Shortcuts -> Move to Built-in Retina Display
-Add Keyboard -> App Shortcuts -> Move to MONITOR NAME (Main Menu -> Window)
+Add Keyboard -> App Shortcutes -> Move to Built-in Retina Display 
+Add Keyboard -> App Shortcutes -> Move to MONITOR NAME (Main Menu -> Window)
 
-Copy config.edn to logseq folder
+
+Divvy settings
+<img width="755" alt="image" src="https://github.com/user-attachments/assets/e0fdbd2e-8e8c-47ce-879e-4329455cf7dd" />

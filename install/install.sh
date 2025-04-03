@@ -21,6 +21,8 @@ if [ "$(uname)" != "Darwin" ]; then
   exit 1;
 fi
 
+#install ohmyzsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Install xcode
 paragraph 'XCode'
@@ -29,18 +31,9 @@ xcode-select --install
 # Install brew and cask
 paragraph 'Brew and Cask'
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install cask
-brew update
-brew upgrade
-
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 
 brew install cask
 brew update
-brew upgrade
-
 export HOMEBREW_NO_INSTALL_CLEANUP=true
 export HOMEBREW_NO_ANALYTICS=1
 
