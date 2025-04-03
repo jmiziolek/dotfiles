@@ -85,6 +85,7 @@ brew install htop
 brew install httpie
 brew install java11
 brew install jq
+brew install jwt-cli
 brew install kubectl
 brew install kubeseal
 brew install lazydocker
@@ -99,6 +100,7 @@ brew install python
 brew install ranger
 brew install ripgrep
 brew install rlwrap
+brew install scc
 brew install tig
 brew install tree
 brew install wine

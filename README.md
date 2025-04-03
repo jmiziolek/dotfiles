@@ -18,3 +18,5 @@ Trackpad -> Point & Click -> enable tap to click
 
 Add Keyboard -> App Shortcuts -> Move to Built-in Retina Display
 Add Keyboard -> App Shortcuts -> Move to MONITOR NAME (Main Menu -> Window)
+
+Copy config.edn to logseq folder
