@@ -134,6 +134,7 @@ ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
 ln -svf ~/dotfiles/.config/zed/settings.json ~/.config/zed/settings.json
 ln -svf ~/dotfiles/.config.zed/keymap.json ~/.config/zed/keymap.json
 ln -svf ~/dotfiles/.config/zed/tasks.json ~/.config/zed/tasks.json
+ln -svf ~/dotfiles/.gitignore_global ~/.gitignore_global
 
 # Zsh
 paragraph 'Zsh Plugins'
