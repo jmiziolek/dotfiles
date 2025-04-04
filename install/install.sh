@@ -63,6 +63,7 @@ brew install cmatrix
 brew install cmus
 brew install ctags
 brew install deno
+brew install direnv
 brew install fd
 brew install ffmpeg
 brew install findutils
@@ -84,6 +85,7 @@ brew install kubeseal
 brew install lazydocker
 brew install lazygit
 brew install lazydocker
+brew install mcfly
 brew install moreutils
 brew install miller # csv tool like jq for json
 brew install neovim
@@ -129,11 +131,15 @@ ln -svf ~/dotfiles/.zshrc ~/.zshrc
 ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -svf ~/dotfiles/init.lua ~/.config/nvim/init.lua
 ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
-ln -svf ~/dotfiles/zed-settings.json ~/.config/zed/settings.json
-ln -svf ~/dotfiles/zed-keymap.json ~/.config/zed/keymap.json
+ln -svf ~/dotfiles/.config/zed/settings.json ~/.config/zed/settings.json
+ln -svf ~/dotfiles/.config.zed/keymap.json ~/.config/zed/keymap.json
+ln -svf ~/dotfiles/.config/zed/tasks.json ~/.config/zed/tasks.json
 
 # Zsh
 paragraph 'Zsh Plugins'
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
+
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone --depth=1 https://github.com/zsh-users/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
+git clone --depth=1 https://github.com/ptavares/zsh-direnv.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-direnv
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
