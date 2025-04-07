@@ -46,6 +46,7 @@ brew install --cask --no-quarantine google-chrome
 brew install --cask --no-quarantine imageoptim
 brew install --cask --no-quarantine iterm2
 brew install --cask --no-quarantine ngrok
+brew install --cask --no-quarantine notunes
 brew install --cask --no-quarantine obs
 brew install --cask --no-quarantine postman
 brew install --cask --no-quarantine stretchly
@@ -57,7 +58,6 @@ brew install atomicparsley
 brew install awscli
 brew install bash
 brew install bat
-brew install claude
 brew install cmake
 brew install cmatrix
 brew install cmus
@@ -74,6 +74,7 @@ brew install git-crypt
 brew install git-delta
 brew install git-extras
 brew install gnupg
+brew install glab
 brew install go
 brew install htop
 brew install httpie
@@ -109,7 +110,10 @@ brew install hashicorp/tap/terraform
 
 # Install npm modules
 paragraph 'NPM modules'
-npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx concurrently esformatter diff-so-fancy http-server js-beautify jsfmt json-diff jsontool livedown markdown-preview n node-gyp nodemon npm-check-updates @nestjs/cli jwt-cli
+npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx
+npm install -g concurrently esformatter diff-so-fancy http-server js-beautify
+npm install -g jsfmt json-diff jsontool livedown markdown-preview n node-gyp
+npm install -g nodemon npm-check-updates @nestjs/cli jwt-cli
 
 # Install python neovim
 pip3 install --upgrade neovim
@@ -129,12 +133,12 @@ paragraph 'Symlinks'
 ln -svf ~/dotfiles/.bash_profile ~/.bash_profile
 ln -svf ~/dotfiles/.zshrc ~/.zshrc
 ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -svf ~/dotfiles/.gitignore_global ~/.gitignore_global
 ln -svf ~/dotfiles/init.lua ~/.config/nvim/init.lua
 ln -svf ~/dotfiles/.newsboaturls ~/.newsboat/urls
 ln -svf ~/dotfiles/.config/zed/settings.json ~/.config/zed/settings.json
-ln -svf ~/dotfiles/.config.zed/keymap.json ~/.config/zed/keymap.json
+ln -svf ~/dotfiles/.config/zed/keymap.json ~/.config/zed/keymap.json
 ln -svf ~/dotfiles/.config/zed/tasks.json ~/.config/zed/tasks.json
-ln -svf ~/dotfiles/.gitignore_global ~/.gitignore_global
 
 # Zsh
 paragraph 'Zsh Plugins'

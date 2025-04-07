@@ -51,7 +51,7 @@
       "[ x": "editor::SelectLargerSyntaxNode",
       "] x": "editor::SelectSmallerSyntaxNode",
       "space w": "workspace::Save",
-      ", g b": "editor::ToggleGitBlame",
+      ", g b": "git::Blame",
       "-": "pane::RevealInProjectPanel" //vinegar
     }
   },
