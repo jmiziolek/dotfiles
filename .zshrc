@@ -111,7 +111,7 @@ prompt_dir() {
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git brew fzf node nvm npm vi-mode)
 # less plugins less startup time?!
-plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z direnv)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z direnv aws)
 
 
 # User configuration
@@ -147,6 +147,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR=zed
 export GIT_EDITOR="zed --wait"
+export AWS_PAGER=
 
 alias python='python3'
 export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/.local/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
@@ -271,8 +272,8 @@ export AWS_PROFILE=default
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/jakubmiziolek/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
-# End of Docker CLI completions
+
+complete -C '/opt/homebrew/bin/aws_completer'
