@@ -6,6 +6,10 @@
   },
   "show_edit_predictions": true,
   "assistant": {
+    "inline_assistant_model": {
+      "provider": "anthropic",
+      "model": "claude-3-7-sonnet-latest"
+    },
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-3-7-sonnet-latest"
@@ -20,13 +24,10 @@
   "autosave": "on_focus_change",
   "buffer_line_height": "standard",
   "vim_mode": true,
-  "ui_font_size": 14,
+  "ui_font_size": 13,
   "ui_font_family": "SauceCodePro Nerd Font Mono",
-  "buffer_font_size": 14,
+  "buffer_font_size": 13,
   "buffer__font_family": "SauceCodePro Nerd Font Mono",
-  // "scrollbar": {
-  //   "show": "never" //too extreme for most users
-  // },
   "load_direnv": "direct",
   "buffer_font_features": {
     "calt": false //turn off ligatures
