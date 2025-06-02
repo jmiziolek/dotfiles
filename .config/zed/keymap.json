@@ -1,24 +1,26 @@
 [
-  {
-    "context": "Editor || Workspace",
-    "bindings": {
-      "ctrl-shift-e": "workspace::ToggleLeftDock"
-    }
-  },
+  // {
+  //   "context": "Editor || Workspace",
+  //   "bindings": {
+  //     "ctrl-shift-e": "workspace::ToggleLeftDock"
+  //   }
+  // },
   {
     "context": "Workspace",
     "bindings": {
       "ctrl-`": "workspace::ToggleBottomDock",
       ", t s": ["task::Spawn", { "task_name": "CompileAndRun" }],
       ", t o": "task::Spawn",
-      ", t r": "task::Rerun"
+      ", t r": "task::Rerun",
+      "cmd-shift-e": "project_panel::ToggleFocus",
+      "cmd-shift-b": "outline_panel::ToggleFocus",
+      "cmd-shift-g": "git_panel::ToggleFocus"
     }
   },
   {
     "context": "EmptyPane || SharedScreen || vim_mode == normal",
     "bindings": {
       ", f b": ["file_finder::Toggle", { "separate_history": true }],
-      ", f i": "file_finder::Toggle",
       ", f o": "projects::OpenRecent",
       ", r t": ["editor::SpawnNearestTask", { "reveal": "no_focus" }],
       ", r l": "task::Rerun",
@@ -51,14 +53,16 @@
       "[ x": "editor::SelectLargerSyntaxNode",
       "] x": "editor::SelectSmallerSyntaxNode",
       "space w": "workspace::Save",
-      ", g b": "git::Blame",
+      "g b": "git::Blame",
       "-": "pane::RevealInProjectPanel" //vinegar
     }
   },
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      "g c c": "editor::ToggleComments"
+      "g c c": "editor::ToggleComments",
+      "ctrl-tab": "pane::ActivateNextItem",
+      "ctrl-shift-tab": "pane::ActivatePreviousItem"
     }
   },
   {
@@ -72,6 +76,12 @@
     "bindings": {
       "ctrl-b z": "workspace::ToggleZoom",
       "ctrl-u": "terminal::Clear"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "-": "workspace::ActivatePreviousPane"
     }
   }
 ]

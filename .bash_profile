@@ -18,3 +18,4 @@ if [ -f '/Users/jakubmiziolek/Downloads/google-cloud-sdk/path.bash.inc' ]; then 
 if [ -f '/Users/jakubmiziolek/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/jakubmiziolek/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+. "$HOME/.cargo/env"

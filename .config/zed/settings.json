@@ -1,18 +1,44 @@
 // docs: https://zed.dev/docs/configuring-zed
 // all default settings, run the `open default settings` command
 {
+  // "format_on_save": "off",
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "project_panel": {
+    "dock": "right"
+  },
+  "icon_theme": "Zed (Default)",
+  "edit_predictions": {
+    "disabled_globs": [".env"],
+    "mode": "eager",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_text_threads": false
+  },
   "features": {
     "edit_prediction_provider": "zed"
   },
   "show_edit_predictions": true,
-  "assistant": {
+  "agent": {
+    "default_profile": "write",
+    "always_allow_tool_actions": true,
+    "preferred_completion_mode": "normal",
     "inline_assistant_model": {
-      "provider": "anthropic",
-      "model": "claude-3-7-sonnet-latest"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-latest"
     },
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
+      "model": "claude-sonnet-4-latest"
     },
     "version": "2"
   },
@@ -20,7 +46,7 @@
   "redact_private_values": false,
 
   "indent_guides": { "enabled": false },
-  "theme": "Gruvbox Dark",
+  "theme": "Gruvbox Light Hard",
   "autosave": "on_focus_change",
   "buffer_line_height": "standard",
   "vim_mode": true,
@@ -53,9 +79,18 @@
       }
     },
     "JavaScript": {
+      "formatter": "prettier",
       "code_actions_on_format": {
         "source.fixAll.eslint": true
-      }
+      },
+      "format_on_save": "on"
+    },
+    "TypeScript": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on"
     }
   },
   "git": {
