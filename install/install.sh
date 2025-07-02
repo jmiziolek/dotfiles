@@ -99,6 +99,7 @@ brew install rlwrap
 brew install scc
 brew install tig
 brew install tree
+brew install uv
 brew install wine
 brew install yamllint
 brew install yarn
@@ -132,6 +133,7 @@ paragraph 'Symlinks'
 
 ln -svf ~/dotfiles/.bash_profile ~/.bash_profile
 ln -svf ~/dotfiles/.zshrc ~/.zshrc
+ln -svf ~/dotfiles/.ripgreprc ~/.ripgreprc
 ln -svf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -svf ~/dotfiles/.gitignore_global ~/.gitignore_global
 ln -svf ~/dotfiles/init.lua ~/.config/nvim/init.lua
