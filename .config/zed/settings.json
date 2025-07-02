@@ -1,23 +1,46 @@
 // docs: https://zed.dev/docs/configuring-zed
 // all default settings, run the `open default settings` command
 {
-  // "format_on_save": "off",
-  "collaboration_panel": {
-    "dock": "right"
+  "context_servers": {
+    "browser-tools-context-server": {
+      "source": "extension",
+      "settings": {}
+    },
+    "mcp-server-gitlab": {
+      "source": "extension",
+      "settings": {
+        "gitlab_personal_access_token": ""
+      }
+    },
+    "docker-mcp": {
+      "source": "custom",
+      "command": {
+        "path": "npx",
+        "args": ["-y", "@smithery/cli@latest", "run", "docker-mcp", "--key", ""]
+      }
+    },
+    "mysql": {
+      "source": "custom",
+      "command": {
+        "path": "/opt/homebrew/bin/node",
+        "args": ["/Users/jakubmiziolek/www/clf/mcp-server-mysql/dist/index.js"],
+        "env": {
+          "MYSQL_HOST": "127.0.0.1",
+          "MYSQL_PORT": "3306",
+          "MYSQL_USER": "username",
+          "MYSQL_PASS": "password",
+          "MYSQL_DB": "db",
+          "ALLOW_INSERT_OPERATION": "true",
+          "ALLOW_UPDATE_OPERATION": "true",
+          "ALLOW_DELETE_OPERATION": "true",
+          "ALLOW_DDL_OPERATION": "true"
+        }
+      }
+    }
   },
-  "outline_panel": {
-    "dock": "right"
-  },
-  "git_panel": {
-    "dock": "right"
-  },
-  "project_panel": {
-    "dock": "right"
-  },
-  "icon_theme": "Zed (Default)",
   "edit_predictions": {
     "disabled_globs": [".env"],
-    "mode": "eager",
+    "mode": "subtle",
     "copilot": {
       "proxy": null,
       "proxy_no_verify": null
@@ -29,6 +52,7 @@
   },
   "show_edit_predictions": true,
   "agent": {
+    "play_sound_when_agent_done": true,
     "default_profile": "write",
     "always_allow_tool_actions": true,
     "preferred_completion_mode": "normal",
@@ -38,13 +62,12 @@
     },
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4-latest"
+      "model": "claude-sonnet-4"
     },
     "version": "2"
   },
-
+  "icon_theme": "Zed (Default)",
   "redact_private_values": false,
-
   "indent_guides": { "enabled": false },
   "theme": "Gruvbox Light Hard",
   "autosave": "on_focus_change",
@@ -67,7 +90,7 @@
   "languages": {
     "Markdown": {
       "preferred_line_length": 80,
-      "format_on_save": "off"
+      "format_on_save": "on"
     },
     "SQL": {
       "formatter": "prettier"
@@ -100,5 +123,18 @@
       "show_commit_summary": true,
       "delay_ms": 600
     }
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "project_panel": {
+    "hide_gitignore": true,
+    "dock": "right"
   }
 }
