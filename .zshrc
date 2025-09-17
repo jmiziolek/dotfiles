@@ -146,7 +146,7 @@ export GIT_DIFF_OPTS=-u0
 export GPG_TTY=$(tty)
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export EDITOR=zed
+export EDITOR="zed --wait"
 export GIT_EDITOR="zed --wait"
 export AWS_PAGER=
 
