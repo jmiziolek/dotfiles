@@ -45,6 +45,9 @@ alias tQ='tq'
 alias ww='curl wttr.in/Lublin?m'
 alias www='curl wttr.in/Lublin?format=v2'
 
+alias stgrel='gh pr create --base staging --head main --title "Release to Staging" --body ""'
+alias ppdrel='gh pr create --base preprod --head staging --title "Release to Preprod" --body ""'
+
 # GIT aliases
 alias gs='git status'
 alias gpl='git pull'

@@ -112,7 +112,7 @@ prompt_dir() {
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git brew fzf node nvm npm vi-mode)
 # less plugins less startup time?!
-plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z direnv aws)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-z direnv aws nvm)
 
 
 # User configuration
@@ -147,13 +147,15 @@ export GPG_TTY=$(tty)
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR="zed --wait"
-export GIT_EDITOR="zed --wait"
+export GIT_EDITOR="nvim"
 export AWS_PAGER=
 
-alias python='python3'
-export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/.local/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
+# alias python='python3'
+# export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/.local/bin:/Users/jakubmiziolek/Library/Python/3.10/bin:$PATH
+export PATH=/usr/local/bin:/Users/jakubmiziolek/dotfiles/bin:/Users/jakubmiziolek/.local/bin:$PATH
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
+export PATH="$HOME/.deno/bin:$PATH"
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 # add support for ctrl+o to open selected file in VS Code
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
@@ -188,6 +190,8 @@ alias apiary='~/.gem/gems/apiaryio-0.14.0/bin/apiary preview'
 alias ns='newsboat'
 alias rgf='rg --files | rg' # search for files
 alias lg='lazygit'
+alias stgrel='gh pr create --base staging --head main --title "Release to Staging" --body ""'
+alias ppdrel='gh pr create --base preprod --head staging --title "Release to Preprod" --body ""'
 
 # Navigation
 alias ..="cd .."
@@ -242,6 +246,25 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+# Auto-switch Node version when entering a directory with .nvmrc
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local nvmrc_path="$(nvm_find_nvmrc)"
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
@@ -269,8 +292,16 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export PATH="/Users/jakubmiziolek/.cargo/bin:$PATH"
 
-export AWS_PROFILE=default
+export GH_PAGER="cat"
+export HOMEBREW_NO_ENV_HINTS=1
+
+POWERLEVEL9K_INSTANT_PROMPT=off
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
@@ -278,4 +309,16 @@ fpath=(/Users/jakubmiziolek/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 
+# eval "$(direnv hook zsh)"
+
 complete -C '/opt/homebrew/bin/aws_completer'
+
+alias ekrany='"displayplacer "id:5F3120C8-BBE6-4E07-B321-82BA71E0F793 res:1920x1080 hz:120 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0" "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1512x982 hz:120 color_depth:8 enabled:true scaling:on origin:(1920,0) degree:0"'
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+
+export GH_TELEMETRY=
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/jakubmiziolek/.local/bin:$PATH"

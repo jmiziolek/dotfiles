@@ -49,7 +49,6 @@ brew install --cask --no-quarantine ngrok
 brew install --cask --no-quarantine notunes
 brew install --cask --no-quarantine obs
 brew install --cask --no-quarantine postman
-brew install --cask --no-quarantine stretchly
 brew install --cask --no-quarantine the-unarchiver
 brew install --cask --no-quarantine visual-studio-code
 brew install --cask --no-quarantine vlc
@@ -92,7 +91,6 @@ brew install miller # csv tool like jq for json
 brew install neovim
 brew install node
 brew install prettyping
-brew install python
 brew install ranger
 brew install ripgrep
 brew install rlwrap
@@ -100,7 +98,6 @@ brew install scc
 brew install tig
 brew install tree
 brew install uv
-brew install wine
 brew install yamllint
 brew install yarn
 brew install yt-dlp
@@ -115,6 +112,7 @@ npm install -g typescript clipboard-cli eslint prettier @fsouza/prettierd npx
 npm install -g concurrently esformatter diff-so-fancy http-server js-beautify
 npm install -g jsfmt json-diff jsontool livedown markdown-preview n node-gyp
 npm install -g nodemon npm-check-updates @nestjs/cli jwt-cli
+npm install -g ts-prune
 
 # Install python neovim
 pip3 install --upgrade neovim

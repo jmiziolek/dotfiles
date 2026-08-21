@@ -1,32 +1,52 @@
 // docs: https://zed.dev/docs/configuring-zed
 // all default settings, run the `open default settings` command
 {
+  "colorize_brackets": true,
+  "buffer_font_family": "SauceCodePro Nerd Font Mono",
+  "agent_buffer_font_size": 12.0,
+  "agent_ui_font_size": 12.0,
+  "edit_predictions": {
+    "disabled_globs": [".env"],
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_text_threads": false
+  },
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "show_edit_predictions": true,
-  "assistant": {
-    "default_model": {
-      "provider": "anthropic",
-      "model": "claude-3-7-sonnet-latest"
-    },
-    "version": "2"
+  "diagnostics": {
+    "inline": {
+      "enabled": false
+    }
   },
-
-  "redact_private_values": true,
-
+  "show_edit_predictions": true,
+  "agent": {
+    "play_sound_when_agent_done": true,
+    "default_profile": "write",
+    "always_allow_tool_actions": true,
+    "preferred_completion_mode": "normal",
+    "inline_assistant_model": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5-latest"
+    },
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-5"
+    }
+  },
+  "icon_theme": "Zed (Default)",
+  "redact_private_values": false,
   "indent_guides": { "enabled": false },
-  "theme": "Gruvbox Dark",
+  "theme": "Gruvbox Light Hard",
   "autosave": "on_focus_change",
   "buffer_line_height": "standard",
   "vim_mode": true,
-  "ui_font_size": 14,
+  "ui_font_size": 12.0,
   "ui_font_family": "SauceCodePro Nerd Font Mono",
-  "buffer_font_size": 14,
-  "buffer__font_family": "SauceCodePro Nerd Font Mono",
-  "scrollbar": {
-    "show": "never"
-  },
+  "buffer_font_size": 12.0,
   "load_direnv": "direct",
   "buffer_font_features": {
     "calt": false //turn off ligatures
@@ -38,9 +58,19 @@
     "terraform": true
   },
   "languages": {
+    "Python": {
+      "language_servers": [
+        "!ty",
+        "ruff",
+        "basedpyright",
+        "!pyrefly",
+        "!pyright",
+        "!pylsp"
+      ]
+    },
     "Markdown": {
       "preferred_line_length": 80,
-      "format_on_save": "off"
+      "format_on_save": "on"
     },
     "SQL": {
       "formatter": "prettier"
@@ -52,9 +82,18 @@
       }
     },
     "JavaScript": {
+      "formatter": "prettier",
       "code_actions_on_format": {
         "source.fixAll.eslint": true
-      }
+      },
+      "format_on_save": "on"
+    },
+    "TypeScript": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on"
     }
   },
   "git": {
@@ -63,6 +102,46 @@
       "enabled": true,
       "show_commit_summary": true,
       "delay_ms": 600
+    }
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "project_panel": {
+    "hide_gitignore": false,
+    "dock": "right"
+  },
+  "lsp": {
+    "typescript-language-server": {
+      "initialization_options": {
+        "preferences": {
+          "includePackageJsonAutoImports": "on",
+          "includeCompletionsForModuleExports": true,
+          "allowIncompleteCompletions": true
+        }
+      }
+    }
+  },
+  "context_servers": {
+    "mcp-server-github": {
+      "enabled": true,
+      "settings": {
+        "github_personal_access_token": ""
+      }
+    },
+    "browser-tools-context-server": {
+      "settings": {}
+    },
+    "docker-mcp": {
+      "env": {},
+      "command": "/Users/jakubmiziolek/.nvm/versions/node/v23.9.0/bin/npx",
+      "args": ["-y", "@smithery/cli@latest", "run", "docker-mcp", "--key", ""]
     }
   }
 }

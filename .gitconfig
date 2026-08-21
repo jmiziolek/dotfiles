@@ -10,7 +10,7 @@
 	br = branch
 	df = diff
 	lg = log -p
-	st = status -sb
+	st = "!f() { git status -sb; mb=$(git config init.defaultBranch || echo main); base=$(git merge-base origin/$mb HEAD 2>/dev/null); if [ -n \"$base\" ]; then tracked=$(git diff $base --shortstat 2>/dev/null); untracked_lines=$(git ls-files --others --exclude-standard | xargs -I{} cat {} 2>/dev/null | wc -l | tr -d ' '); if [ -n \"$tracked\" ] || [ \"$untracked_lines\" -gt 0 ] 2>/dev/null; then echo ''; if [ -n \"$tracked\" ]; then echo \"Branch changes vs $mb:$tracked\"; fi; if [ \"$untracked_lines\" -gt 0 ] 2>/dev/null; then echo \"Untracked files: $untracked_lines new lines\"; fi; fi; fi; }; f"
 	ci = commit
 	co = checkout
 	cb = checkout -b
@@ -47,6 +47,8 @@
 	autocrlf = input
 	editor = nvim
 	pager = delta
+[pager]
+    diff = false
 [diff]
 	colorMoved = default
 	algorithm = histogram
